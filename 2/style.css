@@ -231,15 +231,26 @@ footer {
 }
 
 @media (max-width: 700px) {
-
+    .main-menu ul {
+        display: block;
+        margin: 40px;
+    }
     .main-menu li {
-        font-size: 36px;
+        margin: 20px 0;
     }
 
     .showcase .text {
         width: 80%;
-        padding: 650px 0;
+        padding: 320px 0;
         margin: 0  auto;
+    }
+
+    .showcase h1 {
+        font-size: 40px;
+    }
+
+    .showcase .button {
+        font-size: 12px;
     }
 
     .animals .card img {
@@ -247,6 +258,14 @@ footer {
         height: 130px;
         margin-right: 60px;
         margin-top: 60px;
+    }
+
+    .animals .card p {
+        display: none;
+    }
+
+    .animals .card .button {
+        margin-top: 20px;
     }
     
     .contact p {
