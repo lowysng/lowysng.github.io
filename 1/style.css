@@ -215,6 +215,15 @@ footer {
         margin: auto;
     }
 
+    .footer ul {
+        display: block;
+    }
+
+    .footer li {
+        text-align: center;
+        margin: 20px 0;
+    }
+
 }
 
 @media (max-width: 500px) {
