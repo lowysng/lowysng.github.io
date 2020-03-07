@@ -88,11 +88,24 @@ nav a:hover {
     border-bottom: 2px solid #2b2b2b;
 }
 
+/* Jump to top */
+.jump {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 100px 100px 0;
+}
+
+.jump a {
+    font-size: 36px;
+    transition: 0.3s
+}
+
+
 /* Header */
 
 .header {
-    margin-top: 80px;
-    margin: auto;
+    margin: 80px auto 200px;
     padding-top: 150px;
 
     width: 80%;
@@ -158,14 +171,15 @@ nav a:hover {
 /* About */
 
 .about {
-    margin: 150px auto 50px;
-    padding: 200px 0 100px 0;
+    margin: 300px 0 50px 0;
+    padding-top: 150px;
 }
 
 /* Skills */
 
 .skills {
-    margin: 50px auto 150px;
+    margin: 50px auto;
+    padding-top: 150px;
 }
 
 .skills p {
@@ -190,6 +204,6 @@ nav a:hover {
 /* Projects */
 
 .projects {
-    margin: 150px auto;
-    padding: 200px 0 100px 0;
+    margin: 50px auto;
+    padding: 150px 0 250px 0;
 }
