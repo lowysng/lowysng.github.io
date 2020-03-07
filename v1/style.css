@@ -185,6 +185,13 @@ nav a:hover {
     color: gray;
 }
 
+/* Projects */
+
+.projects {
+    margin: 200px 0;
+    padding-top: 150px;
+}
+
 /* Connect */
 
 .connect {
