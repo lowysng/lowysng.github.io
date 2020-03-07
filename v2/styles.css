@@ -1,0 +1,195 @@
+:root {
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'Lato', serif;
+    background-color: #fafafa;
+    color: #2b2b2b;
+}
+
+h1, h2 {
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: #2b2b2b;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.btn {
+    font-size: 18px;
+    background-color: #2b2b2b;
+    color: #fff;
+    padding: 13px 26px 15px 26px;
+    border: 2px solid #2b2b2b;
+    border-radius: 2px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #2b2b2b;
+}
+
+/* Nav */
+
+nav {
+    position: fixed;
+    top: 0;
+
+    padding: 15px;
+    width: 100%;
+    background-color: #fafafa;
+
+    transition: 0.2s;
+    z-index: 2;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    width: 70%;
+}
+
+nav li {
+    padding: 10px;
+    margin: 0 40px;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+}
+
+nav a {
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+
+    transition: 0.2s;
+
+}
+
+nav a:hover {
+    border-bottom: 2px solid #2b2b2b;
+}
+
+/* Header */
+
+.header {
+    margin-top: 80px;
+    margin: auto;
+    padding-top: 150px;
+
+    width: 80%;
+    max-width: 1100px;
+
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.header img {
+    width: 30%;
+    transition: 0.4s;
+}
+
+.header img:hover {
+    transform: scale(1.1);
+}
+
+.header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 60px;
+}
+
+.header h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 48px;
+    margin-bottom: 60px;
+}
+
+/* Container */
+
+.container {
+    width: 60%;
+    min-width: 700px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.container .row {
+    width: 80%;
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 4fr;
+}
+
+.container h1 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.container p {
+    line-height: 24px;
+    text-align: justify;
+}
+
+.container span {
+    font-weight: bold;
+}
+
+/* About */
+
+.about {
+    margin: 150px auto 50px;
+    padding: 200px 0 100px 0;
+}
+
+/* Skills */
+
+.skills {
+    margin: 50px auto 150px;
+}
+
+.skills p {
+    text-align: left;
+    font-weight: bold;
+}
+
+.skills li {
+    font-family: monospace;
+    padding: 5px 0;
+}
+
+.skills .skills-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.skills .col {
+    width: 45%;
+}
+
+/* Projects */
+
+.projects {
+    margin: 150px auto;
+    padding: 200px 0 100px 0;
+}
