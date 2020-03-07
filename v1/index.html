@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>portfolio | low ys</title>
+    <title>portfolio</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="stylesheet" href="./style.css" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
@@ -17,7 +17,7 @@
         <ul>
             <li class="nav-item"><a href="#skills">Skills</a></li>
             <li class="nav-item"><a href="#">Projects</a></li>
-            <li class="nav-item"><a href="#">Connect</a></li>
+            <li class="nav-item"><a href="#connect">Connect</a></li>
             <li class="nav-item"><a href="#">Resume</a></li>
         </ul>
     </nav>
@@ -30,8 +30,8 @@
             <div class="text">
                 <h1>Hi, my name is Low.</h1>
                 <h2>I am a software engineer.</h2>
-                <button id="checkout" class="btn"><a href="#skills">see what I can do <i class="fa fa-chevron-down"
-                            aria-hidden="true"></i></a></button>
+                <a href="#skills"><button id="checkout" class="btn">see what I can do <i class="fa fa-chevron-down"
+                    aria-hidden="true"></i></button></a>
             </div>
         </header>
 
@@ -46,7 +46,7 @@
                     <ul>
                         <li>HTML, CSS, JavaScript ES6+</li>
                         <li>React, React Hooks, Context API, react-redux</li>
-                        <li>CSS Grids & Flexbox, bootstrap, sass, reactstrap</li>
+                        <li>CSS Grids & Flexbox</li>
                         <li>nodejs, Express, MongoDB (MERN Full Stack)</li>
                         <li>Git, GitHub</li>
                     </ul>
@@ -55,8 +55,8 @@
                     <p>Technologies I know (but do not work with all the time):</p>
                     <ul>
                         <li>jQuery</li>
-                        <li>GraphQL</li>
-                        <li>React Apollo</li>
+                        <li>GraphQL, React Apollo</li>
+                        <li>bootstrap, reactstrap</li>
                         <li>SQL</li>
                     </ul>
                 </div>
@@ -75,8 +75,30 @@
 
         </section>
 
+        <section class="connect" id="connect">
+            <div class="connect-inner">
+                <div>
+                    <h1>Say Hello</h1>
+                    <p>I'm always looking forward to new working opportunities. Send me a message, and or connect with me on social media.</p>
+                </div>
+                
+                <form>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" />
+                    <label for="Email">Email</label>
+                    <input type="email" name="email" id="email" />
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message"></textarea>
+                    <button type="submit">Send message</button>
+                </form>
+            </div>
+        </section>
 
     </div>
+
+    <footer class="footer">
+        <code>Made by Low YS using vanilla HTML and CSS</code>
+    </footer>
 
     <script src="./script.js"></script>
 

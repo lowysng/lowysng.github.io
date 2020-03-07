@@ -14,11 +14,9 @@ html {
 
 body {
     font-family: 'Segoe UI', serif;
-    color: #1f1f1f
-}
-
-p {
-    font-size: 18px;
+    background-color: #fafafa;
+    color: #1f1f1f;
+    font-size: 20px;
 }
 
 a {
@@ -26,9 +24,14 @@ a {
     text-decoration: none;
 }
 
+h1 {
+    font-size: 36px;
+}
+
 .container {
     margin: auto;
     width: 80%;
+    max-width: 1100px;
 }
 
 ul {
@@ -38,9 +41,10 @@ ul {
 /* Nav */
 
 nav {
-    top: 0;
-    padding: 10px;
     position: fixed;
+    top: 0;
+    
+    padding: 15px;
     width: 100%;
     background-color: white;
 
@@ -52,24 +56,24 @@ nav ul {
     display: flex;
     justify-content: space-between;
     margin: auto;
-    width: 90%;
+    width: 70%;
 }
 
 nav li {
     font-size: 22px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: lowercase;
 
     padding: 10px;
-
-    border-bottom: 2px solid transparent;
-
-    cursor: pointer;
-
-    transition: 0.1s;
 }
 
-nav li:hover {
+nav a {
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+
+}
+
+nav a:hover {
     border-bottom: 2px solid #1f1f1f;
 }
 
@@ -91,7 +95,6 @@ nav li:hover {
 
 }
 
-
 .showcase h1 {
     font-family: 'Playfair Display';
     font-weight: 400;
@@ -105,8 +108,12 @@ nav li:hover {
     margin: 20px 0;
 }
 
-.showcase a {
+.showcase a .btn {
     color: #fff;
+}
+
+.showcase a .btn:hover  {
+    color: #1f1f1f;
 }
 
 .showcase .btn {
@@ -132,10 +139,6 @@ nav li:hover {
     background-color: #fff;
 }
 
-.showcase .btn:hover a {
-    color: #1f1f1f;
-}
-
 .showcase img {
     width: 30%;
 
@@ -150,13 +153,11 @@ nav li:hover {
 /* Skills */
 
 .skills {
-    width: 90%;
-    margin: 150px auto;
-    padding: 150px 0;
+    margin: 250px 0;
+    padding-top: 200px;
 }
 
 .skills h1 {
-    font-size: 36px;
     margin-bottom: 20px;
 }
 
@@ -170,12 +171,90 @@ nav li:hover {
 }
 
 .skills div {
-    margin-top: 20px;
+    margin-top: 30px;
+}
+
+.skills ul {
+    padding-top: 10px;
 }
 
 .skills li {
     margin: 10px 0;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 16px;
     color: gray;
+}
+
+/* Connect */
+
+.connect {
+    margin-bottom: 250px;
+    padding-top: 150px;
+}
+
+.connect h1 {
+    margin-bottom: 20px;
+}
+
+.connect-inner {
+    display: flex;
+}
+
+.connect form {
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 150px;
+    margin-right: 50px;
+
+}
+
+.connect input, .connect textarea {
+    width: 300px;
+    padding: 10px 20px;
+    margin: 5px 0 15px 0;
+
+    box-shadow: var(--box-shadow);
+    background-color: white;
+    
+    border: 1px solid #1f1f1f;
+    border-radius: 3px;
+}
+
+.connect button {
+    font-size: 16px;
+
+    background-color: #1f1f1f;
+    color: #fff;
+
+    margin: 20px 0;
+
+    padding: 10px 26px 11px 26px;
+
+    border: 2px solid #1f1f1f;
+    border-radius: 3px;
+
+    cursor: pointer;
+    outline: none;
+    
+    transition: 0.2s;
+
+}
+
+.connect button:hover {
+    background-color: #fff;
+    color: #1f1f1f;
+}
+
+/* Footer */
+
+.footer {
+    background-color: #1f1f1f;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    padding: 50px 0;
 }
