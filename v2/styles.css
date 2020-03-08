@@ -100,6 +100,7 @@ nav a:hover {
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     text-align: right;
 }
 .header img {
@@ -112,7 +113,7 @@ nav a:hover {
 }
 
 .header-inner {
-    padding-top: 150px;
+    margin-bottom: 15%;
 }
 
 
