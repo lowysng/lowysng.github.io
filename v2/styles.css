@@ -167,6 +167,10 @@ nav a:hover {
     padding-top: 150px;
 }
 
+.about a:hover {
+    text-decoration: underline;
+}
+
 /* Skills */
 
 .skills {
