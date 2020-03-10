@@ -382,6 +382,11 @@ nav a:hover {
         margin: 0;
     }
 
+    .skills li {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
     .about .email {
         margin-left: 2px;
     }
