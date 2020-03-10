@@ -85,6 +85,7 @@ nav a:hover {
     display: grid;
     margin: auto;
     grid-template-columns: 1fr 4fr;
+    padding-top: 150px;
 }
 
 .container h1 {
@@ -168,7 +169,6 @@ nav a:hover {
 
 .about {
     margin: 300px 0 50px 0;
-    padding-top: 150px;
 }
 
 .about p, .about a {
@@ -189,7 +189,6 @@ nav a:hover {
 
 .skills {
     margin: 50px auto;
-    padding-top: 150px;
 }
 
 .skills p {
@@ -216,7 +215,7 @@ nav a:hover {
 
 .projects {
     margin: 50px auto;
-    padding: 150px 0 250px 0;
+    padding-bottom: 250px;
 }
 
 .project {
@@ -382,9 +381,20 @@ nav a:hover {
         margin: 0;
     }
 
-    .skills li {
-        font-size: 16px;
-        margin-bottom: 8px;
+    .container .row {
+        padding-top: 80px;
+    }
+
+    .about .email {
+        text-decoration: underline;
+    }
+
+    .skills .skills-row {
+        display: block;
+    }
+
+    .skills .col {
+        width: 100%;
     }
 
     .about .email {
@@ -394,10 +404,14 @@ nav a:hover {
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
 
     nav li {
         margin: 0 16px;
+    }
+
+    .header  {
+        height: 100vh;
     }
 
     .header img {
@@ -421,12 +435,19 @@ nav a:hover {
         text-align: left;
     }
 
-    .skills .skills-row {
-        display: block;
+}@media (max-width: 350px) {
+
+    body {
+        font-size: 14px;
+        line-height: 24px;
     }
 
-    .skills .col {
-        width: 100%;
+    nav li {
+        margin: 0 6px;
+    }
+
+    .projects {
+        margin-bottom: 150px;
     }
 
 }
