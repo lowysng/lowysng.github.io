@@ -9,7 +9,7 @@ document.addEventListener('scroll', () => {
 
     } else {
         nav.style.borderBottom = '2px solid transparent';
-        nav.style.backgroundColor = '#fafafa';
+        nav.style.backgroundColor = 'var(--bg-color)';
 
     }
 
