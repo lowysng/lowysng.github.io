@@ -305,6 +305,10 @@ nav a:hover {
 
 @media (max-width: 800px) {
 
+    body {
+        font-size: 18px;
+    }
+
     nav ul {
         justify-content: center;
     }
@@ -343,6 +347,10 @@ nav a:hover {
         margin-bottom: 30px;
     }
 
+    .container p {
+        line-height: 28px;
+    }
+
     .projects .tags span {
         line-height: 2;
     }
@@ -370,6 +378,10 @@ nav a:hover {
         margin: 0 20px;
     }
 
+    .container ul {
+        margin: 0;
+    }
+
 }
 
 
@@ -394,6 +406,10 @@ nav a:hover {
 
     .container .row {
         width: 100%;
+    }
+
+    .container p {
+        text-align: left;
     }
 
     .skills .skills-row {
