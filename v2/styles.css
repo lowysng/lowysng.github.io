@@ -382,6 +382,10 @@ nav a:hover {
         margin: 0;
     }
 
+    .about .email {
+        margin-left: 2px;
+    }
+
 }
 
 
