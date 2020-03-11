@@ -179,10 +179,8 @@ nav a:hover {
     text-decoration: underline;
 }
 
-.about .email {
-    margin-left: 10px;
+.about .link {
     color: #3b3b3b;
-    font-weight: bold;
 }
 
 /* Skills */
@@ -385,7 +383,7 @@ nav a:hover {
         padding-top: 80px;
     }
 
-    .about .email {
+    .about .link {
         text-decoration: underline;
     }
 
@@ -402,7 +400,7 @@ nav a:hover {
         margin-bottom: 8px;
     }
 
-    .about .email {
+    .about .link {
         margin-left: 2px;
     }
 
