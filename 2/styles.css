@@ -23,6 +23,10 @@ body {
     color: var(--font-color);
 }
 
+h2 {
+    font-size: 36px;
+}
+
 p {
     color: rgb(108, 117, 125);
     line-height: 27px;
@@ -38,8 +42,10 @@ ul {
     padding-left: 0px;
 }
 
-h2 {
-    font-size: 36px;
+textarea {
+    font-family: 'Nunito', 'Segoe UI', serif;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .btn {
@@ -78,10 +84,12 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 0;
+    padding-top: 30px;
+    padding-bottom: 20px;
     min-width: 1000px;
     width: 60%;
     margin: 0 auto;
+    transition: 0.3s;
 }
 
 .nav .logo {
@@ -109,6 +117,11 @@ h2 {
 
 .nav li.active {
     color: var(--primary-color)
+}
+
+.nav .menu-btn {
+    cursor: pointer;
+    display: none;
 }
 
 /* Header */
@@ -284,6 +297,7 @@ header p {
 /* About */
 .about {
     padding-top: 150px;
+    margin-bottom: 150px;
 }
 
 .about h2 {
@@ -348,6 +362,7 @@ header p {
 
 .team-item img {
     width: 100%;
+    max-width: 300px;
     margin-bottom: 20px;
 }
 
@@ -367,6 +382,33 @@ header p {
 
 .team-item .desc {
     margin-top: 10px;
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 150px 0;
+    text-align: center;
+}
+
+.testimonials img {
+    width: 100px;
+    height: 100px;
+    margin: 50px 0 40px 0;
+    border-radius: 50%;
+    box-shadow: var(--box-shadow);
+}
+
+.testimonials p {
+    width: 70%;
+    font-size: 24px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+}
+
+.testimonials span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
 }
 
 /* Blog */
@@ -501,4 +543,188 @@ header p {
 .footer p {
     font-size: 16px;
     margin-bottom: 40px;
+}
+
+@media (max-width: 1000px) {
+    .nav-inner {
+        min-width: 765px;
+    }
+
+    .container {
+        width: 70%;
+        min-width: 765px;
+    }
+
+    header {
+        background-position: top;
+        background-size: 700px;
+    }
+
+    header div {
+        padding-top: 500px;
+        width: 90%;
+        margin: auto;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    .features .grid, .team .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .showcase, .showcase.flip {
+        flex-direction: column;
+    }
+
+    .showcase img.large {
+        width: 100%;
+    }
+
+    .about .about-inner {
+        flex-direction: column;
+    }
+
+    .about-inner img {
+        width: 100%;
+    }
+
+    .about-text {
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    .testimonials p {
+        width: 100%;
+    }
+
+    .blog .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form .form-name {
+        flex-direction: column;
+    }
+
+    .form-name .first-name, .form-name .last-name {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 765px) {
+    .nav-inner {
+        min-width: 0px;
+        width: 80%;
+    }
+
+    .nav .menu-btn {
+        display: block;
+        margin-right: 50px;
+    }
+
+    .nav-inner ul {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        border-right: 2px solid #333;
+        width: 90%;
+        height: 100vh;
+        max-width: 300px;
+        transform: translateX(-500px);
+        padding: 60px 0 0 40px;
+        transition: 0.3s;
+    }
+
+    .nav-inner ul.show {
+        transform: translateX(-20px);
+    }
+
+    .nav-inner li {
+        padding: 12px 0;
+        font-weight: normal;
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    .container {
+        width: 80%;
+        min-width: 0px;
+    }
+
+    header {
+        background-position: 50% 30%;
+        background-size: 400px;
+    }
+
+    header div {
+        padding-top: 500px;
+        width: 90%;
+        margin: auto;
+    }
+
+    .features .features-text {
+        width: 80%;
+        min-width: 300px;
+    }
+
+    .features .grid, .team .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid .card {
+        width: 70%;
+    }
+
+    .showcase img.large {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .about-inner img {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .team .team-text {
+        width: 80%;
+        min-width: 300px;
+    }
+
+    .team-item {
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .team-item img {
+        width: 250px;
+        max-width: none;
+    }
+
+    .blog .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact .contact-inner {
+        width: 100%;
+        min-width: 0;
+        margin: 0 auto;
+    }
+
+    .form {
+        width: 80%;
+        margin: auto;
+    }
+
+
 }

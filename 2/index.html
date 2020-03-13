@@ -7,13 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
         integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
-
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </head>
 <body>
 
     <!-- Nav -->
     <nav class="nav">
-        <div class="nav-inner">       
+        <div class="nav-inner" id="nav-inner">       
             <a class="logo" href="#">imagine<span>.</span></a>
             <ul>
                 <li class="active"><a href="#">Home</a></li>
@@ -23,13 +23,16 @@
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="menu-btn">
+                <i class="fas fa-bars fa-2x"></i>
+            </div>
         </div>
     </nav>
 
     <div class="container">
 
         <!-- Header -->
-        <header id="home">            
+        <header>            
             <div>
                 <h1>Make Your Business More Profitable</h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo cupiditate facere deleniti fuga officia.</p>
@@ -44,37 +47,37 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente nam, id vero.</p>
             </div>
             <div class="grid">
-                <div class="card">
+                <div class="card card-1">
                     <div class="icon"><i class="fas fa-undo"></i></div>
                     <h3>Marketing Consulting</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
                     <a href="#">Learn More</a>
                 </div>
-                <div class="card">
+                <div class="card card-2">
                     <div class="icon"><i class="fas fa-store-alt"></i></div>
                     <h3>Market Analysis</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
                     <a href="#">Learn More</a>
                 </div>
-                <div class="card">
+                <div class="card card-3">
                     <div class="icon"><i class="fas fa-shopping-bag"></i></div>
                     <h3>Easy Purchase</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
                     <a href="#">Learn More</a>
                 </div>
-                <div class="card">
+                <div class="card card-4">
                     <div class="icon"><i class="fas fa-undo"></i></div>
                     <h3>Easy Updates</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
                     <a href="#">Learn More</a>
                 </div>
-                <div class="card">
+                <div class="card card-5">
                     <div class="icon"><i class="far fa-smile"></i></div>
                     <h3>100% Satisfied</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
                     <a href="#">Learn More</a>
                 </div>
-                <div class="card">
+                <div class="card card-6">
                     <div class="icon"><i class="fas fa-plug"></i></div>
                     <h3>Easy Plugin</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis quis molestiae vitae eligendi at.</p>
@@ -84,7 +87,7 @@
         </section>
 
         <!-- Showcases -->
-        <section class="showcase" id="showcase">
+        <section class="showcase showcase-1" id="showcase">
             <img class="large" src="https://colorlib.com/preview/theme/imagine/images/undraw_gift_card_6ekc.svg" alt="gift-card">
             <div class="showcase-inner">
                 <h2>Communicate and gather feedback</h2>
@@ -102,7 +105,7 @@
             </div>
         </section>
         
-        <section class="showcase flip">
+        <section class="showcase flip showcase-2">
             <img class="large" src="https://colorlib.com/preview/theme/imagine/images/undraw_metrics_gtu7.svg" alt="metrics">
             <div class="showcase-inner">
                 <h2>Communicate and gather feedback</h2>
@@ -120,7 +123,7 @@
             </div>
         </section>
         
-        <section class="showcase">
+        <section class="showcase showcase-3">
             <img class="large" src="https://colorlib.com/preview/theme/imagine/images/undraw_gift_card_6ekc.svg" alt="gift-card">
             <div class="showcase-inner">
                 <h2>Communicate and gather feedback</h2>
@@ -138,7 +141,7 @@
             </div>
         </section>
         
-        <section class="showcase flip">
+        <section class="showcase flip showcase-4">
             <img class="large" src="https://colorlib.com/preview/theme/imagine/images/undraw_metrics_gtu7.svg" alt="metrics">
             <div class="showcase-inner">
                 <h2>Communicate and gather feedback</h2>
@@ -181,43 +184,51 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente nam, id vero.</p>
             </div>
             <div class="grid">
-                <div class="team-item">
+                <div class="team-item team-1">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>Cloe Marena</h3>
                     <p><span>President</span></p>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
-                <div class="team-item">
+                <div class="team-item team-2">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>John Rooster</h3>
                     <p><span>Marketing</span></p>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
-                <div class="team-item">
+                <div class="team-item team-3">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>Will Turner</h3>
                     <p><span>Marketing</span></p>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
-                <div class="team-item">
+                <div class="team-item team-4">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>Nicolas Stainer</h3>
                     <p><span>Financing</span></p>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
-                <div class="team-item">
+                <div class="team-item team-5">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>George Brook</h3>
                     <p><span>Founder</span></p>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
-                <div class="team-item">
+                <div class="team-item team-6">
                     <img src="./img/avatar-placeholder.jpg" alt="team member">
                     <h3>Emely Hopson</h3>
                     <p><span>Marketing</span>
                     <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum excepturi corporis qui doloribus perspiciatis ipsa modi accusantium repellat.</p>
                 </div>
             </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials" id="testimonials">
+            <h2>Testimonials</h2>
+            <img src="./img/avatar-placeholder.jpg" alt="testimonial">
+            <p>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus eligendi nobis ea maiores sapiente veritatis reprehenderit suscipit quaerat rerum voluptatibus a eius."</p>
+            <p><span class="name">Robert Aguilar</span></p>
         </section>
 
         <!-- Blog -->
@@ -303,5 +314,47 @@
 
     </div>
     
+    <script>
+
+        // nav bar resize when not on top
+        document.addEventListener('scroll', () => {
+            let nav = document.getElementById('nav-inner')
+
+            if (window.scrollY > 200) {
+                nav.style.paddingTop = '10px';
+
+            } else {
+                nav.style.paddingTop = '30px';
+
+            }
+        })
+
+        // nav bar menu button
+        document.querySelector('.menu-btn').addEventListener('click', () => {
+            document.querySelector('.nav-inner ul').classList.toggle('show');
+        });
+
+        // ScrollReveal.js - https://scrollrevealjs.org/
+        ScrollReveal().reveal('nav');
+        ScrollReveal().reveal('header', { delay: 100 });
+        ScrollReveal().reveal('.features-text', { distance: '50px' });
+        ScrollReveal().reveal('.team-text', { distance: '50px' })
+
+        // grid items animation
+        for (let i = 0; i < 6; i++) {
+            ScrollReveal().reveal(`.card-${i+1}`, { delay: i * 80, distance: '50px' })
+            ScrollReveal().reveal(`.team-${i+1}`, { delay: i * 80, distance: '50px' })
+        }
+
+        // showcases animation
+        for (let i = 0; i < 4; i++) {
+            let direction = (i % 2 !== 0) ? 'right' : 'left';
+            ScrollReveal().reveal(`.showcase-${i+1} > img`, { delay: 200, distance: '100px', origin: direction })
+            ScrollReveal().reveal(`.showcase-${i+1} .showcase-card`, { delay: 300, distance: '100px', origin: direction })
+        }
+
+        ScrollReveal().reveal('.about img', { delay: 200, distance: '100px', origin: 'left' })
+    </script>
+
 </body>
 </html>
