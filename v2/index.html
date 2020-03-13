@@ -16,12 +16,14 @@
 
     <!-- Nav -->
     <nav id="nav">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="https://lowysng.posthaven.com/" target="_blank">Blog</a></li>
-        </ul>
+        <div class="nav-inner">         
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="https://lowysng.posthaven.com/" target="_blank">Blog</a></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Width: 80% -->
@@ -48,16 +50,18 @@
                 <p>
                     I started my web development journey in February 2020, before this most of my
                     programming experience has been in Java (basic introductory level) and Python (basic ML stuff).
-                    I am currently halfway through my 3-year software engineering degree, and I am now <span>actively
-                    looking for internship and co-op opportunities</span>.
+                    I am now <span>actively looking for internship and co-op opportunities</span>.
                 </p>
                 <p>
                     Apart from web development, I also enjoy reading about <span>deep learning</span> in my free time.
-                    In terms of <span>non-coding activities</span>, I like to 
-                    <a href="https://lowysng.posthaven.com/" target="_blank"><span class="link">write</span></a> 
-                    and immersing myself in a good book. I am currently reading
+                    In terms of <span>non-coding activities</span>, I like to play the piano, 
+                    or immerse myself in a good book. I am currently reading
                     <a href="https://www.amazon.com/Why-We-Sleep-Unlocking-Dreams/dp/1501144316" target="_blank">
                     <i>Why We Sleep by Matthew Walker</i></a>.
+                </p>
+                <p>
+                    I've also recently just started to write! Check out my 
+                    <a href="https://lowysng.posthaven.com/" target="_blank"><span class="link">blog</span></a>.
                 </p>
                 <p>
                     Send me an email: <a href="mailto:lowysng@gmail.com"><span
@@ -110,16 +114,36 @@
             <h1>Projects</h1>
             <div>
                 <div class="project">
-                    <a href="https://lowysng.github.io/2/" target="_blank">imagine. (Unfinished) 
+                    <a href="https://lowysng.github.io/2/" target="_blank">Imagine
                     </a><i class="fa fa-chevron-right"></i>
                     <p>
-                        Business consultant website clone, built entirely using vanilla HTML, CSS and JavaScript.
+                        Business consultant website clone, built entirely using vanilla HTML, CSS and JavaScript. 
+                        Project takeaways: CSS positioning, JavaScript interactivity (sliding menu, scroll-reveal
+                        animations).
                     </p>
                     <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/lowysng.github.io/tree/master/2" target="_blank">View code</a><i class="fa fa-chevron-right"></i></span>
                         <span>HTML</span>
                         <span>CSS</span>
                         <span>JavaScript</span>
-                        <span>Responsive Design</span>
+                        <span>Media Queries</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <a href="https://warm-dawn-22805.herokuapp.com/" target="_blank">GIPHY Gif Search Application
+                    </a><i class="fa fa-chevron-right"></i>
+                    <p>
+                        A fun React application that accepts search queries for gifs and displays them in a grid. 
+                        Large monitors recommended, does not work quite well on mobile. Project takeaways: external API
+                        usage, CSS positioning.
+
+                    </p>
+                    <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/giphy-matrix" target="_blank">View code</a><i class="fa fa-chevron-right"></i></span>
+                        <span>React</span>
+                        <span>CSS</span>
+                        <span>GIPHY API</span>
+                        <span>Express</span>
                     </div>
                 </div>
                 <div class="project">
@@ -136,25 +160,11 @@
                     </div>
                 </div>
                 <div class="project">
-                    <a href="https://warm-dawn-22805.herokuapp.com/" target="_blank">GIPHY Gif Search Application
-                    </a><i class="fa fa-chevron-right"></i>
-                    <p>
-                        A fun React application that accepts search queries for gifs and displays them in a grid.
-                        Large monitors recommended, does not work quite well on mobile.
-                    </p>
-                    <div class="tags">
-                        <span>React</span>
-                        <span>CSS</span>
-                        <span>GIPHY API</span>
-                        <span>Express</span>
-                        <span>Heroku</span>
-                    </div>
-                </div>
-                <div class="project">
                     <a href="https://dry-badlands-76562.herokuapp.com/" target="_blank">General Trivia Application
                     </a><i class="fa fa-chevron-right"></i>
                     <p>My first application! A general trivia application that uses the Open Trivia DB API, built using React.</p>
                     <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/quiz" target="_blank">View code</a><i class="fa fa-chevron-right"></i></span>
                         <span>React</span>
                         <span>CSS</span>
                         <span>Heroku</span>
@@ -169,7 +179,7 @@
     <footer class="footer">
         <div class="footer-inner">
             <div>
-                <code>&copy; Lowys 2020 | Created using vanilla HTML and CSS</code>
+                <code>&copy; Lowys 2020 | Built using vanilla HTML and CSS</code>
             </div>
             <ul>
                 <li><a href="mailto:lowysng@gmail.com">Email</a></li>

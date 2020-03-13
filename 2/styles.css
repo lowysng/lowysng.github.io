@@ -614,14 +614,13 @@ header p {
 }
 
 @media (max-width: 765px) {
-    .nav-inner {
-        min-width: 0px;
+    .nav .nav-inner {
         width: 80%;
+        min-width: 0px;
     }
 
     .nav .menu-btn {
         display: block;
-        margin-right: 50px;
     }
 
     .nav-inner ul {
@@ -632,7 +631,7 @@ header p {
         background-color: #fff;
         border-right: 2px solid #333;
         width: 90%;
-        height: 100vh;
+        height: 120vh;
         max-width: 300px;
         transform: translateX(-500px);
         padding: 60px 0 0 40px;
@@ -656,6 +655,7 @@ header p {
     .container {
         width: 80%;
         min-width: 0px;
+        margin: 0 auto;
     }
 
     header {
