@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>low ys</title>
+    <title>low-ys | Software Engineer</title>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="icon" href="./img/favicon.png">
     <link rel="stylesheet" href="./styles.css" type="text/css">
@@ -16,12 +16,14 @@
 
     <!-- Nav -->
     <nav id="nav">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#">Resume</a></li>
-        </ul>
+        <div class="nav-inner">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="https://lowysng.posthaven.com/" target="_blank">Blog</a></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Width: 80% -->
@@ -42,27 +44,27 @@
             <h1>About</h1>
             <div>
                 <p>
-                    Hello, my name is Low. I am a software engineer based in Malaysia. I am primarily a
-                    <span>front-end developer</span>. I like to build things, and I like to build them fast.
+                    Hello, my name is Low. I am a <span>front-end software engineer</span> based in Malaysia.
+                    I like to build things, and I like to build them fast.
                 </p>
                 <p>
                     I started my web development journey in February 2020, before this most of my
                     programming experience has been in Java (basic introductory level) and Python (basic ML stuff).
-                    I am currently halfway through my 3-year software engineering degree, and I am now <span>actively
-                        looking for internship and co-op opportunities</span>.
+                    I am now <span>actively looking for internship and co-op opportunities</span>.
                 </p>
                 <p>
-                    Apart from web development, I also enjoy doing <span>deep learning</span> projects in my free time.
-                    I listed a
-                    few of them below, do check them out! In terms of <span>non-coding activities</span>, I like to play
-                    the piano, or
-                    immerse myself in a good book. I am currently reading <a
-                        href="https://www.amazon.com/Why-We-Sleep-Unlocking-Dreams/dp/1501144316" target="_blank">
+                    Apart from web development, I also enjoy reading about <span>deep learning</span> in my free time.
+                    In terms of <span>non-coding activities</span>, I like to play the piano,
+                    or immerse myself in a good book. I am currently reading
+                    <a href="https://www.amazon.com/Why-We-Sleep-Unlocking-Dreams/dp/1501144316" target="_blank">
                         <i>Why We Sleep by Matthew Walker</i></a>.
                 </p>
                 <p>
-                    Send me an email: <a href="mailto:lowysng@gmail.com"><span
-                            class="email">lowysng@gmail.com</span></a>
+                    I've also recently just started to write! Check out my
+                    <a href="https://lowysng.posthaven.com/" target="_blank"><span class="link">blog</span></a>.
+                </p>
+                <p>
+                    Send me an email: <a href="mailto:lowysng@gmail.com"><span class="link">lowysng@gmail.com</span></a>
                 </p>
             </div>
         </section>
@@ -72,7 +74,7 @@
             <h1>Skills</h1>
             <div>
 
-                <!-- Things I should probably learn: sass, styled-components, css-modules, Webpack, TypeScript -->
+                <!-- Things I should probably learn: sass, styled-components, css-modules, Webpack, TypeScript, postgresql -->
                 <!-- Nice to have: Next.js, Gatsby.js, Electron, React Native -->
 
                 <p>Technologies I am comfortable working with:</p>
@@ -85,7 +87,8 @@
                     </ul>
                     <ul class="col">
                         <li>MERN stack: nodejs, Express, MongoDB</li>
-                        <li>Git, Bash, Postman, Chrome DevTools</li>
+                        <li>JSON Web Tokens Auth</li>
+                        <li>Git, Bash, Postman</li>
                         <li>Python3, fastai, keras</li>
                     </ul>
                 </div>
@@ -94,8 +97,7 @@
                 <div class="skills-row">
                     <ul class="col">
                         <li>SQL</li>
-                        <li>GraphQL</li>
-                        <li>React Apollo</li>
+                        <li>GraphQL, React Apollo</li>
                     </ul>
                     <ul class="col">
                         <li>Java</li>
@@ -111,11 +113,63 @@
             <h1>Projects</h1>
             <div>
                 <div class="project">
-                    <a href="https://dry-badlands-76562.herokuapp.com/" target="_blank">General Trivia Quiz Application
+                    <a href="https://lowysng.github.io/2/" target="_blank">Imagine
                     </a><i class="fa fa-chevron-right"></i>
-                    <p>My first application! A general trivia application that uses the Open Trivia DB API. </p>
+                    <p>
+                        Business consultant website clone, built entirely using vanilla HTML, CSS and JavaScript.
+                        Project takeaways: CSS positioning, JavaScript interactivity (sliding menu, scroll-reveal
+                        animations).
+                    </p>
                     <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/lowysng.github.io/tree/master/2"
+                                target="_blank">View code</a><i class="fa fa-chevron-right"></i></span>
+                        <span>HTML</span>
+                        <span>CSS</span>
                         <span>JavaScript</span>
+                        <span>Media Queries</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <a href="https://warm-dawn-22805.herokuapp.com/" target="_blank">GIPHY Gif Search Application
+                    </a><i class="fa fa-chevron-right"></i>
+                    <p>
+                        A fun React application that accepts search queries for gifs and displays them in a grid.
+                        Large monitors recommended, does not work quite well on mobile. Project takeaways: external API
+                        usage, CSS positioning.
+
+                    </p>
+                    <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/giphy-matrix" target="_blank">View
+                                code</a><i class="fa fa-chevron-right"></i></span>
+                        <span>React</span>
+                        <span>CSS</span>
+                        <span>GIPHY API</span>
+                        <span>Express</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <a href="https://lowysng.posthaven.com/neural-networks-under-the-hood" target="_blank">Neural
+                        Networks: Under the Hood
+                    </a><i class="fa fa-chevron-right"></i>
+                    <p>
+                        Writing project. In this post I talk about the nuts and bolts of vanilla neural networks, and
+                        explain key
+                        concepts such as forward propagation, gradient descent, and back propagation.
+                    </p>
+                    <div class="tags">
+                        <span>Deep Learning</span>
+                        <span>Neural Networks</span>
+                        <span>Writing</span>
+                    </div>
+                </div>
+                <div class="project">
+                    <a href="https://dry-badlands-76562.herokuapp.com/" target="_blank">General Trivia Application
+                    </a><i class="fa fa-chevron-right"></i>
+                    <p>My first application! A general trivia application that uses the Open Trivia DB API, built using
+                        React.</p>
+                    <div class="tags">
+                        <span class="code"><a href="https://github.com/lowysng/quiz" target="_blank">View code</a><i
+                                class="fa fa-chevron-right"></i></span>
                         <span>React</span>
                         <span>CSS</span>
                         <span>Heroku</span>
@@ -130,7 +184,7 @@
     <footer class="footer">
         <div class="footer-inner">
             <div>
-                <code>&copy; Lowys 2020 | Created using vanilla HTML and CSS</code>
+                <code>&copy; Lowys 2020 | Built using vanilla HTML and CSS</code>
             </div>
             <ul>
                 <li><a href="mailto:lowysng@gmail.com">Email</a></li>
