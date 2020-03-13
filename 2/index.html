@@ -317,19 +317,6 @@
     
     <script>
 
-        // nav bar resize when not on top
-        document.addEventListener('scroll', () => {
-            let nav = document.getElementById('nav-inner')
-
-            if (window.scrollY > 0) {
-                nav.style.paddingTop = '10px';
-
-            } else {
-                nav.style.paddingTop = '30px';
-
-            }
-        })
-
         // nav bar menu button
         document.querySelector('.menu-btn').addEventListener('click', () => {
             document.querySelector('.nav-inner ul').classList.toggle('show');
