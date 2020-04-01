@@ -240,6 +240,11 @@ nav a:hover {
     color: #737373;
 }
 
+.project li {
+    color: #737373;
+    padding: 5px 0;
+}
+
 .project span {
     font-size: 14px;
     font-weight: normal;
