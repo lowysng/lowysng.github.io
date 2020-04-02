@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>low-ys | Software Engineer</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="./styles.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"
+        integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="aside">
+            
+            <header>
+                <a href="index.html"><h1>Low y.s.</h1></a>
+                <p class="role">Software Engineer</p>
+                <p> Low Yuen-Seng</p>
+                <p><a href="mailto:lowysng@gmail.com">lowysng@gmail.com</a></p>
+
+                <ul class="connect">
+                    <li><a href="https://github.com/lowysng" target="_blank"><i class="fab fa-github"></i></a></li>
+                    <li><a href="https://twitter.com/lowysng" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+            </header>
+
+            <hr>
+
+            <nav>
+                <ul>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="https://lowysng.posthaven.com/" target="_blank">Blog</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+
+            <footer>
+                <code>&copy; Low-ys 2020 </code>
+            </footer>
+
+        </div>
+
+        <main>
+
+            <section class="projects" id="projects">
+
+                <h1>Projects 💻</h1>
+                <p>Here are some technical projects that I've worked on in the past.</p>
+
+                <div class="project-item">
+                    <a href="https://github.com/lowysng/nand2tetris-js" target="_blank">nand2tetris-js</a>
+                    <p>
+                        JavaScript implementation of a general purpose computer, built from the ground up using
+                        basic logic gates such as the NAND. This is the accompaniment project
+                        for the nand2tetris computer architecture MOOC. In this project I (1) implemented 
+                        various logic gates, an ALU, various RAM chips, a CPU and many more, (2) learned to read and write
+                        assembly language, and (3) wrote an assembler program.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/nand2tetris-js" target="_blank">View code</a>
+                        <div class="tag-item">Computer Architecture</div> 
+                        <div class="tag-item">Assembly Language</div>
+                        <div class="tag-item">JavaScript</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="http://shielded-bastion-60589.herokuapp.com/" target="_blank">Neural Network Trainer</a>
+                    <p>
+                        Tool for training and visualizing the training of a neural network. In this project I (1) implemented a vanilla neural network
+                        in JavaScript <i>from scratch</i>, (2) created a backend API using Express, with endpoints for fetching the dataset, generating
+                        weights, running backpropagation, making inferences, and (3) created the frontend user interface using React. 
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/talos-backend" target="_blank">View code</a>
+                        <div class="tag-item">Machine Learning</div> 
+                        <div class="tag-item">React</div>
+                        <div class="tag-item">Express</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="https://lowysng.github.io/2/" target="_blank">Imagine</a>
+                    <p>
+                        Business consultant website clone, built entirely using vanilla HTML, CSS and JavaScript. In this project,
+                        I learned how to use CSS Grids and Flexboxes to position elements correctly on the screen, and
+                        how to use JavaScript to add interactivity - sliding menu button, scroll reveal animations etc.
+                        I also learned how to use media queries to implement responsive layouts.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/lowysng.github.io/tree/master/2" target="_blank">View code</a>
+                        <div class="tag-item">HTML</div> 
+                        <div class="tag-item">CSS</div>
+                        <div class="tag-item">JavaScript</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="https://lowysng.github.io/v2/" target="_blank">Portfolio Website v2</a>
+                    <p>
+                        The second version of my personal portfolio website. Built with HTML, CSS and JavaScript.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/lowysng.github.io/tree/master/v2" target="_blank">View code</a>
+                        <div class="tag-item">HTML</div> 
+                        <div class="tag-item">CSS</div>
+                        <div class="tag-item">JavaScript</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="https://lowysng.posthaven.com/neural-networks-under-the-hood" target="_blank">Neural Networks: Under the Hood</a>
+                    <p>
+                        Writing project. In this post I talk about the nuts and bolts of vanilla neural networks, and
+                        explain key
+                        concepts such as forward propagation, gradient descent, and back propagation.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://lowysng.posthaven.com/neural-networks-under-the-hood" target="_blank">View essay</a>
+                        <div class="tag-item">Machine Learning</div> 
+                        <div class="tag-item">Neural Networks</div>
+                        <div class="tag-item">Writing</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="https://warm-dawn-22805.herokuapp.com/" target="_blank">GIPHY Matrix</a>
+                    <p>
+                        A fun React application that accepts search queries for gifs and displays them in a grid.
+                        Large monitors recommended, does not work quite well on mobile. In this project I learned how
+                        to interact with a third party API, and how to build and position components using React and
+                        CSS.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/giphy-matrix" target="_blank">View code</a>
+                        <div class="tag-item">React</div> 
+                        <div class="tag-item">CSS</div>
+                        <div class="tag-item">GIPHY API</div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <a href="https://dry-badlands-76562.herokuapp.com/" target="_blank">General Trivia</a>
+                    <p>
+                        My first application! A general trivia application that uses the Open Trivia DB API, built using
+                        React.
+                    </p>
+                    <div class="tags">
+                        <a class="code" href="https://github.com/lowysng/quiz" target="_blank">View code</a>
+                        <div class="tag-item">React</div> 
+                        <div class="tag-item">CSS</div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="skills" id="skills">
+
+                <h1>Skills 💡</h1>
+                <p>Here is a list of the things I know how to work with.</p>
+
+                <div>
+                    <h2>Technologies I am comfortable working with:</h2>
+                    <ul>
+                        <li>JavaScript ES6+</li>
+                        <li>React, React Redux</li>
+                        <li>CSS Grids & Flexbox</li>
+                        <li>Bootstrap, Reactstrap</li>
+                        <li>MERN stack: nodejs, Express, MongoDB</li>
+                        <li>JSON Web Tokens Auth</li>
+                        <li>Git, Bash, Postman</li>
+                        <li>Python3, fastai, keras</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2>Technologies I have experience with:</h2>
+                    <ul>
+                        <li>SQL</li>
+                        <li>GraphQL, React Apollo</li>
+                        <li>Java</li>
+                        <li>AWS</li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <section class="about" id="about">
+
+                <h1>About Me 😃</h1>
+                <p>
+                    Hello! My name is Low. I am a software engineer based in Malaysia. 
+                </p>
+                <p>
+                    I specialize in front-end web development. I started to self-learn web
+                    development in February 2020. Before this most of my programming experience
+                    has been in Java (basic introductory level) and Python (basic machine learning).
+                    I learned how to build web applications through Codecademy, freeCodeCamp, and 
+                    watching tutorials on Youtube.
+                </p>
+                <p>
+                    I went to school for software engineering, but was not satisfied with what 
+                    I learned in class. To overcome this, I decided to supplement my formal education
+                    with some self-studies. I am currently following the curriculum listed on
+                    <a href="https://teachyourselfcs.com/" target="_blank">teachyourselfcs.com</a>. 
+                    I have just finished the 
+                    <a href="https://www.nand2tetris.org/" target="_blank">nand2tetris</a> 
+                    computer architecture course (listed above under Projects), 
+                    and am now going through the classic programming textbook 
+                    <a href="https://mitpress.mit.edu/sites/default/files/sicp/index.html" target="_blank">SICP</a>. 
+                </p>
+                <p>
+                    My favorite computer science subdiscipline is deep learning. I wrote an 
+                    <a class="code" href="https://lowysng.posthaven.com/neural-networks-under-the-hood" target="_blank">essay</a> 
+                    on neural networks and how they operate under the hood. Do check it out!
+                </p>
+                <p>
+                    In terms of non-CS activities, I am usually playing the piano, reading a book,
+                    or watching a movie/TV series on Netflix.
+                </p>
+
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
