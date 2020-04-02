@@ -241,6 +241,7 @@ main p {
 
     main p {
         text-align: left;
+        line-height: 30px;
     }
 
     .project-item {
@@ -253,7 +254,6 @@ main p {
 
     .about p {
         margin: 30px 0;
-        line-height: 30px;
     }
 
 }
