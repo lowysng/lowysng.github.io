@@ -207,6 +207,10 @@ main p {
 
 /* Main About */
 
+.about {
+    margin-bottom: 580px;
+}
+
 .about p {
     margin: 10px 0;
 }
@@ -214,6 +218,8 @@ main p {
 .about a {
     color: #000;
 }
+
+/* Media Queries */
 
 @media (max-width: 750px) {
 
