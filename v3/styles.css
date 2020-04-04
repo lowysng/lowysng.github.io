@@ -143,6 +143,11 @@ main p {
     margin: 40px 0;
 }
 
+.project-item span {
+    margin-right: 10px;
+    color: #000;
+}
+
 .project-item > a {
     font-size: 18px;
     font-family: monospace;
