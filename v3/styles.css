@@ -156,6 +156,10 @@ main li {
     font-size: 18px;
 }
 
+.projects .other-projects {
+    margin-top: 125px;
+}
+
 .project-item {
     margin: 40px 0;
 }
