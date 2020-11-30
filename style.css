@@ -2,6 +2,9 @@ body {
     width: 80%;
     margin: 2em 2em 30em 2em;
     max-width: 500px;
+    background-color: #111111;
+    font-family: 'Open Sans', sans-serif;
+    color: #bbbbbb;
 }
 
 h1, h2, h3, h4 {
@@ -12,12 +15,16 @@ li {
     margin: 10px 0;
 }
 
+p, li {
+    font-size: 14px;
+}
+
 .link {
     padding: 1px 5px 3px;
     border: 1px solid #aaaaaa;
     border-radius: 2px;
     font-family: monospace;
-    color: black;
+    color: #bbbbbb;
     text-decoration: none;
 }
 

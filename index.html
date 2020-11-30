@@ -17,7 +17,7 @@
 
     <h3>Skills/Tools</h3>
     <ul>
-        <li><b>Languages: </b>Javascript, Python, Java, C++</li>
+        <li><b>Languages: </b>Javascript, Python, Scheme (Lisp), Java, C++, C</li>
         <li><b>Web development: </b>React, Redux, Nodejs, Express, MongoDB</li>
         <li><b>Machine Learning: </b>Keras, Dl4j, fastai</li>
         <li><b>General: </b>Git, Bash, Postman</li>
@@ -37,7 +37,7 @@
     </ul>
 
     <div style="display: flex">
-        <img src="adder.jpg" id="adder" width="350px">
+        <img src="adder.jpg" id="adder" width="250px">
         <p style="font-size: 12px; margin-left: 1em;">Figure 1. 4-bit adder</p>
     </div>
 
@@ -66,12 +66,12 @@
         these flashlights to come up with a scheme to indicate to all incoming ships on whether 
         it is safe for them to dock.
     </p>
+    <ul>
+        <li>If it is safe to dock, shine both flashlights.</li>
+        <li>Otherwise, keep flashlights turned off.</li>
+    </ul>
     <p>
         To achieve this, you (and the ship captains) agree to follow these rules:
-        <ul>
-            <li>If it is safe to dock, shine both flashlights.</li>
-            <li>Otherwise, keep flashlights turned off.</li>
-        </ul>
         This is a very simple scheme, and it works. Try to understand what is going on here.
         The actual turning on/off of the flashlights is physically unrelated to whether it is safe 
         or unsafe for the ships to dock. But since all parties have agreed beforehand on what the 
@@ -103,21 +103,25 @@
     <p>
         Essentially, a computer does one thing, and one thing only -- execute instructions. A typical 
         sequence of computer instructions might consist of the following:
-        <ol>
-            <li>Read a string of bits in memory.</li>
-            <li>Read a different string of bits in memory.</li>
-            <li>Compute the sum of these two string of bits.</li>
-            <li>Store the resulting string of bits in memory.</li>
-        </ol>
+    </p>
+    <ol>
+        <li>Read a string of bits in memory.</li>
+        <li>Read a different string of bits in memory.</li>
+        <li>Compute the sum of these two string of bits.</li>
+        <li>Store the resulting string of bits in memory.</li>
+    </ol>
+    <p>
         These elementary operations (reading from memory, writing into memory, performing an operation) form 
         the basis of a large subset of the set of all instructions of a modern processor. The four 
         instructions above may be written, in computer instruction form, as the following:
-        <ol class="code">
-            <li>MOVE 00101010 TO 00000000</li>
-            <li>MOVE 10010010 TO 00000001</li>
-            <li>ADD 00000000 TO 00000001</li>
-            <li>MOVE 00000001 TO 10010010</li>
-        </ol>
+    </p>
+    <ol class="code">
+        <li>MOVE 00101010 TO 00000000</li>
+        <li>MOVE 10010010 TO 00000001</li>
+        <li>ADD 00000000 TO 00000001</li>
+        <li>MOVE 00000001 TO 10010010</li>
+    </ol>
+    <p>
         The first instruction says to move the bits in memory location 00101010 into 
         memory location 00000000. The third instruction says to add the bits in memory 
         location 00000000 to the bits in memory location 00000001 (in place).
@@ -127,18 +131,19 @@
         of the instructions, i.e. MOVE and ADD? The answer is, they don't. The instruction form 
         above is not the final form that gets read by the computer. The actual final form looks 
         something like the following:
-        <ol class="code">
-            <li>00100010101000000000</li>
-            <li>00101001001000000001</li>
-            <li>10110000000000000001</li>
-            <li>00100000000110010010</li>
-        </ol>
+    </p>
+    <ol class="code">
+        <li>00100010101000000000</li>
+        <li>00101001001000000001</li>
+        <li>10110000000000000001</li>
+        <li>00100000000110010010</li>
+    </ol>
+    <p>
         If you look closely, you might notice some common characteristics between these four instructions 
         and the four instructions before them. Instructions 1, 2 and 4 all start with the same 
         four bits: 0010. You might guess that these four bits 0010 represent the MOVE instruction, and 
         you would be right. The first four bits specify the type of operation to perform (MOVE or ADD), the next 
         sixteen bits specify the source and destination memory locations.
     </p>
-
 </body>
 </html>
