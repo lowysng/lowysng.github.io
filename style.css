@@ -12,7 +12,7 @@ h1, h2, h3, h4 {
 }
 
 li {
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 p, li {
@@ -26,6 +26,11 @@ p, li {
     font-family: monospace;
     color: #bbbbbb;
     text-decoration: none;
+}
+
+.link:hover {
+    background-color: #bbbbbb;
+    color: #111111;
 }
 
 .code {

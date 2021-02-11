@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Low YS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <a href="../index.html">Back</a>
+
+    <h2>Bits as Integers</h2>
+
+    <p>February 2021</p>
+
+    <p>
+        A string of bits (ones and zeros) can be interpreted as representing an integer. The set of integers 
+        that can be represented depends on the number of bits used. Quite simply, the more bits you have, the more 
+        integers you can represent. 
+    </p>
+
+    <h3>Unsigned and 2's Complement Encodings</h3>
+
+    <p>
+        The two most common encoding schemes are unsigned encoding and two's complement 
+        encoding.
+    </p>
+
+    <p>
+        Unsigned encoding is used to represent nonnegative integers. The number represented by a bit vector is a 
+        weighted sum of a collection of powers of two. For instance, 1101 represents 13 because 13 = 1*8 + 1*4 + 0*2 + 1*1.
+        With one bit you can represent two integers, namely 0 and 1. With two bits you can represent four integers: 0, 1, 2, 3.
+        In general, with n bits, you can represent the integers from 0 up to 2^n - 1, inclusive.
+    </p>
+
+    <p>
+        Two's complement encoding lets you represent negative values (with unsigned encoding you can only represent the nonnegative 
+        integers). The number represented is also a weighted sum of powers of two, except that the most significant bit is weighted 
+        negatively. With n bits, you can represent the integers from -2^(n-1) to 2^(n-1) - 1, inclusive.
+    </p>
+
+    <h3>Interesting Numbers</h3>
+
+    <p>
+        A string of all ones, interpreted as an unsigned number, is the maximum integer that can be represented in the range. 
+        That same string interpreted as a signed number always represents the integer -1. For instance, 1111 represents 15 and -1 
+        respectively. 
+    </p>
+
+    <p>
+        In two's complement encoding, a string of bits consisting of a 1 followed by all 0's represents the smallest integer in the 
+        range. On the other hand, a string of bits consisting of a 0 followed by all 1's represents the largest integer in the range. 
+        For instance, 1000 represents -8 whereas 0111 represents 7.
+    </p>
+
+    <h3>Addition and Overflows</h3>
+
+    <p>
+        When a computer tries to add two strings of bits together, something peculiar might happen.
+        Suppose that you have two 4-bit strings, and suppose that you take the sum of the two unsigned integer represented by these 
+        bit strings. One of two cases might happen. In the normal case, the result of the operation is within the range of integers 
+        representable by a 4-bit string. For instance, 1100 + 0011 = 1111 which is equivalent to 12 + 3 = 15, and 3, 12, 15 can all 
+        be represented using 4 bits. 
+    </p>
+
+    <p>
+        In the exceptional case, the result of the sum cannot be represented by a 4-bit string. This is called an overflow. 
+        As an example, 12 + 4 = 16, but 16 
+        cannot be represented using 4 bits. We need 5 bits to represent 16 (10000). This is bad. It's bad because we don't want 
+        to add two 4-bit strings and get a 5-bit string back; we want the result to be 4-bit as well. 
+    </p>
+
+    <p>
+        The straightforward solution to overflow is to drop the leading bit of the 5-bit result, yielding a 4-bit string. This is exactly 
+        how computer addition is implemented. Whenever the addition of two n-bit strings yields a n+1-bit string, the leading bit is 
+        dropped. Mathematically, this is equivalent to applying the modulus 2^n operation. For instance, 12 + 4 = 16 mod 16 = 0, which 
+        checks out with 1100 + 0100 = 0000.
+    </p>
+
+    <p>
+        Overflow can also happen when you add two signed integers. A negative overflow happens when the addition of two negative numbers 
+        yield a negative number that less than the minimum integer representable. A positive overflow is defined similarly. Both are 
+        resolved much like how you would in the unsigned case: the leading bit is dropped. 
+    </p>
+
+    <p>
+        However, from a mathematical perspective, signed overflows are handled differently than unsigned overflows. Whenever a positive overflow 
+        occurs, the final sum is the initial sum minus 2^n; whenever a 
+        negative overflow occurs, the final sum is the initial sum plus 2^n, where, in both cases, n is the number of bits in the strings.
+    </p>
+
+
+</body>
