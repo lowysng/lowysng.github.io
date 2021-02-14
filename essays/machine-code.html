@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Machine Code</title>
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+	
+	<h2>Machine Code</h2>
+
+	<p>February 2021</p>
+
+	<p>
+		When you write a program in a high level language such as C or Python, that program 
+		has to be processed first before it becomes readily executable by a computer. One 
+		of these processing stages is called compilation. Compilation is the process of transforming 
+		a program written in a high level language into a lower level, bare metal form. This form 
+		of low level code is also called assembly code.
+	</p>
+
+	<p>
+		The goal of compilation is to produce assembly code that not only has the same behavior as 
+		the parent high level program, but also code that runs quickly and efficiently. Sometimes, this 
+		transformation can yield programs that are so heavily transformed and highly unreadable.
+	</p>
+	
+	<h3>Hidden State</h3>
+
+	<p>
+		Assembly code reveals certain processor states that are normally hidden when programming in 
+		high-level languages. One of these is the program counter, which specifies the address of the 
+		currently executing instruction. Note that this implies that all the instructions of a program
+		are stored somewhere in memory. 
+	</p>
+
+	<p>
+		Another part of the processor state that is hidden from the programmer is the CPU register file. 
+		The CPU register file stores information about the various CPU registers. These registers are 
+		used to hold temporary data. Some registers hold critical information about the running program. 
+	</p>
+	
+	<p>
+		For example, 
+		the stack pointer register always points to the runtime stack of the currently executing program. 
+		Another example is the set of condition code registers, which hold information about the result of the 
+		most recently executed instruction, such as whether the computation yielded a zero. 
+	</p>
+
+	<h3>Moving Data</h3>
+
+	<p>
+		An assembly program is made up of a sequence of instructions. Let's now look at the set of most 
+		commonly used instructions --- data movement instructions. These instructions, quite literally, 
+		move data around the computer. The possible source and destination of a data movement instruction 
+		are immediate values, register values and values stored in memory. For instance, an instruction 
+		might instruct the processor to transfer a string of bits from memory into one of the registers.
+	</p>
+
+	<p>
+		There is a special class of data movement instructions that interact with the runtime stack of a 
+		program. These are the PUSH and POP instruction. A PUSH X instruction decrements the stack 
+		pointer, and transfers X into memory at the location specified by the just decremented stack 
+		pointer. X here can either be an immediate value or a register. 
+		A POP Y instruction transfers the string of bits at the memory location specified by the 
+		stack pointer into register Y, and then increments the stack pointer. 
+	</p>
+
+	<p>
+		The most important use case of the PUSH and POP instructions is in implementing the procedure 
+		calling mechanisms of high level languages. We will see how this is done in a later section.
+	</p>
+
+	<h3>Crunching Data</h3>
+
+	<p>
+		Data movement instructions move data. In contrast, ALU (shorthand for Arithmetic & Logical Unit) 
+		instructions "crunches" data. These instructions perform various operations such as integer 
+		addition, integer multiplication, bitwise AND, bitwise OR, bit shifts, integer increments, integer 
+		decrements etc. 
+	</p>
+
+	<p>
+		Different ALU instructions have different number of operands. However, all of them have one 
+		property in common --- they modify the value of some register. For instance, an ADD X Y 
+		instruction takes the value stored in register X, add this to the value stored at register Y,
+		and storing this value in register Y (overwriting the previous value of Y).
+	</p>
+	
+	<h3>Conditionals</h3>
+
+	<p>
+		Another quirk of these ALU instructions is that in addition to modifying some general purpose 
+		register, they also modify the condition code registers of the CPU. These condition code registers 
+		are used to implement conditional branches, which are pieces of code that execute conditionally 
+		based on the outcome of some tests.
+	</p>
+	
+	<p>
+		Recall that condition code registers are updated only at the end of an ALU instruction. Other 
+		than the ALU instructions, there are two non-ALU instructions that also modify the condition code 
+		registers, called COMPARE and TEST. These instructions behave similarly to SUB and AND, except 
+		that they do not modify the contents of the target register.
+	</p>
+
+	<p>
+		These condition codes are used by JUMP instructions. JUMP instructions cause execution to switch to a new 
+		position in the program. There are two kinds of JUMP: conditional jump instructions jump to the target 
+		instruction depending on some combination of the condition code registers; unconditional jump instructions 
+		jump to the target instruction regardless of the contents of the condition code registers.
+	</p>
+
+	<p>
+		High-level loop constructs can be implemented using conditional jump instructions. There are two paradigms 
+		for implementing conditional branching. The first is based on conditional control --- 
+		program execution jumps to different parts of the program based on the result of some test; the second is 
+		based on conditional moves --- both outcomes of a branch are computed, and the desired one is selected.
+		Conditional moves have better performance characteristics on modern processors because they do not involve 
+		branch prediction (code is executed sequentially).
+	</p>
+
+</body>

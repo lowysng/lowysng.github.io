@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Machine-Level Procedures</title>
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Machine-Level Procedures</h2>
+
+	<p>February 2021</p>
+	
+	<p>
+		Procedures are a key abstraction in software. They package code into pieces that 
+		can be reused throughout a program. Procedures help manage program complexity 
+		by abstracting away the details of how they are implemented from the programmer.
+	</p>
+
+	<p>
+		Certain attributes about procedures need to be satisfied when implementing them at 
+		the machine level. These include some mechanism for passing control, some mechanism for passing data,
+		and some mechanism for allocating and deallocating memory.
+	</p>	
+
+	<h3>Program Stack</h3>
+
+	<p>
+		The procedure-calling mechanisms of most languages make use of the stack data structure.
+		Any running procedure has a private space on the stack called the stack frame. The stack frame 
+		of a procedure contains all local variables, the values of all callee-saved registers, and an 
+		argument buildup area for other procedures that it might call. Conventionally, the stack grows 
+		toward lower addresses in memory. 
+	</p>
+
+	<h3>Passing Control</h3>
+
+	<p>
+		Passing control simply involves pushing the return address onto the stack, and then jumping to the 
+		address of the first instruction in the procedure. The return address is 
+		the address of instruction immediately following the jump instruction (not the target instruction).
+		Whenever a procedure has finished executing, it returns by popping the stack and jumping to the instruction 
+		at the memory location specified by the popped value. 
+	</p>
+
+	<h3>Passing Data</h3>
+
+	<p>
+		Passing data is a bit more intricate. When a procedure calls another procedure, one of two things might happen, 
+		depending on the number of arguments of the called procedure. When the number of arguments is lower than some 
+		threshold (for x86-64 this number is 6), all arguments are passed via the registers. In this case, the called 
+		procedure may access the arguments by accessing the registers directly. In the exceptional case, when the number 
+		of arguments passes the threshold, all additional arguments re passed via the calling procedure's stack frame, in 
+		the argument buildup area. 
+	</p>
+
+	<h3>Local Storage</h3>
+
+	<p>
+		Procedures have local variables. In most cases, these variables are stored on the register. However, there 
+		are cases where the local variables have to be stored in memory. This can happen when there are not enough registers 
+		to hold all local data, the address operator is applied, or some of the variables are arrays or structures. 
+		In this case, the local variables are stored in the procedure's stack frame.
+	</p>
+
+	<p>
+		Also, a subset of the registers in a processor are classified as callee-saved registers. It is assumed 
+		that all called procedures will restore the value of these registers before they return. This means that 
+		a calling procedure can safely store data in these registers without having to worry that the called procedure 
+		might alter it. 
+	</p>
+
+	<h3>Recursive Procedures and Stack Overflow</h3>
+	
+	<p>
+		These conventions allow procedures to call themselves recursively, since each procedure will have its own 
+		private space on the stack. One way things can go wrong is when a recursive procedure goes into an infinite 
+		loop (perhaps it is poorly defined). The stack grows indefinitely until there isn't any more space in memory 
+		available for allocation for any additional procedures --- a stack overflow.
+	</p>
+	
+	<h3>Buffer Overflow Attacks</h3>
+
+	<p>
+		Another way things can go wrong is called buffer overflow. C does not perform bound checking for array 
+		references. This means that the stack can be corrupted by an out-of-bounds write to an array. Buffer overflow 
+		can be exploited by attackers, causing the system to execute unauthorized code. This is done by injecting 
+		the byte encoding of the exploit code onto the stack, and then modifying the return address to point to this 
+		exploit code.
+	</p>
+
+	<p>
+		There are several mechanisms for defending against buffer overflow attacks. Three of the most common mechanisms 
+		are stack randomization, stack protection, and limitting the region in memory that can hold executable code. 
+	</p>
+
+</body>
