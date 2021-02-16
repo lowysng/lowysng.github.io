@@ -3,7 +3,7 @@ body {
     margin: 2em 2em 30em 2em;
     max-width: 500px;
     /* background-color: #111111; */
-    background-image: linear-gradient(to bottom right, #111111, 70%, #444444);
+    background-image: linear-gradient(to bottom right, #111111, 70%, #333333);
     font-family: 'Open Sans', sans-serif;
     color: #dddddd;
 }
