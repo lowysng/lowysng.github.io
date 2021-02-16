@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>OS and Processes</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>OS and Processes</h2>
+		
+	<p>February 2021</p>
+
+	<h3>Operating Systems</h3>
+
+	<p>
+		A machine does work by executing instructions. The operating system (OS) is a piece 
+		of software that is in charge of making sure the machine executes instructions correctly 
+		and efficiently. 
+	</p>
+	
+	<p>	
+		The OS achieves this by providing a host of things: some means of virtualizing 
+		the CPU and memory, resource management, standard library (syscalls), file system, and 
+		concurrency management.
+	</p>
+
+	<h3>Processes</h3>
+		
+	<p>
+		One of the most fundamental abstractions provided by the OS is the process. 
+		Before it is ready to do some work, a process has to first be created by the OS. This involves 
+		loading the program's instructions from disk to memory and allocating some additional memory 
+		for the program's stack and heap. 
+	</p>
+
+	<p>
+		During its lifetime, a process may transition between several 
+		states. For instance, the OS may schedule or deschedule a process, causing it to transition to the 
+		running state or ready state, respectively. A process can also enter the blocked state, one 
+		example is when it initiates an I/O operation. Once a process has finished executing the entire program, 
+		the OS destroys the process and frees up all memory used by the process.
+	</p>
+
+	<p>
+		The OS keeps track of all running processes in a process list, along with some additional accounting 
+		information, such as which program is currently running, for instance. Furthermore, the OS also keeps track of
+		information about each individual process. For example, the register context of a stopped process holds 
+		the contents of the registers just before the process transitions into the stop state. 
+	</p>
+
+	<h3>Limited Direct Execution</h3>
+
+	<p>
+		The process abstraction itself does not solve the problem of running m programs on n 
+		processors, where m > n. This section discusses how the OS is able to virtualize the 
+		CPU efficiently while, at the same time, retaining control over the machine.
+	</p>
+
+	<p>
+		To ensure that a process does only the things it is supposed to, we introduce two modes 
+		that the processor can run in: user mode and kernel mode. Code that runs in user mode is 
+		restricted in what it can do. For instance, a piece of code running in user mode cannot issue 
+		I/O requests. In contrast, code that runs in kernel mode is free to do whatever it wants.
+	</p>
+
+	<p>
+		The OS (or kernel) always runs in kernel mode. Most processes in the process list run in user mode.  
+		A process that wants to perform some privileged operation 
+		must give up control and let the OS performs the operation on its behalf. 
+	</p>
+
+	<p>
+		To do this, the process performs a system call by executing a trap instruction. This raises the 
+		privilege level and causes control to be passed over to the OS. When the OS has finished performing 
+		the requested operation, it executes a return-from-trap instruction, which lowers the privilege level
+		back and returns control to the calling program. 
+	</p>
+
+	<p>
+		For security reasons, a program performs a system call by specifying an identifer called the 
+		system-call number (as opposed to jumping to the address of the target instruction). The syscall 
+		number is used to index a trap table, which specifies the location in memory of the trap handlers. The trap 
+		table is set up by the kernel at boot time. 
+	</p>
+
+	<h3>Regaining Control</h3>
+
+	<p>
+		How can the OS regain control of the processor while the processor is running in user mode? 
+		One approach is based on trust, that is, the OS assumes that any processes running in in user mode will 
+		issue a trap instruction eventually and pass control back to the OS. This approach is less than ideal. 
+		For example, the only fix to a program that is stuck in an infinite loop is to reboot the system.
+	</p>
+
+	<p>
+		A better approach is to use a timer interrupt. A timer interrupt is an interrupt that is raised every 
+		now and then. When the interrupt is raised, the current process halts, and control is passed back to 
+		the operating system, which runs a boot time-configured interrupt handler.
+	</p>
+
+	<h3>Context Switches</h3>
+
+	<p>
+		Anytime the OS regains control of the machine, it has to make the decision of whether to continue running 
+		the current process or switch to a new one. This decision is made by the scheduler, which we do not get into 
+		in this essay. Instead, we discuss context switches.
+	</p>
+
+	<p>
+		Simply put, the OS performs a context switch by saving the values of some registers for the currently-executing 
+		process, and restore them for the new process. 
+	</p>
+
+	<p>
+		Note that there is a subtle difference between the register saves/restores that occur during a trap 
+		instruction and those that occur in a context switch routine. Suppose that a context switch occurs from 
+		process A to process B. This context switch routine causes the system to move from running as if it just trapped 
+		into the kernel from A to as if it just trapped into the kernel from B.
+	<p>
+	
+</body>

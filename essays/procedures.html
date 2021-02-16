@@ -2,6 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Machine-Level Procedures</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../style.css" rel="stylesheet">
 </head>
 
@@ -51,7 +52,7 @@
 		depending on the number of arguments of the called procedure. When the number of arguments is lower than some 
 		threshold (for x86-64 this number is 6), all arguments are passed via the registers. In this case, the called 
 		procedure may access the arguments by accessing the registers directly. In the exceptional case, when the number 
-		of arguments passes the threshold, all additional arguments re passed via the calling procedure's stack frame, in 
+		of arguments passes the threshold, all additional arguments are passed via the calling procedure's stack frame in 
 		the argument buildup area. 
 	</p>
 
@@ -67,8 +68,8 @@
 	<p>
 		Also, a subset of the registers in a processor are classified as callee-saved registers. It is assumed 
 		that all called procedures will restore the value of these registers before they return. This means that 
-		a calling procedure can safely store data in these registers without having to worry that the called procedure 
-		might alter it. 
+		a calling procedure can safely store data in these registers without having to worry that they might get 
+		corrupted after a procedure call.  
 	</p>
 
 	<h3>Recursive Procedures and Stack Overflow</h3>
@@ -76,16 +77,18 @@
 	<p>
 		These conventions allow procedures to call themselves recursively, since each procedure will have its own 
 		private space on the stack. One way things can go wrong is when a recursive procedure goes into an infinite 
-		loop (perhaps it is poorly defined). The stack grows indefinitely until there isn't any more space in memory 
-		available for allocation for any additional procedures --- a stack overflow.
+		loop. The stack grows indefinitely until the address space gets fully occupied --- a stack overflow.
 	</p>
 	
 	<h3>Buffer Overflow Attacks</h3>
 
 	<p>
 		Another way things can go wrong is called buffer overflow. C does not perform bound checking for array 
-		references. This means that the stack can be corrupted by an out-of-bounds write to an array. Buffer overflow 
-		can be exploited by attackers, causing the system to execute unauthorized code. This is done by injecting 
+		references. This means that the stack can be corrupted by an out-of-bounds write to an array. 
+	</p>
+
+	<p>
+		Buffer overflow can be exploited by attackers, causing the system to execute unauthorized code. This is done by injecting 
 		the byte encoding of the exploit code onto the stack, and then modifying the return address to point to this 
 		exploit code.
 	</p>
