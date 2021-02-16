@@ -69,7 +69,7 @@
 	<p>
 		The OS (or kernel) always runs in kernel mode. Most processes in the process list run in user mode.  
 		A process that wants to perform some privileged operation 
-		must give up control and let the OS performs the operation on its behalf. 
+		must give up control and let the OS perform the operation on its behalf. 
 	</p>
 
 	<p>
@@ -90,14 +90,14 @@
 
 	<p>
 		How can the OS regain control of the processor while the processor is running in user mode? 
-		One approach is based on trust, that is, the OS assumes that any processes running in in user mode will 
+		One approach is based on trust, that is, the OS assumes that any processes running in user mode will 
 		issue a trap instruction eventually and pass control back to the OS. This approach is less than ideal. 
 		For example, the only fix to a program that is stuck in an infinite loop is to reboot the system.
 	</p>
 
 	<p>
-		A better approach is to use a timer interrupt. A timer interrupt is an interrupt that is raised every 
-		now and then. When the interrupt is raised, the current process halts, and control is passed back to 
+		A better approach is to use a timer interrupt. A timer interrupt is an interrupt that is raised in regular
+		intervals. When the interrupt is raised, the current process halts, and control is passed back to 
 		the operating system, which runs a boot time-configured interrupt handler.
 	</p>
 

@@ -2,9 +2,10 @@ body {
     width: 80%;
     margin: 2em 2em 30em 2em;
     max-width: 500px;
-    background-color: #111111;
+    /* background-color: #111111; */
+    background-image: linear-gradient(to bottom right, #111111, 70%, #444444);
     font-family: 'Open Sans', sans-serif;
-    color: #bbbbbb;
+    color: #dddddd;
 }
 
 h1, h2, h3, h4 {
@@ -23,7 +24,7 @@ p, li {
     padding: 1px 5px 3px;
     border: 1px solid #aaaaaa;
     border-radius: 2px;
-    color: #bbbbbb;
+    color: #dddddd;
     text-decoration: none;
 }
 
