@@ -44,3 +44,7 @@ hr {
 a {
     color: #bbbbbb;
 }
+
+ul.no-line-height li {
+	margin: 5px 0;
+}

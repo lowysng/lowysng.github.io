@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>!!! ENTER TITLE !!!</title>
+	<title>Scheduler</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../style.css" rel="stylesheet">
 </head>
@@ -9,8 +9,131 @@
 <body>
 	<a href="../index.html">Back</a>
 
-	<h2>TITLE</h2>
-	
-	<p>Hello, world!</p>
+	<h2>Scheduler</h2>
 
+	<p>February 2021</p>
+	
+	<p>
+		The scheduler is the part of the OS that decides which process gets allocated 
+		CPU time. There are various scheduling policies, each one optimizing for a 
+		specific scheduling metric.
+	</p>
+	
+	<p>
+		The turnaround time is the amount of time that has elapsed from a job arriving 
+		at the queue to its completion. The response time is the amount of time that has 
+		elapsed from a job arriving at the queue to the time when it was first run.
+		Turnaround time measures performance, whereas response time measures fairness.
+		There exists a tradeoff between performance and fairness --- you can't have both.
+	</p>
+
+	<h3>Basic Scheduling Policies</h3>
+	
+	<p>
+		First-In-First-Out: FIFO is conceptually simple and easy to implement. The downside 
+		to FIFO is that it is susceptible to the convoy effect: several short jobs getting 
+		queued behind one large job, resulting in high average turnaround.
+	</p>
+
+	<p>
+		Shortest-Job-First: SJF is the optimal solution for turnaround if all jobs arrive 
+		to the queue at the same time. This is an unreasonable assumption. An alternative 
+		to SJF is STCF (Shortest-Time-to-Completion-First), which is a preemptive version 
+		of SFJ. 
+	</p>
+
+	<p>
+		FIFO, SJF, and STCF all optimize for performance (turnaround time). The next policy optimizes 
+		for fairness (response time).
+	</p>
+
+	<p>
+		Round-Robin: RR runs a job for a time slice and then switches to the next job in the queue.
+		RR does very well in terms of response time, but the policy generates a lot of overheads
+		(context switches, caches, branch predictors etc.)
+	</p>
+
+	<p>
+		These basic scheduling policies assume that the amount of time required by a job 
+		is known the moment it arrives at the queue, which is a very bad assumption. The 
+		next scheduling policy we introduce does not make this assumption. 
+	</p>
+
+	<h3>Multi-Level Feedback Queue</h3>
+
+	<p>
+		MLFQ minimizes response time for interactive jobs while also minimizing turnaround 
+		time without a priori knowledge of job length. 	
+	</p>
+
+	<p>
+		MLFQ maintains multiple queues, each one with a different priority level. Each job is placed 
+		in one single queue at any given time. The job that is on a higher priority queue always runs first. 
+		If there are more than one job in a queue, RR is used to schedule among these jobs.
+		These mechanisms are summarized in Rule 1 and Rule 2 of the following list of MLFQ rules:
+	</p>
+
+	<ul class="no-line-height">
+		<li>Rule 1: Always run jobs with higher priority levels.</li>
+		<li>Rule 2: Use RR to schedule between jobs with the same priority level.</li>
+		<li>Rule 3: A new job always gets placed at the highest priority queue.</li>
+		<li>Rule 4: Once a job uses up its time allotment at a given level, its priority is reduced.</li>
+		<li>Rule 5: After some time period, all jobs in the system are moved to the highest priority queue.</li>
+	</ul>
+
+	<p>
+		When a job arrives in the queue, MLFQ assumes initially that it is a short job. If 
+		this is not the case, the job will slowly be moved down the queue, through a combination 
+		of Rule 3 and Rule 4. Rule 5 solves the problem of starvation.
+	</p>
+
+	<h3>Proportional Share Scheduler</h3>
+
+	<p>
+		A proportional share scheduler does not optimize for turnaround time or response time. Instead, it 
+		guarantees that each job obtains a certain percentage of CPU time.
+	</p>	
+
+	<p>
+		One example of propshare scheduling is lottery scheduling. In this policy, each process is given 
+		a number of tickets, and a lottery is held to determine which process gets allocated the CPU next. A lottery 
+		scheduler is nondeterministic. However, it approaches the desired outcome the longer the length of 
+		the jobs that arrive in the system. 
+	</p>
+
+	<p>
+		An alternative to lottery scheduling that is deterministic is stride scheduling, which uses the stride 
+		parameter (determined by ticket number), and maintains a state variable for each running process called pass. 
+		This pass variable is also the downside to stride scheduling --- performance is heavily affected whenever 
+		a new job arrives in the system.
+	</p>
+
+	<p>
+		Both lottery scheduling and stride scheduling use tickets to determine which job should be run next.
+		However, it is unclear how tickets should be allocated to the jobs in the first place. This problem, 
+		called the ticket assignment problem, remains open in scheduling theory.
+	</p>
+
+	<h3>Linux CFS</h3>
+	
+	<p>
+		The current Linux approach to proportional share scheduling is the Completely Fair Scheduler (CFS).
+		Each process in CFS accumulates vruntime as it runs. Whenever a scheduling decision has to be made, CFS 
+		always picks the process with the lowest vruntime. The frequency at which a scheduling decision is 
+		made is controlled by various parameters such as sched_latency and min_granularity.
+	</p>
+
+	<p>
+		Here's the kicker of CFS. The vruntime of a process does not always accumulate at the same rate as that of the other 
+		processes. A high priority process accumulates vruntime at a slower rate than a low priority one. 
+		The priority level of a process is set using the UNIX mechanism known as the nice level of a process. 
+		CFS maps each nice level to a weight, which is used to determine the rate at which a process accumulates vruntime.
+	</p>
+
+	<p>
+		For performance and efficiency reasons, CFS keeps track of all running processes (along with their vruntime) 
+		in a red-black tree. Note that any process that sleeps (or gets blocked) is removed from the tree. Whenever a 
+		process wakes up, it inherits the minimum vruntime of all the nodes in the tree. This is to prevent that process from 
+		taking over the CPU. 
+	</p>	
 </body>
