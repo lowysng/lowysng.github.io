@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Virtual Address Space</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Virtual Address Space</h2>
+	
+	<p>February 2021</p>
+
+	<p>
+		Virtualizing memory is one of the key job of an operating system.
+		Memory virtualization is motivated by the increase in popularity of 
+		time sharing in early computer systems.
+	</p>
+
+	<p>
+		One important concept in memory virtualization is the address space.
+		Each running program has its own private space 
+		in memory that contains information relevant to the running of that program.
+		Some of these information are the machine code that makes up the program, 
+		as well as the runtime heap and stack of the program.	
+	</p>
+	
+	<p>
+		This address space abstraction is provided and managed by the operating system.
+		The OS has to make sure that each process has access only to its own address 
+		space. The address space of other programs should be invisible. By doing so, 
+		the OS is able to enforce protection and isolation between the different 
+		running processes. 
+	</p>
+
+	<p>
+		Another consequence of the address space abstraction is that there are now 
+		two kinds of memory addresses: virtual addresses and physical addresses. 
+		Virtual addresses exist only within the context of a program's address space.
+		When a program makes a reference to memory, it does so via a virtual address.
+		It is up to the OS and the hardware to translate this into an actual physical
+		address in memory. This process is called address translation.
+	</p>
+
+	<h3>Base and Bounds</h3>
+
+	<p>
+		The most basic approach to implementing address translation is to use a pair of 
+		registers called the base register and the bounds (or limit) register. These 
+		registers reside within the memory management unit (MMU) of the processor. 
+	</p>
+
+	<p>
+		The base register is used to compute the physical address of a given virtual 
+		address. This is done simply by adding the virtual address to the value stored 
+		in the base register. 
+	</p>
+
+	<p>
+		When a process is created, the OS decides where in memory it should store the 
+		address space of this process. Once a decision has been made, the OS stores 
+		this location in the base register, which becomes a part of the register context 
+		of the program.
+	</p>
+
+	<p>
+		Note that this scheme allows the OS to change the location of the address space 
+		of a running program (which has to be descheduled first) by changing the value stored in 
+		the base register. Changing the base (and the bounds) registers are privileged 
+		operations --- they can only be performed by the OS. 
+	</p>
+
+	<p>
+		We've talked about the base. Now onto the bounds. The bounds register is there 
+		to prevent any kind of out-of-bounds references. An out-of-bounds reference is 
+		when a program tries to access memory outside its address space. When this happens, 
+		an exception is raised, which passes control back to the OS.
+	</p>
+
+	<p>
+		Base and bounds is simple, but it is non-optimal. The conventional way of arranging 
+		the address space of a program is to place the heap at one end of the address space 
+		and place the stack at the other end, both growing in opposite directions. When 
+		the heap and stack are not too big (which is most of the time), all the space in 
+		between gets wasted - a phenomena called internal fragmentation. 
+	</p>
+	
+	<h3>Segmentation</h3>
+	
+	<p>
+		The solution to internal fragmentation is segmentation. Segmentation is a generalization 
+		of base and bounds. Instead of having just one base and bounds pair in the MMU, 
+		we use three pairs, one for each logical segment (code, stack and heap). Each segment 
+		can be put independently in memory, without them having to be contiguous. 
+	</p>
+
+	<p>
+		Now that there are three types of base and bounds registers, the hardware needs 
+		some scheme of determining which type of segment an address is referring to. Once approach is 
+		to use the upper two bits of the virtual address to specify the segment. Also, since 
+		the stack grows in the opposite direction from the heap, one extra bit is used to 
+		specify which way the segment grows. These conventions ensure that the hardware is capable of 
+		computing the physical addresses correctly.	
+	</p>
+
+	<p>
+		One way of increasing efficiency is to allow memory segments to be shared between 
+		different address spaces. In particular, code sharing is common and still in use in 
+		systems today. To support sharing, extra support is needed from the hardware in the form 
+		of protection bits (read, write, execute).
+	</p>
+
+	<p>
+		Segmentation raises one very critical issue, namely the problem of external fragmentation.
+		External fragmentation happens when you have many small pockets of free space that sit between 
+		segments. These little pockets make it very difficult to allocate new segments for new processes, 
+		or grow existing ones. 
+	</p>
+
+	<p>
+		One solution is to compact memory periodically by rearranging the existing segments into 
+		one contiguous chunk. This method is less than ideal because copying segments is a very 
+		expensive operation. An alternative solution is to use a free-list management algorithm 
+		that tries to keep large extents of memory available for allocation.
+	</p>
+		
+</body>
