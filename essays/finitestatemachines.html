@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Finite State Machines</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Finite State Machines</h2>
+
+	<p>February 2021</p>	
+
+	<p>
+		The finite state machine is a very simple model of computation.
+		They are good models for computers with very limited amount of 
+		memory, such as an automatic door controller. 
+	</p>
+
+	<p>
+		Very simply, a finite state machine is a machine that has state. 
+		This machine is capable of "reading" symbols. The machine transitions 
+		from one state to another state, depending on what 
+		the current state is and what symbol was read. 
+	</p>
+
+	<p>
+		By feeding the machine a sequence of symbols (also called a string),
+		we can induce the machine into going through a series of states. This 
+		process of reading symbols and transitioning between states repeats
+		itself until the machine has read every symbol in the string.
+		This is the essence of what a computation is --- reading symbols 
+		and transitioning between states.
+	</p>
+
+	<p>
+		We can go a bit further and label some of the machine states as accept 
+		states. After reading the final symbol in a string, if the machine is 
+		in an accept state, we say that the machine accepts the string. 
+	</p>
+
+	<p>		
+		What we have done here is implicitly partition the set of all possible 
+		strings into two sets: the set of strings that are accepted by our 
+		machine, and those that are not accepted by our machine. We call the 
+		former set the language of the machine.	
+	</p>
+	
+	<h3>Regular Languages</h3>
+
+	<p>
+		Some strings are accepted by some finite state machine, but most 
+		strings aren't. There are some strings that no finite state machine 
+		can accept. Collect these strings together, put them in a set, and 
+		you get a non-regular language. In contrast, a regular language 
+		is a set of strings that are accepted by some finite state machine. 
+	</p>
+
+	<p>
+		A minor digression. A language (regular or nonregular) is 
+		a set of strings. There are three interesting operations that we can 
+		perform on languages. We call these the regular operations (we explain 
+		why they are called regular in a minute): 
+	</p>
+
+	<ul class="no-line-height">
+		<li>union: aggregate strings from both languages into one big language</li>
+		<li>concatenate: create a new language that consists of strings that 
+		are concatenation of strings from the first language and strings from 
+		the second language</li>
+		<li>A*: create a new language that consists of strings from the original 
+		language concatenated 0 or more times.</li>
+	</ul>
+
+	<p>
+		Here is the kicker. The set of regular languages is closed under these 
+		three operations. This means that, when you take any languages that are 
+		regular, and you apply any one of these operations on these languages, 
+		you get another language that is itself regular! This is not at all 
+		obvious because intuition might suggest (at least for concatenate and A*) 
+		that these operations could yield nonregular languages, since the 
+		language space has been heavily altered.
+	</p>
+
+	<p>
+		Since a language is a set of strings, it is natural to use set notation 
+		to describe a language. This is not the only way. We can also 
+		use the regular operations to describe languages. For instance, both of the 
+		following expressions describe the same language (assuming alphabet = {0, 1}):
+	</p>
+	
+	<ol class="no-line-height">
+		<li>L = {w | w ends with a 1}</li>
+		<li>L = (0 U 1)*1</li>
+	</ol>
+
+	<p>
+		The second expression is called a regular expression. In this regular expression, 
+		all three regular operations were used in describing L (the concatenate 
+		operation is written implicitly).
+	</p>
+
+	<p>
+		Here is another kicker, this time on regular expressions. The set of 
+		languages that can be described by a regular expression is exactly the 
+		set of languages that are regular! In other words, whatever regular expression 
+		you can come up with, no matter how hairy it is, it is possible to 
+		create a finite state machine that recognizes the language described 
+		by your regular expression. 
+	</p>
+
+	<p>
+		Conversely, if you design a finite state machine that has 2^100 states, 
+		it is possible to write a (very convoluted) regular expression that describes 
+		the language recognized by your giant machine.
+	</p>
+
+	<h3>Nondeterminism and Nonregular Languages</h3>
+
+	<p>
+		Recall that a finite state machine transitions from one state to another state 
+		everytime it reads a symbol. One variant of the finite state machine, called a 
+		nondeterministic finite state machine (NFA), operates in a slightly different manner. 
+		Instead of being in exactly one state at any given moment, an NFA is capable of 
+		being in multiple states at a given time.
+	</p>
+
+	<p>
+		For every finite state machine, it is possible to design an equivalent 
+		NFA that computes the same thing as the finite state machine (and vice versa). 
+		In most cases, the nondeterministic version of a machine is preferred over 
+		the deterministic version because it has a more concise and simpler representation.
+	</p>
+
+	<p>
+		Recall again that a regular language is a language that is recognized by some 
+		finite state machine. To show that a given language is regular, you can either 
+		specify a regular expression that describes the language or build a finite state 
+		machine that recognizes the language. 
+	</p>
+
+	<p>
+		To show that a language is nonregular, however, is slightly trickier. We will 
+		need to use the pumping lemma, which states that any regular language has a 
+		pumping length where for any string s in the language that has length at least 
+		the pumping length, s can be pumped. By "pumped" we mean that there is a substring in s that 
+		can be repeated multiple times, and in all cases the resulting string is in 
+		the language.
+	</p>
+
+	<p>
+		The standard method for proving that a language is nonregular is to use proof by 
+		contradiction. Suppose that the language is regular, and show that there is a string 
+		that is at least the length of the pumping length that cannot be pumped. This is a 
+		contradiction, therefore it must be the case that the language is nonregular.
+	</p>
+</body>
