@@ -12,5 +12,76 @@
 	<h2>Processor Architecture</h2>
 	
 	<p>February 2021</p>	
+	
+	<p>	
+		A processor does work simply in the form of accessing and 
+		modifying the program registers, the condition codes, the 
+		program counter, and memory. When we write a program, we are 
+		essentially writing a sequence of these activities that the 
+		processor has to follow. 
+	</p>
+
+	<h3>Instruction Set Architecture</h3>
+		
+	<p>
+		The set of instructions of a processor constitutes its 
+		instruction set architecture (ISA). In addition to specfiying 
+		what each instruction does, the ISA also specifies how the 
+		instructions are encoded in terms bits. 
+	</p>
+
+	<p>
+		Each instruction has an opcode that indicates the instruction 
+		class. Some instructions have a function code that specifies a 
+		particular instruction type within a class. 
+		Most ISAs support the following classes of instructions: data 
+		moves, ALU operations (eg. add, multiply, bitwise AND etc), 
+		jumps, and stack operations (push and pop). 
+	</p>
+
+	<p>
+		Some instructions have bits that specify which registers 
+		to use as the operands. Each register in the processor has a 
+		unique identifier. The CPU maintains a mapping of the registers 
+		to their identifiers in a register file. 
+	</p>
+
+	<h3>Hardware</h3>
+
+	<p>
+		Logic gates are the basic buiding blocks of a computer system. 
+		They implement Boolean functions such as AND and OR. Through 
+		combinations of these logic gates, we can construct highly 
+		complex digital circuits that generate nontrivial behaviors, 
+		such as adding two numbers together.
+	</p>
+
+	<p>
+		Combinational circuits that are built solely out of logic gates 
+		cannot store information. To build a computer, we need 
+		stateful hardware capable of storing state information. Two 
+		components that fall under this category are clocked registers 
+		and memory devices.
+	</p>
+
+	<p>
+		A clocked register works as follows: the output of the register 
+		always remains held at the current register state, regardless of 
+		what the input is. The register state changes to the input only 
+		when the clock input rises, ie. goes from low to high. Memory 
+		devices operate in a similar fashion.
+	</p>
+	
+	<h3>Sequential Processors</h3>
+
+	<p>
+
+	</p>
+
+	<h3>Pipelined Processors</h3>
+
+	<p>
+
+	</p>
 
 </body>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Paging</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Paging</h2>
+	
+	<p>February 2021</p>
+
+	<p>
+		The core idea of paging is to divide physical memory into equally-sized chunks called page frames.
+		Similarly, the virtual address space of a process is divided into equally-sized virtual pages. Each 
+		virtual page maps to a physical page frame.
+	</p>
+
+	<h3>Page Table</h3>
+	
+	<p>
+		This mapping information is stored in a per-process data structure called a page table. The simplest 
+		page table is simply an array (also a linear page table). This array is indexed by the virtual page 
+		number of a process. The entries of this array are called the page table entries (PTEs).
+	</p>
+	
+	<p>
+		Each PTE contains a number of useful information. Most importantly, it contains the physical frame 
+		number for this virtual page. Additionally, the PTE also contains a valid bit that indicates whether 
+		a translation is valid, protection bits for specifying read, write and execute permissions, a present 
+		bit for page swapping (see <a href="#" >Swapping</a>), a reference bit for caching, a dirty bit, and 
+		so on.
+	</p>
+
+	<p>
+		Linear paging on its own is very slow. For every memory reference, linear paging requires us to perform 
+		one extra memory reference into the linear page table. To speed things up, a hardware cache called a 
+		translation-lookaside buffer (TLB) is installed in the memory management unit of the CPU. This TLB operates 
+		like most typical caches, it exploits temporal locality and spatial locality by storing the most recently 
+		performed address translations. 
+	</p>
+
+	<p>
+		Another issue with linear paging is that the page tables themselves can use up significant amounts of 
+		memory. A very straightforward solution is to use larger page sizes (less entries per table of the same size). 
+		This solution is less than ideal because large page sizes tend to be wasteful due to internal fragmentation. 
+	</p>
+
+	<p>
+		An alternative solution is to use a hybrid of paging and segmentations. Instead of using one page 
+		table per process, we use multiple page tables, one per logical segment of the process. This solution 
+		is also not ideal because segmentation leads to external fragmentation, making it hard for the OS to 
+		allocate memory for additional segments.
+	</p>
+
+	<h3>Multi-Level Page Tables</h3>
+
+	<p>
+		A alternative to linear paging is to use multi-level page tables.
+		In multi-level paging, each page table is itself divided into equally-sized chunks. Each page table chunk 
+		becomes an entry in a new data structure called a page directory. If all the PTEs in a page table chunk 
+		are invalid, then we can mark the corresponding page directory entry as invalid and not allocate any 
+		physical memory for that chunk of the page table.
+	</p>
+
+	<p>
+		The advantages of multi-level paging are straightforward. The size of each page table is now proportional 
+		to the amount of page table entries that are valid in that table. The resulting page tables are more efficient 
+		and less wasteful. Also, if the page table chunks themselves are of the same size as the physical page frames,
+		then it becomes very easy for the OS to allocate memory for additional page table chunks.
+	</p>
+
+	<p>
+		However, one downside of multi-level paging is that TLB misses are now more expensive. Assuming a 2-level page table, each TLB 
+		misses now requires two memory references, one to index the page directory, another to index the page table 
+		chunk pointed by the page directory. 
+	</p>
+
+	<h3>Inverted Page Tables</h3>
+
+	<p>
+		Instead of maintaining multiple page tables, one for each running process in the system, the OS can use one single table 
+		that has an entry for each physical page frame of the system. This table is called an inverted page table. 
+	</p>
+
+	<p>
+		Each entry in an inverted page table indicates the process that is using this page, along with the virtual 
+		page number of that process that maps to this particular physical page. In this approach, address translation 
+		is performed simply by searching through this single table.
+	</p>
+
+</body>
