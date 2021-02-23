@@ -14,7 +14,7 @@
 	<p>February 2021</p>
 
 	<p>
-		Virtualizing memory is one of the key job of an operating system.
+		Virtualizing memory is one of the key jobs of an operating system.
 		Memory virtualization is motivated by the increase in popularity of 
 		time sharing in early computer systems.
 	</p>
@@ -99,25 +99,19 @@
 	</p>
 
 	<p>
-		Segmentation raises one very critical issue, namely the problem of external fragmentation.
-		External fragmentation happens when you have many small pockets of free space that sit between 
-		segments. These little pockets make it very difficult to allocate new segments for new processes, 
-		or grow existing ones. 
+		Segmentation solves the problem of internal fragmentation, but it introduces another problem 
+		--- external fragmentation. An external fragmentation occurs when you have a large 
+		number of small pockets of free space between segments, making it difficult to allocate 
+		memory for new segments. 	
 	</p>
-
+	
 	<p>
 		One solution is to compact memory periodically by rearranging the existing segments into 
 		one contiguous chunk. This method is less than ideal because copying segments is a very 
 		expensive operation. An alternative solution is to use space management algorithms to allocate 
 		and free memory in a manner that minimizes external fragmentation. 
+		See <a href="./paging.html">Paging</a>.
 	</p>
 
-	<p>
-		Segmentation solves the problem of internal fragmentation, but it introduces another problem 
-		--- external fragmentation. An external fragmentation occurs when you have a large 
-		number of small pockets of free space between segments, making it difficult to allocate 
-		memory for new segments. See <a href="./paging.html">Paging</a> for more details on addressing 
-		external fragmentation.
-	</p>
 		
 </body>

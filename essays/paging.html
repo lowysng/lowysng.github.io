@@ -19,7 +19,7 @@
 		virtual page maps to a physical page frame.
 	</p>
 
-	<h3>Page Table</h3>
+	<h3>Page Tables</h3>
 	
 	<p>
 		This mapping information is stored in a per-process data structure called a page table. The simplest 
@@ -92,4 +92,49 @@
 		is performed simply by searching through this single table.
 	</p>
 
+	<h3>Page Swapping</h3>
+	
+	<p>
+		It is difficult (or impossible) to fit the address space of all running processes in physical memory at one go. 
+		To support a large virtual address space, the OS will have to reserve some additional space lower down in the 
+		memory hierarchy. This space is called the swap space, because pages are swapped in to and out of this space.
+		A present bit in the PTE of a page indicates whether the page is currently residing in physical memory or in 
+		the swap space.
+	</p>	
+
+	<p>
+		A page fault occurs when a page not currently residing in physical memory is accessed. Page faults are addressed 
+		by the OS via page fault handlers --- the OS moves the requested page(s) into physical memory. The location 
+		of the a page in the swap space is stored in the PTE of the page. 
+	</p>
+
+	<p>
+		Whenever the amount of free space in physical memory is lower than some threshold (called the lower watermark), 
+		the OS runs a background thread (called the swap daemon or page daemon) that evicts pages continually until the 
+		amount of free space becomes at least some value (called the high watermark). Typically, pages are clustered 
+		and wrote out at one go to improve efficiency (eg. reduce seek and rotational overheads of disks).
+	</p>
+
+	<p>
+		Some common page replacement policies are FIFO, the random policy, and LRU. In the general case, LRU is the best 
+		approach (random policy is better than LRU in certain edge cases, eg. in a looping-sequential workload). LRU 
+		is hard to implement because the OS has to do a lot of overhead work (once every memory reference).  
+	</p>
+
+	<p>	
+		Instead, policies that approximate LRU are used.
+		One approach is to use the linear time clock algorithm --- arrange pages in a circular list, and, using a persistent 
+		pointer, search for a page with its reference bit set to 0 (a reference bit of 1 indicates a page that was recently 
+		used). This page is evicted out of physical memory. Clean pages are preferred over dirty pages because a clean page 
+		can be evicted freely, whereas a dirty page, when evicted, has to be rewritten back into disk. 
+	</p>
+	
+	<p>
+		It is possible for the memory demand of the running processes to exceed the available physical memory. 
+		This results in a system that is constantly paging, a condition known as thrashing. The OS needs to 
+		be able to detect when thrashing occurs, and be able to cope with them. One method is called admission 
+		control, allowing only a subset of all the processes to run at a given time. Another method is to run 
+		an out-of-memory killer daemon that finds and terminates memory intensive processes. 
+	</p>
+	
 </body>
