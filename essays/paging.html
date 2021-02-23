@@ -31,8 +31,7 @@
 		Each PTE contains a number of useful information. Most importantly, it contains the physical frame 
 		number for this virtual page. Additionally, the PTE also contains a valid bit that indicates whether 
 		a translation is valid, protection bits for specifying read, write and execute permissions, a present 
-		bit for page swapping (see <a href="#" >Swapping</a>), a reference bit for caching, a dirty bit, and 
-		so on.
+		bit for page swapping, a reference bit for caching, a dirty bit, and so on.
 	</p>
 
 	<p>
@@ -52,7 +51,7 @@
 	<p>
 		An alternative solution is to use a hybrid of paging and segmentations. Instead of using one page 
 		table per process, we use multiple page tables, one per logical segment of the process. This solution 
-		is also not ideal because segmentation leads to external fragmentation, making it hard for the OS to 
+		is also not ideal because segmentation leads to external fragmentation, which makes it hard for the OS to 
 		allocate memory for additional segments.
 	</p>
 
@@ -76,7 +75,7 @@
 	<p>
 		However, one downside of multi-level paging is that TLB misses are now more expensive. Assuming a 2-level page table, each TLB 
 		misses now requires two memory references, one to index the page directory, another to index the page table 
-		chunk pointed by the page directory. 
+		chunk pointed to by the page directory. 
 	</p>
 
 	<h3>Inverted Page Tables</h3>
@@ -87,15 +86,15 @@
 	</p>
 
 	<p>
-		Each entry in an inverted page table indicates the process that is using this page, along with the virtual 
-		page number of that process that maps to this particular physical page. In this approach, address translation 
-		is performed simply by searching through this single table.
+		Each entry in an inverted page table indicates the process that is using this physical frame, along with the virtual 
+		page number of that process that maps to this particular frame. In this approach, address translation 
+		is performed simply by searching through this table.
 	</p>
 
 	<h3>Page Swapping</h3>
 	
 	<p>
-		It is difficult (or impossible) to fit the address space of all running processes in physical memory at one go. 
+		It is difficult and inefficient to fit the address space of all running processes in physical memory at once. 
 		To support a large virtual address space, the OS will have to reserve some additional space lower down in the 
 		memory hierarchy. This space is called the swap space, because pages are swapped in to and out of this space.
 		A present bit in the PTE of a page indicates whether the page is currently residing in physical memory or in 
@@ -105,7 +104,7 @@
 	<p>
 		A page fault occurs when a page not currently residing in physical memory is accessed. Page faults are addressed 
 		by the OS via page fault handlers --- the OS moves the requested page(s) into physical memory. The location 
-		of the a page in the swap space is stored in the PTE of the page. 
+		of a page in the swap space is stored in the PTE of that page. 
 	</p>
 
 	<p>
@@ -124,13 +123,13 @@
 	<p>	
 		Instead, policies that approximate LRU are used.
 		One approach is to use the linear time clock algorithm --- arrange pages in a circular list, and, using a persistent 
-		pointer, search for a page with its reference bit set to 0 (a reference bit of 1 indicates a page that was recently 
+		pointer, search linearly down the list for a page with its reference bit set to 0 (a reference bit of 1 indicates a page that was recently 
 		used). This page is evicted out of physical memory. Clean pages are preferred over dirty pages because a clean page 
 		can be evicted freely, whereas a dirty page, when evicted, has to be rewritten back into disk. 
 	</p>
 	
 	<p>
-		It is possible for the memory demand of the running processes to exceed the available physical memory. 
+		It is still possible for the memory demand of the running processes to exceed those provided by physical memory. 
 		This results in a system that is constantly paging, a condition known as thrashing. The OS needs to 
 		be able to detect when thrashing occurs, and be able to cope with them. One method is called admission 
 		control, allowing only a subset of all the processes to run at a given time. Another method is to run 
