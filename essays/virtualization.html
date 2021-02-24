@@ -45,7 +45,8 @@
 
 	<p>
 		Since the OS is itself a piece of software, an OS that is currently running on a machine 
-		is itself a process! This raises one very tricky problem: when the processor is running 
+		is itself a process! When the OS allocates the processor to a process, the OS is, by 
+		definition, not running. This raises one very tricky problem: when the processor is running 
 		a user process (non-OS process), how can the OS ensure that the user process does only 
 		the things it is supposed to do, and, when this is not the case, regain control of the 
 		processor and the machine? 
@@ -69,7 +70,7 @@
 	</p>
 
 	<p>
-		When the interrupt handler is invoked and control is passed back to the OS, the OS 
+		Whenever control is passed back to the OS (either willingly or unwillingly), the OS 
 		has to decide whether to continue running the current process or switch to a new one.
 		The algorithm that decides this is called the scheduler. There are several popular 
 		scheduling policies: First-In-First-Out, Shortest-Job-First, Shortest-Time-to-Completion-First,
@@ -81,8 +82,9 @@
 	<p>
 		When the OS decides to switch to a new process, it performs a context switch, saving 
 		the register context for the currently-executing process, and restoring the register 
-		context for the new process. The register context is the contents of the register 
-		while the program is running. 
+		context for the new process. This information is stored in and retrieved from the kernel 
+		stack. The register context is just the contents of the register while the program is running. 
+		The context switch is the primary method by which the OS virtualizes the processor.
 	</p>
 
 	<h3>Memory: Virtualizing Memory, Virtual Address Space, Page Table, Page Swapping, Thrashing</h3>
@@ -138,15 +140,15 @@
 	<p>
 		It is unreasonable to fit the address space of all currently running processes in physical memory 
 		at once. To address this issue, the OS will have to reserve additional space lower down 
-		in the memory hierarchy (typically the disk). This space is called the swap space because 
+		in the memory hierarchy (typically the disk). This space is called the swap space, because 
 		pages are swapped into and out of this space. A present bit in the PTE indicates whether 
 		a page is currently residing in physical memory or in disk.
 	</p>
 	
 	<p>
 		When a reference is made to a page that is not currently residing in physical memory, 
-		the page fault handler of the OS is invoked. The requested page is identified and moved 
-		into memory. 
+		the page fault handler of the OS is invoked. The location of the requested page in disk 
+		is identified. Then, the page is moved from disk into memory. 
 	</p>
 
 	<p>
@@ -168,9 +170,9 @@
 		Despite this, it is still possible for the memory demand of the machine to exceed those 
 		supplied by physical memory. This results in a system that is constantly paging, a 
 		condition known as thrashing. The OS needs to be able to detect when thrashing occurs, 
-		and be able to cope with them. Two methods for addressing thrashing is to limit the 
-		number of processes that are allowed to run or to run an out-of-memory killer daemon 
-		that finds and terminates memory-intensive processes.
+		and it needs to be able to cope with them. The OS can either limit the number of processes 
+		that are allowed to run, or it can run an out-of-memory killer daemon that finds and 
+		terminates memory-intensive processes.
 	</p>
 	
 </body>
