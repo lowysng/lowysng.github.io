@@ -72,16 +72,95 @@
 		devices operate in a similar fashion.
 	</p>
 	
-	<h3>Sequential Processors</h3>
+	<h3>Instruction Processing</h3>
 
 	<p>
-
+		Before diving into pipelined processors, it helps to look at processors 
+		that are implemented sequentially. An instruction is processed by the 
+		processor in several distinct stages. In a sequential processors, all 
+		these different stages are performed within one clock cycle, resulting 
+		in a long cycle time and low clock rate.
 	</p>
 
-	<h3>Pipelined Processors</h3>
+	<p>
+		The first stage is the fetch stage. In this stage the instruction 
+		specified by the program counter is fetched from memory. Additionally, 
+		the opcode of the instruction is extracted, and depending on what 
+		the opcode is, the processor may extract additional bytes such as 
+		the function code, the register specifier, or an immediate constant word.
+		The processor also computes the address of the next instruction.
+	</p>
 
 	<p>
+		Next is the decode stage, where the processor reads up to two operands 
+		from the register file. These registers may be specified by the operands 
+		themselves, or, in some cases, they may extract the value referred to by 
+		the stack pointer. Then comes the execute stage. The ALU plays a key role
+		in this stage. The branch that is executed in a conditional move or jump 
+		is also determined in this stage.
+	</p>
 
+	<p>
+		In the fourth stage --- the memory stage, the processor 
+		may read data from memory or write data into memory, depending on what the 
+		opcode is. Then comes the write-back stage --- the processor updates the 
+		contents of up to two registers in the register file. Finally, the PC 
+		update stage sets the program counter register to the address of the
+		next instruction.
+	</p>
+
+	<h3>Pipelining</h3>
+
+	<p>
+		The biggest difference between a pipelined processor and a non-pipelined 
+		processor is that, in a pipelined processor, multiple instructions are 
+		processed at the same time within the same clock cycle. 
+	</p>
+
+	<p>
+		Pipelining increases the throughput of the processor by decreasing the clock rate.
+		This comes at the expense of more hardware (need to add pipeline registers)
+		and a slight increase in latency (total time required to perform one instruction).
+	</p>
+
+	<p>
+		Pipelining also introduces another critical issue --- pipeline hazards. 
+		A pipeline hazard occurs when there is a data dependency or control dependency 
+		between successive instructions. Pipeline hazards should be avoided 
+		because they change the behavior of a program.
+	</p>
+
+	<p>
+		One technique for addressing data hazards is to forward computation results from a 
+		stage further down the pipeline directly back to an earlier stage of the pipeline. 
+		Load/use hazards is a type of data hazards that cannot be handled purely by forwarding 
+		alone. This type of data hazards is avoided using a combination of forwarding 
+		and stalling, which decreases the throughput slightly.
+	</p>
+
+	<p>
+		In addition to data hazards, another class of pipeline hazards, known as control 
+		hazards, occur when there is a control dependency between successive instructions. 
+		Control hazards can occur when there is a return instruction or a condition instruction 
+		in the pipeline. 
+	</p>
+
+	<p>
+		In a return instruction, the return 
+		address is not known until the memory stage, which occurs late in the pipeline. Whenever 
+		a return instruction enters the pipeline, the immediately following instructions 
+		are stalled until the return instruction reaches the write-back stage (after the 
+		memory stage). This results in a slighlty decreased throughput.
+	</p>
+
+	<p>
+		The instructions immediately following a conditional jump instruction are 
+		predicted when the jump instruction enters the fetch stage. The result of 
+		the conditional is not known until the execute stage. When this occurs, either 
+		the branch was predicted correctly or it was predicted incorrectly. In the 
+		case of a misprediction, the instructions immediately preceding the jump 
+		instruction that are now in the pipeline are flushed, and the correct 
+		instructions are fetched from memory.  
 	</p>
 
 </body>
