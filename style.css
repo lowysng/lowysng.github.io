@@ -1,11 +1,16 @@
+@font-face {
+	font-family: "source-serif-pro";
+	src: url("./SourceSerifPro-Light.ttf");
+}
+
 body {
     width: 80%;
     margin: 2em 2em 30em 2em;
-    max-width: 500px;
-    /* background-color: #111111; */
-    background-image: linear-gradient(to bottom right, #111111, 70%, #333333);
-    font-family: 'Open Sans', sans-serif;
-    color: #dddddd;
+    max-width: 550px;
+    /* background-color: #000; */
+    background-image: linear-gradient(to bottom right, #000, 70%, #333333);
+    font-family: 'source-serif-pro', 'Open Sans', sans-serif;
+    color: #fff;
 }
 
 h1, h2, h3, h4 {
@@ -17,20 +22,20 @@ li {
 }
 
 p, li {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .link {
     padding: 1px 5px 3px;
     border: 1px solid #aaaaaa;
     border-radius: 2px;
-    color: #dddddd;
+    color: #fff;
     text-decoration: none;
 }
 
 .link:hover {
-    background-color: #bbbbbb;
-    color: #111111;
+    background-color: #fff;
+    color: #000;
 }
 
 .code {

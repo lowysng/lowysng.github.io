@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Virtualization</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Virtualization</h2>
+	
+	<p>February 2021</p>
+
+	<h3>Process: Virtualizing CPU, User Mode and Kernel Mode, Timer Interrupts, Scheduling, Context Switches </h3>
+
+	<p>
+		A machine does work by executing a series of instructions called a program. An executing 
+		(or running) program is called a process. This process abstraction is provided and managed 
+		by the operating system (OS).
+	</p>
+
+	<p>
+		Very often we want to run m processes on n processors where m > n. This is achieved with 
+		the help of the OS, using a technique called CPU virtualization. To understand CPU 
+		virtualization, it helps to look at a process as a series of transitions of the machine 
+		state. The machine state consists of a number of different components of the machine, but 
+		the most critical ones are the registers and memory. These two components are constantly 
+		accessed and modified by any process.
+	</p>
+
+	<p>
+		From this perspective, the idea of a process becomes clear. A process is either running 
+		or not running. When a process is running, it is constantly accessing and updating registers 
+		and memory. In contrast, a process that is not running does not modify the machine state. 	
+	</p>
+
+	<p>
+		One of the responsibilities of the OS is to manage and keep track of all running processes 
+		in a system. The OS achieves this via a process list. All running processes can be found 
+		in this list, along with information about each individual process such as the process state 
+		and the register context for that process.
+	</p>
+
+	<p>
+		Since the OS is itself a piece of software, an OS that is currently running on a machine 
+		is itself a process! This raises one very tricky problem: when the processor is running 
+		a user process (non-OS process), how can the OS ensure that the user process does only 
+		the things it is supposed to do, and, when this is not the case, regain control of the 
+		processor and the machine? 
+	</p>
+
+	<p>
+		The solution to this is twofold. First, we introduce two modes that the processor can 
+		run in: user mode and kernel mode. Code that runs in user mode is restricted in what 
+		it can do. In constrast, code that runs in kernel mode is allowed to run without 
+		restrictions. The OS always runs in kernel mode. Most processes in the process list run 
+		in user mode. A user process that wants to perform a privileged operation must give up 
+		control and let the OS perform the operation on its behalf.
+	</p>
+
+	<p>
+		Second, we install a timer device into the machine. This device raises an interrupt 
+		every time the timer runs out. When a timer interrupt is raised, the currently running 
+		process is stopped, and a pre-configured interrupt handler in the OS runs, effectively 
+		passing control back to the OS. The purpose of this timer device is to ensure that no 
+		rogue process is able to take over the machine.
+	</p>
+
+	<p>
+		When the interrupt handler is invoked and control is passed back to the OS, the OS 
+		has to decide whether to continue running the current process or switch to a new one.
+		The algorithm that decides this is called the scheduler. There are several popular 
+		scheduling policies: First-In-First-Out, Shortest-Job-First, Shortest-Time-to-Completion-First,
+		Round-Robin, Multi-Level Feedback Queue, lottery scheduling, stride scheduler, the 
+		Linux Completely Fair Scheduler etc. See <a href="./scheduler.html">Scheduler</a> 
+		for more details.
+	</p>
+
+	<p>
+		When the OS decides to switch to a new process, it performs a context switch, saving 
+		the register context for the currently-executing process, and restoring the register 
+		context for the new process. The register context is the contents of the register 
+		while the program is running. 
+	</p>
+
+	<h3>Memory: Virtualizing Memory, Virtual Address Space, Page Table, Page Swapping, Thrashing</h3>
+	
+	<p>
+		In addition to virtualizing the processor, the OS also virtualizes another  
+		component of the machine --- memory. Rather than accessing physical memory directly,
+		processes access a virtualized form of physical memory called the address space. Each 
+		process has its own address space that contains everything the process needs to run 
+		properly: the instructions that make up the program, and the process's stack and heap. 
+	</p>
+	
+	<p>
+		The OS enforces isolation and protection between the processes by making sure that each 
+		process has access only to its own address space. Whenever a process tries to access 
+		memory outside its own address space, an exception is raised and the OS takes over. 
+	</p>
+
+	<p>
+		One consequence of the address space abstraction is that there are now two kinds of 
+		addresses: virtual addresses and physical addresses. Virtual addresses exist only 
+		within the context of a process's address space. Whenever a process makes a reference 
+		to memory, it always does so via a virtual address. It is up to the OS to translate 
+		this virtual address into an actual physical address. Address translation is sped up 
+		with the help of a hardware cache called the translation lookaside buffer (TLB).
+	</p>
+
+	<p>
+		How should the OS organize physical memory in order to support the address space 
+		abstraction? One solution is paging. The core idea behind paging is to divide physical 
+		memory into equal-sized chunks called page frames. Similarly, the virtual address space 
+		of a process is divided into same-sized chunks called virtual pages. Each virtual page 
+		of the process's address space maps to a physical page frame.
+	</p>
+
+	<p>
+		The mapping from the virtual pages of a process's address space to the page frames of 
+		physical memory is stored in a per-process data structure called the page table. The 
+		virtual page number is used to index the page table. The entries of this table are 
+		called the page table entries (PTEs). Each PTE holds a number of useful information. 
+		The most critical information is the corresponding physical page frame mapped to by 
+		this particular virtual page.
+	</p>
+
+	<p>
+		For efficiency reasons, page tables are typically arranged in multiple levels. A page 
+		table is broken up into equal-sized page table chunks, and these page table chunks are 
+		stored in a data structure called the page directory. To find the PTE of a particular 
+		virtual page, search through the page directory to find the page table chunk that contains 
+		the PTE. Then, look inside this page table chunk to find and extract the actual PTE.
+	</p>
+
+	<p>
+		It is unreasonable to fit the address space of all currently running processes in physical memory 
+		at once. To address this issue, the OS will have to reserve additional space lower down 
+		in the memory hierarchy (typically the disk). This space is called the swap space because 
+		pages are swapped into and out of this space. A present bit in the PTE indicates whether 
+		a page is currently residing in physical memory or in disk.
+	</p>
+	
+	<p>
+		When a reference is made to a page that is not currently residing in physical memory, 
+		the page fault handler of the OS is invoked. The requested page is identified and moved 
+		into memory. 
+	</p>
+
+	<p>
+		The OS will try to keep some parts of phsyical memory vacant. When the amount of free 
+		space is lower than some threshold (low watermark), the OS runs a background thread 
+		called the swap daemon that evicts pages continually until the amount of free space 
+		becomes at least some value (high watermark). 
+	</p>
+
+	<p>
+		The manner in which pages get evicted depends on the eviction policy. Examples of some 
+		eviction policies: First-In-First-Out,random eviction, Least-Recently-Used etc. 
+		In the general case, the best approach is to use LRU. Additionally, when evicting pages, 
+		clean pages are preferred over dirty pages because dirty pages need to be rewritten into 
+		disk before they can be evicted.
+	</p>
+
+	<p>
+		Despite this, it is still possible for the memory demand of the machine to exceed those 
+		supplied by physical memory. This results in a system that is constantly paging, a 
+		condition known as thrashing. The OS needs to be able to detect when thrashing occurs, 
+		and be able to cope with them. Two methods for addressing thrashing is to limit the 
+		number of processes that are allowed to run or to run an out-of-memory killer daemon 
+		that finds and terminates memory-intensive processes.
+	</p>
+	
+</body>
