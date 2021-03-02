@@ -152,14 +152,14 @@
 	</p>
 
 	<p>
-		The OS will try to keep some parts of phsyical memory vacant. When the amount of free 
+		The OS will try to keep some parts of physical memory vacant. When the amount of free 
 		space is lower than some threshold (low watermark), the OS runs a background thread 
 		called the swap daemon that evicts pages continually until the amount of free space 
 		becomes at least some value (high watermark). 
 	</p>
 
 	<p>
-		The manner in which pages get evicted depends on the eviction policy. Examples of some 
+		The manner in which pages get evicted depends on the eviction policy. Some example 
 		eviction policies: First-In-First-Out,random eviction, Least-Recently-Used etc. 
 		In the general case, the best approach is to use LRU. Additionally, when evicting pages, 
 		clean pages are preferred over dirty pages because dirty pages need to be rewritten into 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Concurrency</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Concurrency</h2>
+	
+	<p>March 2021</p>
+
+	<h3>Threads</h3>
+	
+	<p>
+		A <a href="./os+processes.html">process</a> can either be single-threaded or multi-threaded. 
+		A multi-threaded process has multiple points of execution --- 
+		two or more threads can run concurrently. These threads can be thought of as separate processes,
+		except for one key difference --- threads that make up a process share the same 
+		<a href="./addressspace.html">address space</a>. 
+	</p>
+
+	<p>
+		Multi-threaded programs are faster than single-threaded ones because multiple threads can run concurrently 
+		on multiple processors. However, writing multi-threaded programs is more difficult. Concurrent 
+		programming introduces several complications that are absent in sequential programming, which can 
+		lead to some very subtle bugs. These complications can be summarized by considering two questions. 
+	</p>
+
+	<p>
+		First, how does the programmer enforce mutual exclusion between threads? This is critical in 
+		situations where multiple threads access some shared resources. One thread that is 
+		accessing the value of a variable should never be executed at the same time as another 
+		thread that is updating the value of that variable.  
+	</p>
+
+	<p>
+		Second, how does the programmer enforce execution ordering between threads? It is not 
+		difficult to imagine cases where this kind of behavior is desired. A thread that 
+		processes some data should never run before another thread that fetches said data. 
+	</p>
+
+	<h3>Mutexes</h3>
+
+	<p>
+		Mutual exclusions between threads can be enforced using an OS synchronization primitive 
+		called the mutex. A mutex is an object that can be acquired by at most one thread only. 
+		When a mutex is currently held by some holder thread, the waiting thread must wait 
+		until the mutex is released, before it can acquire the mutex and continue execution.
+		The waiting thread can either spin indefinitely or it can be put into sleep and woken up 
+		when the mutex becomes available.
+	</p>
+
+	<p>
+		By wrapping a piece of code between a pair of acquire-mutex statement and free-mutex 
+		statement, we can guarantee that two threads will never execute this critical section 
+		concurrently.
+	</p>
+
+	<p>
+		Mutexes cannot be implemented in pure software alone. Hardware support is required. 
+		Mutexes are typically implemented using instructions that acesses and updates registers 
+		atomically (in one clock cycle). 
+	</p>
+
+	<h3>Semaphores</h3>
+
+	<p>
+		Mutexes, however, cannot be used to enforce ordering between two threads. To achieve this,
+		we need another method. One alternative is the semaphore. A semaphore is a stronger 
+		synchronization primitive --- stronger as in it can be used to enforce both mutual exclusion 
+		and thread ordering.
+	</p>
+	
+	<p>
+		A semaphore is an integer. The behavior of a semaphore depends on its initial value. 
+		Threads interact with a semaphore via two routines: they either wait on the semaphore 
+		or they post the semaphore. 
+	</p>
+
+	<p>
+		When a thread calls the wait routine on a semaphore, two 
+		things happen. First, the semaphore is decremented. Then, if the semaphore is now lower 
+		than some threshold, the thread must pause execution and wait. When the 
+		post routine is called on a semaphore, the semaphore is incremented. Additionally, if 
+		there are some threads waiting on this semaphore, one of them is awaken. 
+	</p>
+
+	<p>
+		A semaphore initialized with a value of 1 behaves identically to a mutex and therefore 
+		can be used to enforce mutual exclusion. To enforce thread ordering, a semaphore with an 
+		initial value of 0 is used. Semaphores are also used to solve the bounded-buffer problem.
+		In this problem, multiple producer and consumer threads interact with a finite buffer,
+		constantly and concurrently filling and emptying the buffer.
+		
+	</p>
+
+	<h3>Deadlocks</h3>
+
+	<p>
+		A deadlock is a critical bug that can occur in concurrent systems. It is a critical bug 
+		because a system in deadlock cannot do any work. A deadlock occurs when there is a 
+		circular wait dependency between the threads that are running on a system. 
+	</p>
+
+	<p>
+		Deadlocks are addressed in multiple ways: some systems prevent 
+		the possibility of deadlocks happening entirely; some systems use the more conservative 
+		approach of avoiding deadlocks; some systems detect when a deadlock has occured and try 
+		to recover from them.
+	</p>
+
+	<p>
+		There are several methods for preventing deadlocks. One method is to avoid introducing 
+		circular wait dependencies into the system by providing a total ordering on mutex 
+		acquisition (ie. mutexes must be acquired following some non-circular order). 
+	</p>
+
+	<p>
+		Another method is to restrict each thread from being able to hold mutexes and wait for other mutexes at the 
+		same time. This can be achieved by forcing threads to acquire all mutexes at one go. 
+		Yet another alternative is to allow preemption --- allow threads to free a held mutex 
+		if it cannot acquire another mutex.
+	</p>
+
+	<p>
+		Deadlocks can be avoided by carefully scheduling the threads to guarantee that no deadlocks
+		can occur within the system. In the detect-and-recovery approach, a deadlock detector 
+		daemon is run periodically to check for deadlocks. This daemon builds a resource 
+		graph and then checks the graph for cycles --- an indication of deadlocks. When this happens,
+		the system is repaired and/or restarted. 
+	</p>
+
+</body>
