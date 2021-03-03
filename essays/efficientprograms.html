@@ -11,6 +11,105 @@
 
 	<h2>Writing Efficient Programs</h2>
 	
-	<p>March 2021!</p>
+	<p>March 2021</p>
 
+	<h3>Compiler-Friendly Code</h3>
+
+	<p>
+		A compiler translates a program written in one language to another language. 
+		Most compilers apply additional optimizations to the program to further improve
+		its performance. These compilers must be careful to apply safe optimizations 
+		that do not change the behavior of the program in all circumstances.  
+	</p>
+
+	<p>
+		We can take advantage of the optimization opportunities provided to us by 
+		the compiler by writing compiler-friendly code --- code that does not contain
+		any kinds of optimization blockers. This issue can be understood better by 
+		considering the following examples.
+	</p>
+
+	<p>
+		The first type of optimization blockers are due to memory aliasing. Consider 
+		two functions with two pointer arguments each. It is possible to define the 
+		functions in a way such that they behave identically only when the two 
+		pointers point to different locations in memory. In other words, the two functions 
+		generate different behaviors when both pointer arguments point to the same memory location.
+		Therefore, when compiling a piece of code, the compiler has to be careful and 
+		always assume that two pointers may be aliased, which may limit the set of possible 
+		optimizations.
+	</p>
+
+	<p>
+		Another example is due to function calls. The compiler must assume that a 
+		function call always has side effects because this information cannot be  
+		reliably detected by the compiler. This will, again, limit the set of possible optimizations
+		it can make.
+	</p>
+
+	<h3>Eliminating Unnecessary Computations</h3>
+
+	<p>
+		One common source of inefficiency in for loops is using a function call to compute 
+		the boundary condition of the loop. This is highly inefficient because this function 
+		will be called at the end of each iteration of the loop, despite the fact that 
+		the boundary condition does not change. The fix to this is very simple, move the 
+		function call out of the for loop and use a variable to store the result. 
+	</p>
+
+	<p>
+		In the general case, it helps to reduce 
+		the number of function calls because calling a function can incur overhead and 
+		also block some form of optimization by the compiler.
+	</p>
+
+	<p>
+		Another source of inefficiency is unneeded memory references. Memory operations 
+		are relatively expensive, therefore you should reduce them as much as possible. One 
+		example of this is to use a variable to accumulate the result of a loop computation
+		and store this result back into memory after the loop has finished, as 
+		opposed to accessing and writing into memory in every iteration of the loop.
+	</p>
+
+	<h3>Exploiting Parallelism</h3>
+	
+	<p>
+		Parallelism is the idea of doing multiple things at one go. Loop unrolling is one 
+		way of writing for loops that exploits parallelism. Instead of writing a program 
+		that does 1 thing n times, write one that does 2 things (n/2) times. This latter 
+		approach is preferred because it incurs less loop overhead.
+	</p>
+
+	<p>
+		Consider a program that computes the sum of the elements of a vector of n integers.
+		The trivial approach is to define an accumulator variable and go through the vector 
+		sequentially using a for loop, adding the n-th element to the accumulator in the n-th iteration. This 
+		results in an n-iteration loop.
+	</p>
+
+	<p>
+		To unroll this loop, we can add the n-th element and the (n+1)-th element to the 
+		accumulator in the n-th iteration, incrementing n by 2 at the end of every loop. This 
+		results in an (n/2)-iteration loop. This method is the best you can do on a 
+		single-processor system.
+	</p>
+
+	<p>
+		You can do even better on a multi-processor system by defining two accumulator 
+		variables instead of one, adding the n-th element and (n+1)-th element into the two 
+		different accumulators respectively, and then taking their sum. Each of the two 
+		addition operations in each iteration of the loop can be performed independently 
+		on two processors. This is true because, unlike in the single accumulator case, 
+		there are no dependencies between the two addition operations --- they can both be 
+		performed at the same time. 
+	</p>
+
+	<p>
+		Be careful. Parallelism is good because it generates programs that run fast, but 
+		too much parallelism can be bad. When you unroll a loop P times, or introduce 
+		P accumulator variables, where P exceeds the number of registers available on the 
+		processor, the compiler will resort to spilling, storing these values on the stack, 
+		which can cause a significant slowdown.
+	</p>
+		
 </body>
