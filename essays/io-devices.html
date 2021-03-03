@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>I/O Devices</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>I/O Devices</h2>
+	
+	<p>March 2021</p>
+	
+	<p>
+		An I/O device generates input and/or accepts output from a computer system.
+		Common examples of I/O devices are keyboards, mouse, storage disks etc.
+		On modern hardware systems, I/O devices are typically connected to the I/O 
+		chip of the system via different types of connections, depending on the 
+		devices. For instance, most storage disk drives are connected over eSATA;
+		peripheral devices such as the keyboard and mouse are connected over USB. 
+	</p>
+
+	<p>
+		Abstractly, a device has an interface and a set of internals. The OS interacts
+		with the device via its interface. The internals of the device implement the 
+		abstraction provided by the device to the system. Every device's interface 
+		is composed of three types of registers: a status register, one or more 
+		command registers, and one or more data registers.
+	</p>
+
+	<h3>Interacting with the OS</h3>
+
+	<p>
+		There are two paradigms for how the OS interacts with the I/O devices connected 
+		to it. The first is via explicit I/O instructions. The OS executes these 
+		I/O instructions to pass data and commands in to the device registers. The 
+		second paradigm is called memory-mapped I/O. In this approach, the OS 
+		interacts with the device registers as if they were located in memory. Whenever 
+		a read or write operation is executed, the hardware routes these operations to 
+		the device instead of main memory. Both approaches are still in use today.
+	</p>
+
+	<p>
+		What does a typical interaction between the OS and an I/O device look like?
+		First, the OS has to read the status register of the device to check whether 
+		the device is currently busy. If this is true, then the OS has to wait. It can 
+		either read the status register indefinitely until the device becomes ready (called 
+		polling), or it can use an interrupt-based approach --- move on to other tasks 
+		and let the device issue an interrupt when it becomes ready.
+	</p>
+
+	<p>
+		When the device becomes ready, the OS starts to process the I/O request by 
+		writing the appropriate values into the data and command registers of the device. 
+		The OS moves data either directly or indirectly in to the data registers. In the 
+		direct approach, the OS is responsible for copying data from physical memory 
+		into the device registers. This approach is called programmed I/O (PIO).
+	</p>
+
+	<p>
+		A more efficient indirect approach (called DMA) is to use 
+		dedicated hardware to move data from physical memory into the device registers, 
+		freeing up the processor for other jobs in the job queue.
+	</p>
+
+	<p>
+		After both the data and command registers have been succesfully written into,
+		the I/O device transitions into the busy state and starts processing the 
+		data in these registers. Similar to earlier, the OS can either spin wait for 
+		the I/O operation to complete or it can move on to other tasks and listen 
+		for an interrupt from the device.
+	</p>
+
+	<h3>Device Drivers</h2>
+	
+	<p>
+		Another crucial component of an I/O device is its driver software. The device 
+		driver is a piece of software that implements an OS-defined interface. Every 
+		type of device has its own driver software which must be installed on to the system 
+		before the device can be used. This is necessary to support the range of different 
+		hardware devices that serve the same purpose. As an example, both a USB keychain drive 
+		and a flash-based SSD need to have their own device driver so that they become 
+		compatible wtih the file system of the OS.
+	</p>
+
+</body>
