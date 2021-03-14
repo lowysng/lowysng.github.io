@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>File Systems</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>File Systems</h2>
+	
+	<p>March 2021</p>
+
+	<p>
+		The file system is an OS level software. It's goal is to 
+		store data persistently, allowing for long term storage and 
+		retrieval. 
+	</p>
+
+	<p>
+		A file system partitions disk into different types of blocks. 
+		The two main types are the data blocks which store the actual 
+		contents of the file, and the inode blocks which store file 
+		metadata. The file system also maintains some allocation 
+		structures for these two block types called the bitmaps. 
+		Furthermore, there is a superblock that contains file system
+		metadata.
+	</p>
+
+	<p>
+		The most important structure in a file system is the inode. 
+		Each file in the system has an inode that tracks metadata about 
+		that file, including last accessed time, file size, file type, 
+		and most critically, the set of pointers to the actual contents 
+		of the file (some systems use multi-level indirect pointers to 
+		accommodate large files). Note that a directory is just a 
+		special type of file that has as its contents a list of 
+		(filename, inode number) pairs.
+	</p>
+
+	<h3>Basic File System</h3>
+
+	<p>
+		Consider the file system described above. Suppose that the client
+		wants to open and read the file <code>/foo/bar</code>. The access 
+		path for this operation is as follows:
+	</p>
+
+	<ol class="no-line-height">
+		<li>Get root inode number (well-known by the file system)</li>
+		<li>Locate inode block containing the root inode</li>
+		<li>Look inside the root inode to find the pointers to the contents 
+		of the root dir</li>
+		<li>Look for a <code>foo</code> entry inside the root dir</li>
+		<li>Get <code>foo</code> inode number</li>
+		<li>Locate inode block containing the <code>foo</code> inode</li>
+		<li>...</li>
+	</ol>	
+
+	<p>
+		The ellipsis (...) means that the process repeats itself --- pathname 
+		traversal is a recursive process. The process continues until 
+		the inode of the target file has been found, in which case the inode 
+		is moved into memory. This inode also gets updated (to reflect the 
+		new last accessed time).
+	</p>
+
+	<p>
+		Notice the potentially large amount of I/O operations that are 
+		involved in this sequence of activities. To combat this, file 
+		systems typically cache recently fetched blocks in memory.
+	</p>
+
+	<p>
+		This basic file system is simple, and it is operationally correct. However,
+		it has very poor performance. It views disk as one giant array of blocks.
+		Data blocks and inode blocks are scattered everywhere, with no regards to 
+		their locality (inodes and their data are typically accessed together.)
+	</p>
+
+	<h3>Fast File System</h3>
+	
+	<p>
+		The Fast File System (FFS) exploits locality to improve performance by
+		placing inodes and their data in close proximity. FFS adds one extra
+		layer of indirection called block groups, which are just group of 
+		blocks. Each block group has its own data blocks, inode blocks, 
+		bitmaps, and superblock. 
+	</p>
+	<p>
+		Blocks (within the same group) that are logically close to each other 
+		are also physically close to each other, this means that the amount 
+		of overheads incurred by the hardware can be reduced. In disk terms, 
+		this means that the seek time for I/O requests are reduced.
+	</p>
+	<p>
+		FFS has its own policies for allocating files and directories. In 
+		allocating directories, FFS makes sure to spread them evenly among 
+		block groups, by finding the block groups with low number of directories 
+		and high amount of free inodes. 
+	</p>
+	<p>
+		As for files, FFS always allocates them in the same block group as their 
+		parent directory. Furthermore, FFS ensures that both the inode 
+		blocks and the data blocks of each file are allocated to the same 
+		group. An exception is made for large files. The data blocks of 
+		a large file are spread evenly among block groups to prevent them 
+		from consuming all the data blocks within one block group.
+	</p>
+
+	<h3>Crash-Consistency Problem</h3>
+
+	<p>
+		Recall that the goal of the file system is to store data persistently.
+		This issue becomes tricky when we take into account the possibility of 
+		the computer shutting down unexpectedly. This can lead to problems 
+		like file system inconsistencies and corrupted data.
+	</p>
+
+	<p>
+		The go-to method today for addressing this issue is called journaling.
+		The core idea behind journaling is to write down all pending updates 
+		in a separate log, before actually performing them. Here is a summary 
+		of the steps in journaling:
+	</p>
+
+
+	<ol class="no-line-height">
+		<li>Data write: write data blocks into disk</li>
+		<li>Journal write: write transaction begin block and metadata updates in journal</li>
+		<li>Journal commit: write transaction commit block</li>
+		<li>Checkpoint: perform on-disk metadata updates</li>
+		<li>Free: mark transaction as free (release memory)</li>
+	</ol>
+
+	<p>
+		If a crash occurs during or before (3.), then that transaction and its data are lost.
+		If a crash occurs after (3.), then the file system can initiate a recovery process
+		and replay all committed transactions. As mentioned, journaling does not solve 
+		the problem of lost data, but it does prevent any inconsistencies and garbage data 
+		from appearing in the file system. Also, to reduce the number of transactions in the 
+		journal, multiple transactions are usually batched and aggregated into a single 
+		global transaction.
+	</p>
+
+	<h3 id="log-structured">Log-Structured File System</h3>
+
+	<p>
+		A log-structured file system (LFS) is a high performance file system that takes advantage 
+		of the sequential bandwidth of disks. LFS buffers all updates in an in-memory segment,
+		and writes out this segment into disk only when the segment becomes full. Furthermore, 
+		segments are always written into an unused part of the disk. In other words, when a file is updated,
+		LFS does not overwrite the file in disk. Instead, LFS writes out a new version of that 
+		file in some free location within the disk --- the old version becomes obsolete.
+	</p>
+
+	<p>
+		How do you find the correct inode of a file, given that there are now multiple versions 
+		of that inode, all scattered throughout disk? The solution is to use a data structure 
+		called an inode map (imap). The imap takes an inode number and returns the address of the 
+		most recent version of that inode. 
+	</p>
+
+	<p>	
+		The imap is updated in the same way as the inodes --- by writing the most recent 
+		version of the imap in the segment. Also, to improve performance, the imap is 
+		broken into chunks, and is updated on a per-chunk basis. The addresses of the most
+		recent imap chunks are stored in a fixed place in disk called the checkpoint region. This 
+		checkpoint region is updated periodically. 
+	</p>
+
+	<p>
+		One critical component of LFS is the garbage collector. The garbage collector finds 
+		all old versions of file structures (garbage) that are on disk, and clean them up so 
+		that the blocks become free again for subsequent writes. Garbage collection also 
+		operates on a per-segment basis. When cleaning up a segment, the garbage collector 
+		determines the blocks in that segments that are live and those that are garbage. 
+		These live blocks are rewritten into disk (via a new segment), and the entire old 
+		segment becomes freed up.
+	</p>
+
+	<p>
+		All pending segment writes are logged in the checkpoint region (CR) of the file system.
+		LFS maintains two versions of the CR, and updates them alternately. When a 
+		system crash occurs during a CR write, the file system can initiate the recovery process 
+		using the other CR. When a system crash occurs during a segment write, the LFS can 
+		easily recover by reading into the CR. Note that the CR is updated periodically, meaning 
+		that it is possible for the last few seconds of updates to be lost (those that are not 
+		logged into the CR).
+	</p>
+
+</body>
+

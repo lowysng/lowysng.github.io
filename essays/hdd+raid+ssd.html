@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>HDD, RAID, SSD</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>HDD, RAID, SSD</h2>
+	
+	<p>March 2021</p>
+
+	<h3>Hard Disk Drives</h3>
+
+	<p>
+		Hard disk drives (HDDs) are the most common persistent storage devices today.
+		They provide a very cost effective way of storing bits long term.
+	</p>
+
+	<p>
+		Logically, a disk drive is an array of sectors (or blocks or chunks of bits). 
+		Physically, a disk drive consists of a collection of circular platters. 
+		The surfaces of these platters contain tracks, which are just concentric
+		circles on the surfaces. These tracks are where information is actually stored on.
+		Each surface has a disk head that reads and writes data onto the tracks. The
+		disk heads are all connected to the disk arm, which moves them across the 
+		platters. Finally, the platters spin at a constant RPM around a spindle that 
+		is connected to a motor.
+	</p>
+
+	<p>
+		Not surprisingly, the I/O time (the amount of time required to read or write 
+		data) depends somewhat heavily on the physical quirks of the disk drives. For instance, to 
+		access data that are in some logical sector, first the disk head needs to be 
+		moved to the correct track by the disk arm (called seeking). Then the disk head 
+		needs to wait for the platter to rotate to the desired location, before it can 
+		start reading or writing data. Therefore, the total I/O time is the sum of the 
+		seek time, the rotational delay, and the actual transfer time.
+	</p>
+
+	<p>
+		A significant portion of the I/O time is spent on seeking and rotation. Seek time 
+		and rotational delays take on the order of milliseconds to complete, whereas 
+		transfer time takes on the order of microseconds. This implies a huge difference 
+		in performance depending on whether the workload is sequential or random. 
+	</p>
+
+	<p>
+		Sequential I/O is much faster than random I/O. In sequential I/O, disk 
+		is accessed sequentially. This means that the disk head only needs to perform 
+		the seek operation and wait once to transfer a large amount of data. In a 
+		random workload, the disk head has to perform seek and wait multiple times, 
+		each time only transferring a small amount of data.
+	</p>
+
+	<h3>Redundant Array of Inexpensive Disks (RAIDs)</h3>
+
+	<p>
+		The idea of RAID is to use multiple physical disks to construct a disk system that
+		is faster, has more capacity, and is capable of tolerating disk failures. The OS 
+		interacts with a RAID system much like it does a typical disk --- it issues 
+		logical I/O to the RAID system, and the RAID system translates this into a 
+		physical I/O. Physically, the RAID system can be quite complex --- it has its own 
+		controller and memory.
+	</p>
+
+	<p>
+		There are multiple ways of setting up a RAID system, each one with its own 
+		pros and cons. In this discussion we assume that there are N disks in the RAID 
+		system, and that each disk has capacity B, single I/O latency of T, sequential 
+		throughput S, and random throughput R.
+	</p>
+
+	<p>
+		The most simplest RAID system is RAID0 or striping. RAID0 maps each logical 
+		sector to a physical disk horizontally. Horizontal here means that the consecutive 
+		sectors are mapped to different disks, and this mapping wraps around when it 
+		reaches the last disk in the system. RAID0 delivers full performance and capacity
+		of all the disks but it provides zero redundancy. 
+	</p>
+
+	<p>
+		Unlike RAID0, RAID1 or mirroring provides some level of redundancy by storing two copies of 
+		each logical sector on different disks. The advantage of this setup is that the whole system 
+		can now tolerate 1 disk failure, and up to N/2. The problem however is that it is highly wasteful in 
+		terms of capacity --- half of the total capacity is used to store redundant information. 
+		In terms of performance, single I/O latency stays roughly the same. Random read throughput
+		in RAID1 has an upper bound of NR. Random writes and sequential throughputs are all halved 
+		--- the reason being that the number of logical I/O that can be performed at one time is N/2.
+	</p>
+
+	<p>
+		RAID4 is a parity-based setup that provides some redundancy without sacrificing that much 
+		in terms of capacity, though it does suffer a bit in terms of performance. RAID4 assigns 
+		one of the disks as the parity disk, which can be used to reconstruct a disk in case 
+		of a disk failure. RAID4 setups have a capacity of (N-1)B, and can tolerate at most 1 
+		disk failure. Single read performance is unchanged. Single write, however, now takes twice 
+		the amount of time to perform because of the parity disk. Sequential throughput and 
+		random read throughput are (N-1)S and (N-1)R respectively because of the same reason. 
+	</p>
+
+	<p>
+		Random write is the most heavily affected, with a performance of R/2. This is because 
+		the parity disk has become a bottleneck. Two logical writes cannot occur in parallel because 
+		each one needs to read and write into the parity disk. RAID5 addresses this problem by 
+		spreading the parity information across disks as opposed to storing them in just one disk.
+	</p>
+
+	<p>
+		RAID5 has the same performance characteristics as RAID4, except for random throughput.
+		Random reads now has an upper bound of NR, whereas random writes has an upper bound of 
+		NR/4. The first factor of 2 is due to the fact that 2 disks are accessed in each logical
+		random write, and the second factor of 2 is is due to the fact that 2 physical I/Os are 
+		required to perform 1 logical I/O.
+	</p>
+
+	<h3>Solid-State Storage Drives</h3>
+
+	<p>
+		A solid-state storage device (SSD) is another device that can store information persistently.
+		One class of SSDs are flash-based SSDs. These SSDs are built out of flash chips, 
+		which are transistor based. Since there are no physical parts involved, flash-based
+		SSDs have a higher transfer rate than traditional disk drives. They are also slightly 
+		more expensive.
+	</p>
+
+	<p>
+		SSDs organize flash chips into flash blocks and flash pages. A flash block contains 
+		multiple flash pages, these flash pages are where information gets stored. SSDs 
+		support three main operations: read a page, write a page, and erasing a block. 
+		SSDs have a slightly different mode of operation: before writing to a page, the 
+		block containing the page must first be erased. Also, flash pages can wear out when they 
+		are written into too often.
+	</p>
+
+	<p>
+		To make sure that the SSDs are properly utilized, the OS does not interact with the flash chips 
+		of the SSDs directly. Rather, as is the case with RAID systems, the OS interacts with 
+		an SSD indirectly via the flash translation layer (FTL). FTL converts logical requests 
+		into physical requests, using its own control logic and volatile memory. The FTL ensures 
+		two things: that the amount of write amplication is low, and that the write operations are 
+		spread evenly among the flash chips so that they wear out at roughly the same rate. Most 
+		FTLs achieve these goals using a log structured approach 
+		(see <a href="./filesystems.html#log-structured">File Systems</a>).
+	</p>
+
+</body>
