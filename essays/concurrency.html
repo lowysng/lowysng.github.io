@@ -84,15 +84,17 @@
 	<p>
 		When a thread calls the wait routine on a semaphore, two 
 		things happen. First, the semaphore is decremented. Then, if the semaphore is now lower 
-		than some threshold, the thread must pause execution and wait. When the 
-		post routine is called on a semaphore, the semaphore is incremented. Additionally, if 
-		there are some threads waiting on this semaphore, one of them is awaken. 
+		than some threshold, the thread must pause execution and wait; otherwise it continues 
+		executing. When the post routine is called on a semaphore, the semaphore is incremented. 
+		Additionally, if there are some threads waiting on this semaphore, one of them is awaken. 
 	</p>
 
 	<p>
-		A semaphore initialized with a value of 1 behaves identically to a mutex and therefore 
-		can be used to enforce mutual exclusion. To enforce thread ordering, a semaphore with an 
-		initial value of 0 is used. Semaphores are also used to solve the bounded-buffer problem.
+		Consider semaphore with a wait threshold of 0 --- if the sempahore is lower than 0, then 
+		threads must wait for the sempahore to be posted before they can continue executing. This 
+		semaphore, when initialized with a value of 1, behaves identically to a mutex and therefore 
+		can be used to enforce mutual exclusion. To enforce thread ordering, an 
+		initial value of 0 is used. Semaphores can be used to solve the bounded-buffer problem.
 		In this problem, multiple producer and consumer threads interact with a finite buffer,
 		constantly and concurrently filling and emptying the buffer.
 		
@@ -103,7 +105,7 @@
 	<p>
 		A deadlock is a critical bug that can occur in concurrent systems. It is a critical bug 
 		because a system in deadlock cannot do any work. A deadlock occurs when there is a 
-		circular wait dependency between the threads that are running on a system. 
+		circular wait dependency between the threads that are running on the system. 
 	</p>
 
 	<p>

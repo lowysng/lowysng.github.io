@@ -64,7 +64,7 @@
 		interacts with a RAID system much like it does a typical disk --- it issues 
 		logical I/O to the RAID system, and the RAID system translates this into a 
 		physical I/O. Physically, the RAID system can be quite complex --- it has its own 
-		controller and memory.
+		controller and volatile memory.
 	</p>
 
 	<p>
@@ -85,7 +85,7 @@
 	<p>
 		Unlike RAID0, RAID1 or mirroring provides some level of redundancy by storing two copies of 
 		each logical sector on different disks. The advantage of this setup is that the whole system 
-		can now tolerate 1 disk failure, and up to N/2. The problem however is that it is highly wasteful in 
+		can now tolerate 1 disk failure, and a maximum of N/2 depending on which disks fail. The problem with RAID1 is that it is highly wasteful in 
 		terms of capacity --- half of the total capacity is used to store redundant information. 
 		In terms of performance, single I/O latency stays roughly the same. Random read throughput
 		in RAID1 has an upper bound of NR. Random writes and sequential throughputs are all halved 
@@ -98,8 +98,9 @@
 		one of the disks as the parity disk, which can be used to reconstruct a disk in case 
 		of a disk failure. RAID4 setups have a capacity of (N-1)B, and can tolerate at most 1 
 		disk failure. Single read performance is unchanged. Single write, however, now takes twice 
-		the amount of time to perform because of the parity disk. Sequential throughput and 
-		random read throughput are (N-1)S and (N-1)R respectively because of the same reason. 
+		the amount of time to perform because of the parity disk (1 read and 1 write per disk). 
+		Sequential throughput and random read throughput are (N-1)S and (N-1)R respectively, also due 
+		to the parity disk.
 	</p>
 
 	<p>

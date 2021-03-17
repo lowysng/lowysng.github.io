@@ -15,7 +15,7 @@
 
 	<p>
 		The file system is an OS level software. It's goal is to 
-		store data persistently, allowing for long term storage and 
+		store and manage data persistently, allowing for long term storage and 
 		retrieval. 
 	</p>
 
@@ -61,7 +61,7 @@
 
 	<p>
 		The ellipsis (...) means that the process repeats itself --- pathname 
-		traversal is a recursive process. The process continues until 
+		traversal is recursive in nature. The process continues until 
 		the inode of the target file has been found, in which case the inode 
 		is moved into memory. This inode also gets updated (to reflect the 
 		new last accessed time).
@@ -77,7 +77,8 @@
 		This basic file system is simple, and it is operationally correct. However,
 		it has very poor performance. It views disk as one giant array of blocks.
 		Data blocks and inode blocks are scattered everywhere, with no regards to 
-		their locality (inodes and their data are typically accessed together.)
+		their locality. The next file system we introduce addresses this problem 
+		directly.
 	</p>
 
 	<h3>Fast File System</h3>
@@ -92,8 +93,9 @@
 	<p>
 		Blocks (within the same group) that are logically close to each other 
 		are also physically close to each other, this means that the amount 
-		of overheads incurred by the hardware can be reduced. In disk terms, 
-		this means that the seek time for I/O requests are reduced.
+		of overheads incurred by the hardware, when accessing blocks in the 
+		same group, are reduced. In disk terms, this minimizes the seek time 
+		for multiple same-group requests.
 	</p>
 	<p>
 		FFS has its own policies for allocating files and directories. In 
@@ -120,7 +122,7 @@
 	</p>
 
 	<p>
-		The go-to method today for addressing this issue is called journaling.
+		The go-to method for addressing this issue is called journaling.
 		The core idea behind journaling is to write down all pending updates 
 		in a separate log, before actually performing them. Here is a summary 
 		of the steps in journaling:
@@ -138,7 +140,11 @@
 	<p>
 		If a crash occurs during or before (3.), then that transaction and its data are lost.
 		If a crash occurs after (3.), then the file system can initiate a recovery process
-		and replay all committed transactions. As mentioned, journaling does not solve 
+		and replay all committed transactions. 
+	</p>
+
+	<p>
+		Notice that journaling does not solve 
 		the problem of lost data, but it does prevent any inconsistencies and garbage data 
 		from appearing in the file system. Also, to reduce the number of transactions in the 
 		journal, multiple transactions are usually batched and aggregated into a single 
@@ -173,7 +179,7 @@
 
 	<p>
 		One critical component of LFS is the garbage collector. The garbage collector finds 
-		all old versions of file structures (garbage) that are on disk, and clean them up so 
+		all old versions of file structures (garbage) that are on disk, and cleans them up so 
 		that the blocks become free again for subsequent writes. Garbage collection also 
 		operates on a per-segment basis. When cleaning up a segment, the garbage collector 
 		determines the blocks in that segments that are live and those that are garbage. 
@@ -186,7 +192,7 @@
 		LFS maintains two versions of the CR, and updates them alternately. When a 
 		system crash occurs during a CR write, the file system can initiate the recovery process 
 		using the other CR. When a system crash occurs during a segment write, the LFS can 
-		easily recover by reading into the CR. Note that the CR is updated periodically, meaning 
+		easily recover by reading into the most recent CR. Note that both CRs are updated periodically, meaning 
 		that it is possible for the last few seconds of updates to be lost (those that are not 
 		logged into the CR).
 	</p>
