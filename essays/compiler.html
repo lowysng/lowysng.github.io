@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Compilers</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Compilers</h2>
+	
+	<p>March 2021</p>
+
+	<p>
+		A compiler is a piece of program that takes in a program written in one language 
+		and produces another program, with the same behavior, written in another language.
+		Typically, this target language is the low level instruction set of some processor, 
+		but it is also common to have compilers that target other high level languages (such as 
+		from Python to C).
+	</p>
+
+	<p>
+		One subtle point about program translations is the difference between compilation 
+		and interpretation. A compiler produces a translated program that can be executed 
+		to produce some results; whereas an interpreter produces the results of executing a 
+		program. The former generates a program entity that can be executed to produce some 
+		effects. The latter generates the sequence of outputs that results from the 
+		computations specified by the program.
+	</p>
+
+	<p>
+		The two fundamental principles of compilation are:
+	</p>
+
+	<ol class="no-line-height">
+		<li>The compiler must preserve the meaning of the program being compiled.</li>
+		<li>The compiler must improve the program in some discernible way.</li>
+	</ol>
+
+	<p>
+		By (1) we mean that the behaviors of the input and output programs  
+		must match. By (2) we mean that the output program should be better than the input program,
+		in terms of some metric such as speed, memory requirements, complexity, and/or 
+		energy efficiency.
+	</p>
+
+	<p>
+		Most compilers are three-phase compilers. A three-phase compilers has three components.
+		The first component is called the front-end of the compiler. The front-end's main job is 
+		to check and verify the syntax and semantics of the source program, and then generate 
+		an intermediate representation (IR) for it. The syntax (or structure) of the program 
+		is checked via a scanner that processes a stream of characters into a sequence of words, 
+		and a parser that determines whether this sequence of words produces a sentence that 
+		is grammatically correct by finding a derivation for it. The semantics (or meaning) of 
+		the program is verified by checking for type consistences and number consistencies between 
+		the words.
+	</p>
+
+	<p>
+		The component that comes after the front-end is the optimizer. The optimizer analyzes the 
+		generated IR to discover facts about the context that the code runs in. The 
+		optimizer uses these facts to transform the program into one that computes the same 
+		answer in a more efficient way. 
+	</p>
+
+	<p>
+		The third and final component of the compiler is the back-end. The job of the backend 
+		is to rewrite the IR operations into the operations of the target machine. Along the way, 
+		the back-end has to perform additional tasks, including mapping virtual registers to physical 
+		registers, and potentially reodering the instructions to exploit parallelism. Both these 
+		problems are NP-complete, which means that in most cases the back-end generates an approximate 
+		solution rather than the optimal one.
+	</p>
+
+	<p>
+		Links to more essays on the specifics:
+	</p>
+
+	<ul class="no-line-height">
+		<li><a href="./scanner.html">Scanners</a></li>
+		<li>...</li>
+	</ul>
+
+</body>

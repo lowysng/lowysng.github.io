@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Scanners</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="./compiler.html">Back</a>
+
+	<h2>Scanners</h2>
+	
+	<p>March 2021</p>
+
+	<p>
+		The scanner is the part of the front-end of the compiler that processes
+		a stream of characters into a stream of words in the input language's 
+		microsyntax. The microsyntax of a language tells us what words are valid 
+		and invalid in the language. Also included in any language's microsyntax 
+		is a list of reserved keywords (such as <code>while</code> and <code>for</code>).
+	</p>
+
+	<h3>DFAs as Recognizers</h3>
+
+	<p>
+		The subcomponent of the scanner that recognizes words is given the name 
+		recognizer. Recognizers are modeled using determinisitc finite automata (DFAs). 
+		Each input character causes this abstract machine to transition from 
+		one state to another. When a stream of characters constituting a word takes 
+		the machine into an accepting state, then that stream of character is a valid word. 
+		See <a href="./finitestatemachines.html">Finite State Machines</a>.
+	</p>
+
+	<h3>From Regexes to Recognizers</h3>
+
+	<p>
+		It is difficult to use DFAs to describe the microsyntax of a language. Instead, 
+		we use regular expressions (REs). Finite automaton and regular expressions are 
+		equivalent --- we can always convert one into the other.
+	</p>
+
+	<p>
+		Here is how a compiler writer would build the scanner component for a compiler.
+		The compiler writer starts by writing down a set of regular expressions that 
+		describe the microsyntax of the source programming language. Then, these REs 
+		are aggregated into one single RE, and converted into an NFA using Thompson's 
+		Construction. Next, a DFA that is equivalent to this NFA is built using 
+		Subset Construction. This DFA is minimized via Hopcroft's Algorithm. Finally,
+		the resulting DFA is used to generate (either manually or automatically) 
+		a recognizer, which will work in concert with other pieces of code inside the 
+		scanner to implement the required functionalities.
+	</p>
+
+	<p>
+		Regexes have three basic operations --- alternation, concatenation, and closure.
+		In Thompsons' Construction, each operation has a corresponding NFA that is equivalent
+		to the REs that result from the application of these operations.
+	</p>
+
+	<p>
+		Once the NFA has been generated, the next step is to generate the equivalent DFA.
+		This is done using an algorithm called Subset Construction. Subset Construction
+		constructs a set Q containing the subsets of the set of states of the NFA. Each 
+		subset in Q is called a configuration. Each configuration in Q transitions into 
+		another configuration in Q for any character in the alphabet. It can be helpful 
+		to think of a configuration as the set of "active" states in the nondeterministic
+		computation of an NFA. When the algorithm halts, the resulting set Q is precisely 
+		the set of states of the DFA that is equivalent to the input NFA.
+	</p>
+
+	<p>
+		The DFA that is generated using Subset Consruction may contain a lot of redundant 
+		states. An algorithm called Hopcroft's Algorithm is used to minimize this DFA by 
+		removing these redundancies. Hopcroft's Algorithm works by partitioning the states 
+		of the DFA into equivalence classes. Each class behaves identically --- they 
+		produce the same results on any input string. The algorithm works by repeatedly 
+		examining each set in the partition to look for states with different behaviors.
+		A set in the partition is split into two if these two sets transition into different 
+		sets in the partition for some input character. The algorithm repeats 
+		until no set is split, in which case each set in the partition becomes a 
+		new state of the minimized DFA.
+	</p>
+
+	<h3>Implementing the Scanner</h3>
+
+	<p>
+
+	</p>
+
+</body>
