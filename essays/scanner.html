@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<a href="./compiler.html">Back</a>
+	<a href="../index.html">Back</a>
 
 	<h2>Scanners</h2>
 	
@@ -29,7 +29,7 @@
 		Each input character causes this abstract machine to transition from 
 		one state to another. When a stream of characters constituting a word takes 
 		the machine into an accepting state, then that stream of character is a valid word. 
-		See <a href="./finitestatemachines.html">Finite State Machines</a>.
+		See <a href="./finitestatemachines.html">Finite State Machines</a> for more on DFAs.
 	</p>
 
 	<h3>From Regexes to Recognizers</h3>
@@ -41,7 +41,7 @@
 	</p>
 
 	<p>
-		Here is how a compiler writer would build the scanner component for a compiler.
+		Here is one way a compiler writer can build the scanner component for a compiler.
 		The compiler writer starts by writing down a set of regular expressions that 
 		describe the microsyntax of the source programming language. Then, these REs 
 		are aggregated into one single RE, and converted into an NFA using Thompson's 
@@ -49,7 +49,7 @@
 		Subset Construction. This DFA is minimized via Hopcroft's Algorithm. Finally,
 		the resulting DFA is used to generate (either manually or automatically) 
 		a recognizer, which will work in concert with other pieces of code inside the 
-		scanner to implement the required functionalities.
+		scanner to implement its functionalities.
 	</p>
 
 	<p>
@@ -60,7 +60,7 @@
 
 	<p>
 		Once the NFA has been generated, the next step is to generate the equivalent DFA.
-		This is done using an algorithm called Subset Construction. Subset Construction
+		This can be done using an algorithm called Subset Construction. Subset Construction
 		constructs a set Q containing the subsets of the set of states of the NFA. Each 
 		subset in Q is called a configuration. Each configuration in Q transitions into 
 		another configuration in Q for any character in the alphabet. It can be helpful 
@@ -71,7 +71,7 @@
 
 	<p>
 		The DFA that is generated using Subset Consruction may contain a lot of redundant 
-		states. An algorithm called Hopcroft's Algorithm is used to minimize this DFA by 
+		states. An algorithm called Hopcroft's Algorithm can be used to minimize this DFA by 
 		removing these redundancies. Hopcroft's Algorithm works by partitioning the states 
 		of the DFA into equivalence classes. Each class behaves identically --- they 
 		produce the same results on any input string. The algorithm works by repeatedly 
@@ -85,7 +85,27 @@
 	<h3>Implementing the Scanner</h3>
 
 	<p>
+		Scanners can be implemented in one of three ways. The most straightforward approach
+		is to use a parser generator to construct a set of tables that will drive a skeleton
+		scanner. Another approach is to code the scanner directly --- writing explicit
+		<code>if-else-then</code> statements that result in points of execution that jump 
+		around the program depending on what the input is. Both these approaches can be 
+		automated.
+	</p>
 
+	<p>
+		A third approach is to use hand-coded scanners. Hand-coded scanners are more efficient 
+		than their table-driven or direct-coded counterparts because they reduce the amount 
+		of overhead of the interfaces between the scanner and the rest of the system. 
+	</p>
+
+	<p>
+		For instance, consider a procedure that advances the input character stream and returns
+		the next character in the stream whenever it is called. In a hand-coded scanner, 
+		this procedure can be replaced with one that returns a buffer of characters rather than 
+		one character on each call. This reduces the amount of overhead due to procedure calls.
+		However, it increases code complexity --- the scanner now has to maintain pointers
+		to the buffer as it processes the input stream.
 	</p>
 
 </body>

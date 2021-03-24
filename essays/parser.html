@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Parsers</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Parsers</h2>
+	
+	<p>March 2021</p>
+
+	<p>
+		A parser is the part of the front-end of the compiler that accepts an
+		input program (a sequence of scanner-outputted words) and verifies its 
+		syntax according to some language specification. 
+	</p>
+
+	<p>
+		Most language specs are expressed using context-free grammar (CFG), 
+		which is a more expressive way of describing languages than regexes. A CFG
+		is a collection of productions. Each production has an LHS and a RHS. 
+		For any production, the LHS of that production is just a nonterminal,
+		whereas its RHS may contain a combination of nonterminals and terminals.
+		One of the nonterminals is called the goal symbol.
+	</p>
+	<p>
+		Starting with a prototype string that consists of only the goal symbol,
+		additional strings are derived by replacing one nonterminal in the prototype
+		with the RHS of some production that has as its LHS the matching nonterminal.
+		From this point of view, an input program to a parser is syntactically valid 
+		if the sequence of words that make up the program can be derived starting from 
+		the goal symbol of the language specification.
+	</p>
+
+	<h3>Top-Down Parsing</h3>
+
+	<p>
+		A top-down parser builds the parse tree (or derivation) starting from the root
+		node (goal symbol) toward the leaves (the input sequence of words). Top-down
+		parsing finds a leftmost derivation. The lower fringe of tree is maintained 
+		using a stack --- this stack contains only grammar symbols.
+	</p>
+
+	<p>
+		A top-down parsing algorithm maintains three key variables: <code>focus</code> that always 
+		points to a particular node of the parse tree (initially the goal symbol), <code>word</code> 
+		that indicates the current word that is being processed in the input stream (initially 
+		the first word), and a stack (initially empty). The core of the algorithm is a while 
+		loop that does the following:
+	</p>
+
+	<ul class="no-line-height">
+		<li>If <code>focus</code> is a nonterminal, then expand <code>focus</code> by 
+		replacing it with the RHS of some production that has an LHS that matches <code>focus</code>. 
+		Set the children of <code>focus</code> to the symbols in the RHS, push 
+		them in reverse order onto the stack, except for the first node, which is set as the 
+		new <code>focus</code>;</li>
+		<li>Else if <code>focus</code> is a terminal, then attempt to match <code>focus</code> 
+		with <code>word</code>. If 
+		there is a match, then advance both <code>focus</code> (by popping the stack) and the input 
+		stream. Otherwise, backtrack (rewind the input stream, set <code>focus</code> 
+		to its parent, and 
+		try a different production; if all production have been exhausted, report failure).</li>
+		<li>Else if the input has been exhausted, report success.</li>
+	</ul>
+
+	<p>
+		The key step in top-down parsing is in selecting the correct production to expand
+		<code>focus</code> with. If the parser is able to select the correct production 
+		at each iteration, then there would be no need to backtrack. We can enforce this 
+		behavior by introducing a constraint into the CFG called the backtrack-free constraint. 
+		This guarantees
+		that the parser will always expand a nonterminal with the production (if it exists),
+		using a one symbol lookahead.
+	</p>
+
+	<p>
+		Roughly speaking, in a backtrack-tree CFG, for any nonterminal with more than one
+		possible substitution in its RHS, the sets of possible leading terminal symbols 
+		for the different RHSs are mutually disjoint.
+	</p>
+
+	<p>
+		Another constraint that is required for correctness is to remove all left-recursions
+		in the CFG. Since the parser always expands the leftmost node of the lower fringe of the 
+		parse tree, a left-recursive production can cause the parser to never terminate.
+	</p>
+
+	<p>
+		We can implement top-down parsers using one of two approaches. The first approach 
+		is called recursive descent. In this approach, each nonterminal corresponds to a 
+		procedure. These procedures call each other recursively, advancing the input stream
+		whenever they recognize the appropriate symbols.
+	</p>
+
+	<p>
+		An alternative approach is to use table-driven LL(1) parsers. In this approach,
+		a parser generator accepts a backtrack-free CFG and produces a parsing table. This 
+		parsing table drives a skeleton parser which does that actual parsing. At each iteration 
+		of the parse, the parser indexes the table using the current values of 
+		<code>focus</code> and the lookahead symbol; the corresponding table entry indicates 
+		the correct production to expand <code>focus</code> with.
+	</p>
+
+	<h3>Bottom-Up Parsing</h3>
+
+	<p>
+		A bottom-up parser builds a parse tree starting from its leaves toward the root.
+		The parser is always working on the upper frontier of the tree. It finds a substring 
+		in the upper frontier that matches the RHS of some production, and replaces this 
+		substring with the LHS of that production. This information is abstracted into 
+		an entity called a handle, and this process of replacing substrings is called
+		reduction.
+	</p>
+	<p>
+		Generally speaking, both top-down parsers and bottom-up parsers operate under the 
+		same principle. A bottom-up parser has to find the correct handle that will be used
+		to reduce the upper frontier. One class of parsers that achieves this is the LR(1)
+		parsers.
+	</p>
+
+	<p>
+		An LR(1) parser is a table-driven bottom-up parser. As with top-down parsing, the 
+		upper frontier is maintained using a stack. However, the stack here contains grammar 
+		symbols interleaved with additional state information that stores some local left-hand
+		context about the parsing history thus far. The skeleton parser uses the stack and a
+		set of LR(1) tables to determine what to do next --- either to reduce a substring in 
+		the frontier (via a handle), or to push more symbols onto the stack to gain more context.
+	</p>
+
+	<p>
+		LR(1) tables can be built by hand or automatically. In the automated approach, a 
+		parser generator accepts a CFG, builds a handle-finding automaton, and uses this 
+		automaton to fill in the parsing tables. This handle-finding automaton (called the 
+		canonical set of LR(1) items) is akin to a DFA that simulates an NFA by tracking 
+		all the "active" states on each transition.
+	</p>
+</body>
