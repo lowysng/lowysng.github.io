@@ -49,28 +49,56 @@
 
     <p>Roughly sorted by time. Favorites are marked with an asterisk (*).</p>
 
-    <ul>
-	<li><a class="link" href="./essays/parser.html">Parsers</a></li>
-	<li><a class="link" href="./essays/scanner.html">Scanners</a></li>
-	<li><a class="link" href="./essays/compiler.html">Compilers*</a></li>
-	<li><a class="link" href="./essays/hdd+raid+ssd.html">HDD, RAID, SSD</a></li>
-	<li><a class="link" href="./essays/filesystems.html">File Systems</a></li>
-	<li><a class="link" href="./essays/io-devices.html">I/O Devices</a></li>
-	<li><a class="link" href="./essays/efficientprograms.html">Writing Efficient Programs*</a></li>
-	<li><a class="link" href="./essays/concurrency.html">Concurrency</a></li>
-	<li><a class="link" href="./essays/virtualization.html">Virtualization*</a></li>
-	<li><a class="link" href="./essays/processor.html">Processor Architecture</a></li> 
-	<li><a class="link" href="./essays/paging.html">Paging</a></li>
-	<li><a class="link" href="./essays/addressspace.html">Virtual Address Space</a></li>
-	<li><a class="link" href="./essays/finitestatemachines.html">Finite State Machines*</a></li>
-	<li><a class="link" href="./essays/scheduler.html">Scheduler</a></li>
-	<li><a class="link" href="./essays/os+processes.html">OS and Processes</a></li>
-	<li><a class="link" href="./essays/procedures.html">Machine-Level Procedures</a></li>
-	<li><a class="link" href="./essays/machinecode.html">Machine Code</a></li>
-        <li><a class="link" href="./essays/integers.html">Bits as Integers</a></li>
-        <li><a class="link" href="./essays/mathematics.html">Speaking Mathematics</a></li>
-        <li><a class="link" href="./essays/computer.html">What is a Computer?</a></li>
+    <p>Filter by Topic:
+        <select name="filter" id="filter">
+		<option value="none">None</option>
+		<option value="compiler">Compiler</option>
+		<option value="os">Operating System</option>
+		<option value="architecture">Computer Architecture</option>
+		<!-- <option value="ml">Machine Learning</option> -->
+		<!-- <option value="networking">Computer Networking</option> -->
+		<option value="theory">Theoretical Computer Science</option>
+	</select>
+    </p>
+
+    <ul id="notes">
+	<li class="compiler"><a class="link" href="./essays/semantics.html">Semantic Elaboration</a></li>
+	<li class="compiler"><a class="link" href="./essays/parser.html">Syntactic Analysis</a></li>
+	<li class="compiler"><a class="link" href="./essays/scanner.html">Lexical Analysis</a></li>
+	<li class="compiler"><a class="link" href="./essays/compiler.html">Compilers*</a></li>
+	<li class="os"><a class="link" href="./essays/hdd+raid+ssd.html">HDD, RAID, SSD</a></li>
+	<li class="os"><a class="link" href="./essays/filesystems.html">File Systems</a></li>
+	<li class="os"><a class="link" href="./essays/io-devices.html">I/O Devices</a></li>
+	<li class="architecture"><a class="link" href="./essays/efficientprograms.html">Writing Efficient Programs*</a></li>
+	<li class="os"><a class="link" href="./essays/concurrency.html">Concurrency</a></li>
+	<li class="os"><a class="link" href="./essays/virtualization.html">Virtualization*</a></li>
+	<li class="architecture"><a class="link" href="./essays/processor.html">Processor Architecture</a></li> 
+	<li class="os"><a class="link" href="./essays/paging.html">Paging</a></li>
+	<li class="os"><a class="link" href="./essays/addressspace.html">Virtual Address Space</a></li>
+	<li class="theory"><a class="link" href="./essays/finitestatemachines.html">Finite State Machines*</a></li>
+	<li class="os"><a class="link" href="./essays/scheduler.html">Scheduler</a></li>
+	<li class="os"><a class="link" href="./essays/os+processes.html">OS and Processes</a></li>
+	<li class="architecture"><a class="link" href="./essays/procedures.html">Machine-Level Procedures</a></li>
+	<li class="architecture"><a class="link" href="./essays/machinecode.html">Machine Code</a></li>
+        <li class="architecture"><a class="link" href="./essays/integers.html">Bits as Integers</a></li>
+        <li class="other"><a class="link" href="./essays/mathematics.html">Speaking Mathematics</a></li>
+        <li class="other"><a class="link" href="./essays/computer.html">What is a Computer?</a></li>
     </ul>
+
+    <script>
+	const filter = document.getElementById("filter");
+	filter.addEventListener("change", e => {
+		const filter_by = e.target.value;
+		const notes = document.getElementById("notes");
+		notes.childNodes.forEach(node => {
+			if (node.className) {
+				if (filter_by === "none") node.style.display = "";
+				else if (node.className !== filter_by) node.style.display = "none";
+				else node.style.display = "";
+			}
+		});
+	})
+    </script>
 
 </body>
 </html>

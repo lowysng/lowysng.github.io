@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8">
-	<title>Parsers</title>
+	<title>Syntactic Analysis</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../style.css" rel="stylesheet">
 </head>
@@ -9,9 +9,11 @@
 <body>
 	<a href="../index.html">Back</a>
 
-	<h2>Parsers</h2>
+	<h2>Syntactic Analysis</h2>
 	
 	<p>March 2021</p>
+
+	<h3>Parser</h3>
 
 	<p>
 		A parser is the part of the front-end of the compiler that accepts an
@@ -57,7 +59,7 @@
 		<li>If <code>focus</code> is a nonterminal, then expand <code>focus</code> by 
 		replacing it with the RHS of some production that has an LHS that matches <code>focus</code>. 
 		Set the children of <code>focus</code> to the symbols in the RHS, push 
-		them in reverse order onto the stack, except for the first node, which is set as the 
+		them in reverse order onto the stack --- except for the first node, which is set as the 
 		new <code>focus</code>;</li>
 		<li>Else if <code>focus</code> is a terminal, then attempt to match <code>focus</code> 
 		with <code>word</code>. If 
