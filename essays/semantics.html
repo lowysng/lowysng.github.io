@@ -79,15 +79,13 @@
  		a set of rules that define a collection of attributes for the
  		symbols in the grammar. Each instance of a grammar symbol that
  		occurs in the parse tree has a set of instances of its attributes. 
-		The attribute rules are purely functional.
  	</p>
 
 	<p>
- 		Each attribute rule specifies the value of one attribute in
+ 		Each attribute rule defines an attribute in
  		terms of literal constants and the attributes of other symbols
  		in the production. Note that this scheme allows information
- 		to be passed in both directions. However, this introduces
-		complications in handling nonlocal information.
+ 		to be passed in both directions. 		
 	</p>
 
 	<p>
@@ -95,12 +93,8 @@
 		of the attributes of the node, its children, and constants.
 		An inherited attribute is an attribute defined in terms 
 		of the attributes of the node, its siblings, its parent, 
-		and constants.
-	</p>
-
-	<p>
-		These dependences between the attributes of all symbols in
-		some parse tree form an attribute-dependence graph.
+		and constants. These dependences between the attributes of 
+		all symbols in some parse tree form an attribute-dependence graph.
 	</p>
 
 	<p>
@@ -110,7 +104,7 @@
 	</p>
 	
 	<p>
-		The aforementioned dependence graph captures the flow of
+		The dependence graph captures the flow of
 		values that an evaluator must respect in evaluating an instance
 		of an attributed tree --- it imposes a partial order on
 		the attributes. In general, evaluation methods are classified
@@ -125,6 +119,8 @@
 	</ul>
 
 	<p>
+		Cycles in the dependence graph must be avoided because it causes
+		the evaluator to never terminate.
 		One way of avoiding cycles in the dependence graph is to restrict
 		the attribute grammar to a class that cannot give rise to circular
 		dependence graphs (eg. use synthesized attributes only).

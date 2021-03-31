@@ -14,72 +14,73 @@
 	<p>March 2021</p>
 
 	<p>
-		A compiler is a piece of program that takes in a program written in one language 
-		and produces another program, with the same behavior, written in another language.
-		Typically, this target language is the low level instruction set of some processor, 
-		but it is also common to have compilers that target other high level languages (such as 
-		from Python to C).
+		A compiler is a computer program that translates programs written
+		in one programming language into another language --- typically a
+		lower level language such as the ISA of some processor.
 	</p>
 
 	<p>
-		One subtle point about program translations is the difference between compilation 
-		and interpretation. A compiler produces a translated program that can be executed 
-		to produce some results; whereas an interpreter produces the results of executing a 
-		program. The former generates a program entity that can be executed to produce some 
-		effects. The latter generates the sequence of outputs that results from the 
-		computations specified by the program.
-	</p>
-
-	<p>
-		The two fundamental principles of compilation are:
+		The two fundamental principles of compilation are: 
 	</p>
 
 	<ol class="no-line-height">
 		<li>The compiler must preserve the meaning of the program being compiled.</li>
-		<li>The compiler must improve the program in some discernible way.</li>
+		<li>The compiler must improve the input program in some discernible way.</li>
 	</ol>
 
 	<p>
-		By (1) we mean that the behaviors of the input and output programs  
-		must match. By (2) we mean that the output program should be better than the input program,
-		in terms of some metric such as speed, memory requirements, complexity, and/or 
-		energy efficiency.
+		One slight note about compilers and their close cousins, the interpreters.
+		An interpreter accepts an input program and produces the result of executing
+		that program. This is different from a compiler, which emits an output program
+		that can be executed to produce the result.
+	</p>
+	
+	<p>
+		A compiler is organized into three parts:
+	</p>
+
+	<ol class="no-line-height">
+		<li>The frontend, whose job is to "understand" the input program.</li>
+		<li>The optimizer, whose job is to improve the input program.</li>
+		<li>The backend, whose job is to generate the output program.</li>
+	</ol>
+
+	<p>
+		To "understand" an input program, the compiler has to check the syntax
+		and semantics of that program. The technical terms for these activities are
+		lexical analysis, syntactic analysis, and semantic elaboration. In lexical
+		analysis, the scanner transforms a stream of characters into a sequence of
+		words. In syntactic analysis, the parser accepts a sequence of words and builds
+		a parse tree. In semantic elaboration, the evaluator evaluates the parse tree
+		and checks that the program is meaningful.
+	</p>
+
+	<p> 
+ 		Once the compiler has verified that the input program is both syntactically
+ 		and semantically correct, the next order of business is to generate intermediate
+ 		representations (IRs) of the input program. Specific choices of IRs affect the
+ 		compiler's ability to transform and improve the code. Optimization and
+ 		transformation are performed by the optimizer.
 	</p>
 
 	<p>
-		Most compilers are three-phase compilers. A three-phase compilers has three components.
-		The first component is called the front-end of the compiler. The front-end's main job is 
-		to check and verify the syntax and semantics of the source program, and then generate 
-		an intermediate representation (IR) for it. The syntax (or structure) of the program 
-		is checked via a scanner that processes a stream of characters into a sequence of words, 
-		and a parser that determines whether this sequence of words produces a sentence that 
-		is grammatically correct by finding a derivation for it. The semantics (or meaning) of 
-		the program is verified by checking for type consistences and number consistencies between 
-		the words.
+ 		After the compiler has optimized and transformed its definitive version of
+ 		the IR of the input program, the next step is to the map the IR constructs
+ 		into a sequence of target machine operations. This step, called instruction
+ 		selection, is performed by the backend. The backend also performs other
+ 		activities such as register allocation (mapping virtual registers to physical
+ 		registers) and instruction scheduling (reodering the instructions to improve
+ 		the throughput of the target machine by exploiting parallelism).
 	</p>
 
-	<p>
-		The component that comes after the front-end is the optimizer. The optimizer analyzes the 
-		generated IR to discover facts about the context that the code runs in. The 
-		optimizer uses these facts to transform the program into one that computes the same 
-		answer in a more efficient way. 
-	</p>
-
-	<p>
-		The third and final component of the compiler is the back-end. The job of the backend 
-		is to rewrite the IR operations into the operations of the target machine. Along the way, 
-		the back-end has to perform additional tasks, including mapping virtual registers to physical 
-		registers, and potentially reodering the instructions to exploit parallelism. Both these 
-		problems are NP-complete, which means that in most cases the back-end generates an approximate 
-		solution rather than the optimal one.
-	</p>
 
 	<h3>More on Compilers</h3>
 
 	<ul class="no-line-height">
-		<li><a href="./semantics.html">Semantic Elaboration</a></li>
 		<li><a href="./scanner.html">Lexical Analysis</a></li>
 		<li><a href="./parser.html">Syntactic Analysis</a></li>
+		<li><a href="./semantics.html">Semantic Elaboration</a></li>
+		<li><a href="./ir.html">Intermediate Representations</a></li>
 	</ul>
 
 </body>
