@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Optimizer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Optimizer</h2>
+
+	<p>April 2021</p>
+	
+	<p>
+		The goal of the optimizer is to improve the quality of the code generated
+		by the backend. In optimizing a program, the compiler must ensure that
+		the meaning of the program is preserved and also that the transformed
+		program is an improvement over the original program.
+	</p>
+
+	<p>
+		The compiler optimizes a program mainly by reducing the overhead of
+		various source-level abstractions and by taking advantage of special cases. 
+		The optimizer also
+		uses information about the target machine, such as its ISA and number of 
+		functional units, to improve the runtime performance of the program on
+		that machine.
+	</p>
+
+	<p>
+		Optimizations operate at different granularities, or scopes:  
+	</p>
+
+	<ul class="no-line-height">
+		<li>Local methods operate over single blocks.</li>
+		<li>Regional methods operate over regions larger than a single block
+		but smaller than a procedure.</li>
+		<li>Global methods operate over a procedure.</li>
+		<li>Whole-program methods operate over multiple procedures.</li>
+	</ul>
+
+	<h3>Local Optimization</h3>
+
+	<p>
+		Local value numbering finds redundant expressions in a basic block and
+		replaces the redundant evaluations with reuse of a previously computed
+		value. In general, local value number is profitable. However, replacing
+		code can extend or shorten the lifetimes of variables. This increases
+		or decreases the demands for registers, which may or may not cause register
+		spillage.
+	</p>
+
+	<p>
+		Tree-height balancing reorganizes heavily left- or right-leaned expression
+		trees into one that is more balanced. This exposes additional parallelism
+		in expression evaluation --- the nodes of the resulting tree has less
+		dependencies between them.
+	</p>
+
+	<h3>Regional Optimization</h3>
+
+	<p>
+		Superlocal value numbering is an extension of local value numbering to larger
+		regions called extended basic blocks. Roughly speaking, an extended basic
+		block is a region of code that is larger than a single basic block but 
+		smaller than a procedure.
+	</p>
+
+	<p>
+		Loop unrolling reduces the amount of loop overheads by increasing the size
+		of the loop body to reduce the total number of loop iterations required
+		to compute the same result. For instance, a loop computation that does 1
+		thing n times can be unrolled into one that does 2 things n/2 times.
+	</p>
+
+	<h3>Global Optimization</h3>
+
+	<p>
+		Global code placement exploits asymmetric branch costs to reduce branching
+		overheads. Consider a piece of code with a branching point that splits into
+		two branches. The optimizer can perform a profile run to determine which one
+		of the two branches executes more frequently. Then, it can reorganize the
+		linear sequence of code such that the branch that is executed more
+		frequently becomes the fall-through branch of the branch point.
+	</p>
+
+	<h3>Whole-Program Optimization</h3>
+
+	<p>
+		Inline substitution eliminates the overheads of invoking a procedure by
+		replacing its call site with a copy of the procedure's body. Inlining
+		can improve runtime performance, but it can also degrade performance.
+		Replacing a call site with the body of the called procedure can increase
+		code size and the name space size, which may increase register demands.
+	</p>
+
+	<p>
+		Procedures within a single executable image can also be rearranged to increase
+		the performance of the program. Using a call graph, the optimizer can
+		rearrange the procedures to reduce virtual-memory working-set sizes and to limit
+		the potential for call-induced conflicts in the instruction cache. In
+		other words, if a procedure calls another proecdure, the ideal case
+		would be to have both procedures occupy adjacent locations in memory.
+	</p>
+
+</body>

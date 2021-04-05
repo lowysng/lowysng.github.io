@@ -71,7 +71,7 @@
 		Static single-assignment form (SSA) is a naming discipline used to encode information
 		about both the flow of control and the flow of data values in a program.
 		SSA introduces a phi function that accepts as inputs a set of distinct names,
-		and outputs one of them depending on the runtime control flow of the program.
+		and outputs one of them depending on the runtime control flow at that point in the program.
 		SSA simplifies and improves many optimization techniques, since each name is
 		assigned once, and only once.
 	</p>
@@ -83,16 +83,11 @@
     		In the memory-to-memory model, the compiler assumes that all values are
       		kept in memory locations and move them from memory to a register just
       		before they are used.
-	</p>
-
-	<p>
 		Compilers for RISC machines tend to use the register-to-register model because
-		it reflects the instruction set of RISC architectures more closely (they lack
-		memory-to-memory operations).
-	</p>
+		it reflects the instruction set of RISC architectures more closely. 	</p>
 
 	<p>
-		The compiler need to store information about the entities manipulated by
+		The compiler needs to store information about the entities manipulated by
 		the program: variables, arrays, structures, procedures etc. This information
 		may be stored in the AST or in a separate symbol table. The symbol table
 		approach is attractive because it is more efficient; in the AST approach
