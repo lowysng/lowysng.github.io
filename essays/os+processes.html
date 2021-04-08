@@ -22,9 +22,8 @@
 	</p>
 	
 	<p>	
-		The OS achieves this by providing a host of things: some means of virtualizing 
-		the CPU and memory, resource management, standard library (syscalls), file system, and 
-		concurrency management.
+		The OS achieves this by providing a host of things: CPU virtualization, memory virtualization, 
+		resource management, standard library (syscalls), file system, and concurrency management.
 	</p>
 
 	<h3>Processes</h3>
@@ -73,7 +72,7 @@
 	</p>
 
 	<p>
-		To do this, the process performs a system call by executing a trap instruction. This raises the 
+		To do this, the process performs a system call which executes a trap instruction. This raises the 
 		privilege level and causes control to be passed over to the OS. When the OS has finished performing 
 		the requested operation, it executes a return-from-trap instruction, which lowers the privilege level
 		back and returns control to the calling program. 
@@ -81,7 +80,7 @@
 
 	<p>
 		For security reasons, a program performs a system call by specifying an identifer called the 
-		system-call number (as opposed to jumping to the address of the target instruction). The syscall 
+		system-call number, as opposed to jumping to the address of the syscall. The syscall 
 		number is used to index a trap table, which specifies the location in memory of the trap handlers. The trap 
 		table is set up by the kernel at boot time. 
 	</p>
@@ -89,7 +88,7 @@
 	<h3>Regaining Control</h3>
 
 	<p>
-		How can the OS regain control of the processor while the processor is running in user mode? 
+		How can the OS regain control of the processor when another process is running on it? 
 		One approach is based on trust, that is, the OS assumes that any process running in user mode will 
 		issue a trap instruction eventually and pass control back to the OS. This approach is less than ideal. 
 		For example, the only fix to a program that is stuck in an infinite loop is to reboot the system.
@@ -105,20 +104,13 @@
 
 	<p>
 		Anytime the OS regains control of the machine, it has to make the decision of whether to continue running 
-		the current process or switch to a new one. This decision is made by the scheduler, which we do not get into 
-		in this essay. Instead, we discuss context switches.
+		the current process or switch to a new one. This decision is made by the <a href="./scheduler.html">scheduler</a>.
+		When the OS decides to switch to a new process, it has to perform a context switch.
 	</p>
 
 	<p>
 		Simply put, the OS performs a context switch by saving the values of some registers for the currently-executing 
 		process, and restore them for the new process. 
 	</p>
-
-	<p>
-		Note that there is a subtle difference between the register saves/restores that occur during a trap 
-		instruction and those that occur in a context switch routine. Suppose that a context switch occurs from 
-		process A to process B. This context switch routine causes the system to move from running as if it just trapped 
-		into the kernel from A to as if it just trapped into the kernel from B.
-	<p>
 	
 </body>

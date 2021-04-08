@@ -39,7 +39,7 @@
 		Shortest-Job-First: SJF is the optimal solution for turnaround if all jobs arrive 
 		to the queue at the same time. This is an unreasonable assumption. An alternative 
 		to SJF is STCF (Shortest-Time-to-Completion-First), which is a preemptive version 
-		of SFJ. 
+		of SJF. 
 	</p>
 
 	<p>
@@ -90,28 +90,10 @@
 	<h3>Proportional Share Scheduler</h3>
 
 	<p>
-		A proportional share scheduler does not optimize for turnaround time or response time. Instead, it 
-		guarantees that each job obtains a certain percentage of CPU time.
-	</p>	
-
-	<p>
 		One example of propshare scheduling is lottery scheduling. In this policy, each process is given 
 		a number of tickets, and a lottery is held to determine which process gets allocated the CPU next. A lottery 
 		scheduler is nondeterministic. However, it approaches the desired outcome the longer the length of 
 		the jobs that arrive in the system. 
-	</p>
-
-	<p>
-		An alternative to lottery scheduling that is deterministic is stride scheduling, which uses the stride 
-		parameter (determined by ticket number), and maintains a state variable for each running process called pass. 
-		This pass variable is also the downside to stride scheduling --- performance is heavily affected whenever 
-		a new job arrives in the system.
-	</p>
-
-	<p>
-		Both lottery scheduling and stride scheduling use tickets to determine which job should be run next.
-		However, it is unclear how tickets should be allocated to the jobs in the first place. This problem, 
-		called the ticket assignment problem, remains open in scheduling theory.
 	</p>
 
 	<h3>Linux CFS</h3>

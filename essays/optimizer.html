@@ -46,10 +46,9 @@
 	<p>
 		Local value numbering finds redundant expressions in a basic block and
 		replaces the redundant evaluations with reuse of a previously computed
-		value. In general, local value number is profitable. However, replacing
-		code can extend or shorten the lifetimes of variables. This increases
-		or decreases the demands for registers, which may or may not cause register
-		spillage.
+		value. In general, local value numbering is profitable. However, replacing
+		code can extend or shorten the lifetime of variables. This changes register
+		demands, which may or may not cause register spillage.
 	</p>
 
 	<p>
@@ -63,9 +62,7 @@
 
 	<p>
 		Superlocal value numbering is an extension of local value numbering to larger
-		regions called extended basic blocks. Roughly speaking, an extended basic
-		block is a region of code that is larger than a single basic block but 
-		smaller than a procedure.
+		regions called extended basic blocks. 
 	</p>
 
 	<p>
@@ -83,7 +80,7 @@
 		two branches. The optimizer can perform a profile run to determine which one
 		of the two branches executes more frequently. Then, it can reorganize the
 		linear sequence of code such that the branch that is executed more
-		frequently becomes the fall-through branch of the branch point.
+		frequently becomes the fall-through branch at the branch point.
 	</p>
 
 	<h3>Whole-Program Optimization</h3>
@@ -91,7 +88,8 @@
 	<p>
 		Inline substitution eliminates the overheads of invoking a procedure by
 		replacing its call site with a copy of the procedure's body. Inlining
-		can improve runtime performance, but it can also degrade performance.
+		can improve runtime performance by reducing procedure call overheads, 
+		but it can also degrade performance.
 		Replacing a call site with the body of the called procedure can increase
 		code size and the name space size, which may increase register demands.
 	</p>
@@ -100,8 +98,8 @@
 		Procedures within a single executable image can also be rearranged to increase
 		the performance of the program. Using a call graph, the optimizer can
 		rearrange the procedures to reduce virtual-memory working-set sizes and to limit
-		the potential for call-induced conflicts in the instruction cache. In
-		other words, if a procedure calls another proecdure, the ideal case
+		the potential for call-induced conflicts in the instruction cache. If 
+		a procedure calls another procedure, the ideal case
 		would be to have both procedures occupy adjacent locations in memory.
 	</p>
 

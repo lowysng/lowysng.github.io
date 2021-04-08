@@ -71,7 +71,7 @@
 	<p>
 		Mutexes, however, cannot be used to enforce ordering between two threads. To achieve this,
 		we need another method. One alternative is the semaphore. A semaphore is a stronger 
-		synchronization primitive --- stronger as in it can be used to enforce both mutual exclusion 
+		synchronization primitive --- it can be used to enforce both mutual exclusion 
 		and thread ordering.
 	</p>
 	
@@ -90,7 +90,7 @@
 	</p>
 
 	<p>
-		Consider semaphore with a wait threshold of 0 --- if the sempahore is lower than 0, then 
+		Consider a semaphore with a wait threshold of 0 --- if the sempahore is lower than 0, then 
 		threads must wait for the sempahore to be posted before they can continue executing. This 
 		semaphore, when initialized with a value of 1, behaves identically to a mutex and therefore 
 		can be used to enforce mutual exclusion. To enforce thread ordering, an 
