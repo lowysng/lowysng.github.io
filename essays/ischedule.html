@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Instruction Scheduling</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Instruction Scheduling</h2>
+	
+	<p>April 2021</p>
+
+	<p>
+		The execution time of a sequence of operations depends heavily
+		on the order of the set of operations. Instruction scheduling is
+		the process of reodering the operations to improve running time.
+		Instruction scheduling is hard because:
+	</p>
+	
+	<ul class="no-line-height">
+		<li>There are dependencies between the operations; one cannot be 
+		issued before its operands are ready.</li>
+		<li>Different operations have different latencies.</li>
+		<li>Most processors are superscalar processors with different
+		functional units that can execute multiple operations concurrently.</li>
+	</ul>
+	
+	<p>
+		The instruction scheduling problem is defined over the dependence
+		graph D of a basic block. The edges in D represent flow of values.
+		The nodes in D, which corresponds to operations, have two attributes: 
+		optype, which specifies the functional unit, and delay, which specifies 
+		the number of cycles required for completion.
+	</p>
+
+	<p>
+		Given a dependence graph, a schedule S maps each node in D to a nonnegative
+		integer that denotes the cycle in which it should be issued, assuming that
+		the first operation issues in cycle 1. The i-th operation is just the
+		set of operations that issue in cycle i.
+	</p>
+
+	<p>
+		A schedule must meet three constraints:
+	</p>
+
+	<ol class="no-line-height">
+		<li>No operation can be issued before execution starts.</li>
+		<li>An operation cannot issue until its operands have been defined.</li>
+		<li>Each instruction contains no more operations of each type t than the 
+		target machine can issue in a cycle.</li>
+	</ol>
+
+	<p>
+		An operation x is antidependent on y if x precedes y and y defines a value
+		used in x. Antidependences are resolved either by respecting them in the
+		final schedule (through further reordering) or renaming the values (which
+		may increase register demands and cause spillage).
+	</p>
+
+	<p>
+		Instruction scheduling is NP-complete. In practice, approximate solutions
+		to scheduling problems are generated using greedy heuristics. Most scheduling 
+		algorithms are based on one family of heuristic techniques called list 
+		scheduling.
+	</p>
+
+	<h3>List Scheduling</h3>
+
+	<p>
+		List scheduling is a greedy, heuristic approach to scheduling the operations
+		in a basic block (can be extended into multi-block sequences).
+		The basic outline of the algorithm is:
+	</p>
+
+	<ol class="no-line-height">
+		<li>Rename values to avoid antidependences.</li>
+		<li>Build a dependence graph.</li>
+		<li>Assign priorities to each operation.</li>
+		<li>Iteratively select operation and schedule it.</li>
+	</ol>
+
+	<p>
+		The algorithm uses a cycle counter and two lists to track operations. 
+		The <code>Ready</code> 
+		list holds all the operations that can execute in the current cycle. The 
+		<code>Active</code> list contains operations that were issued earlier but 
+		have not yet finished. At each step, the algorithm accounts for any 
+		operations completed in the previous cycle by examining <code>Active</code>,
+		then it schedules one operation in <code>Ready</code> for the current cycle,
+		and increments the cycle counter.
+	</p>
+
+	<p>
+		The quality of the schedule produced depends primarily on the mechanism
+		used to pick an operation from <code>Ready</code>. Various priority ranks may
+		be used, none dominates the others in terms of the overall schedule quality:
+	</p>
+
+	<ol class="no-line-height">
+		<li>latency-weighted path length: operations that are on the critical path are scheduled first</li>
+		<li>total number of descendants: operations that compute critical values for many other nodes are scheduled first</li>
+		<li>delay: long-latency operations are scheduled first</li>
+		<li>number of last use operands: move last use values closer to their definitions, reducing demand for registers.</li>
+	</ol>
+	
+</body>
