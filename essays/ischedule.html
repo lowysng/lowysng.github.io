@@ -31,7 +31,7 @@
 	<p>
 		The instruction scheduling problem is defined over the dependence
 		graph D of a basic block. The edges in D represent flow of values.
-		The nodes in D, which corresponds to operations, have two attributes: 
+		The nodes in D, which correspond to operations, have two attributes: 
 		optype, which specifies the functional unit, and delay, which specifies 
 		the number of cycles required for completion.
 	</p>
@@ -39,7 +39,7 @@
 	<p>
 		Given a dependence graph, a schedule S maps each node in D to a nonnegative
 		integer that denotes the cycle in which it should be issued, assuming that
-		the first operation issues in cycle 1. The i-th operation is just the
+		the first operation issues in cycle 1. The i-th instruction is just the
 		set of operations that issue in cycle i.
 	</p>
 
@@ -88,23 +88,28 @@
 		The <code>Ready</code> 
 		list holds all the operations that can execute in the current cycle. The 
 		<code>Active</code> list contains operations that were issued earlier but 
-		have not yet finished. At each step, the algorithm accounts for any 
-		operations completed in the previous cycle by examining <code>Active</code>,
-		then it schedules one operation in <code>Ready</code> for the current cycle,
-		and increments the cycle counter.
+		have not yet finished. 
+	</p>
+	
+	<p>
+		At each step, the algorithm accounts for any 
+		operations completed in the previous cycle by examining <code>Active</code>
+		and adds some of their parents into <code>Ready</code>,
+		then it schedules one operation in <code>Ready</code> for the current cycle
+		and increments the cycle counter (assuming a processor with a single functional unit).
 	</p>
 
 	<p>
 		The quality of the schedule produced depends primarily on the mechanism
 		used to pick an operation from <code>Ready</code>. Various priority ranks may
-		be used, none dominates the others in terms of the overall schedule quality:
+		be used. None dominates the others in terms of the overall schedule quality.
 	</p>
 
 	<ol class="no-line-height">
-		<li>latency-weighted path length: operations that are on the critical path are scheduled first</li>
-		<li>total number of descendants: operations that compute critical values for many other nodes are scheduled first</li>
-		<li>delay: long-latency operations are scheduled first</li>
-		<li>number of last use operands: move last use values closer to their definitions, reducing demand for registers.</li>
+		<li>Latency-weighted path length: operations that are on the critical path are scheduled first</li>
+		<li>Total number of descendants: operations that compute critical values for many other nodes are scheduled first</li>
+		<li>Delay: long-latency operations are scheduled first</li>
+		<li>Number of last use operands: move last use values closer to their definitions, reducing demand for registers.</li>
 	</ol>
 	
 </body>
