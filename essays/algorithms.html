@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Algorithms</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Algorithms</h2>
+	
+	<p>April 2021</p>
+
+	<p>
+		An algorithm is a computational procedure that takes
+		as input some values and produces as output some values. 
+		It is a tool for solving a well-specified computational
+		problem. An instance of a problem consists of the input
+		needed to compute a solution to the problem. A correct
+		algorithm is one that halts with the correct output, for
+		any input instance.
+	</p>
+
+	<p>
+		An algorithm may be specified in English or as a computer
+		program.
+	</p>
+
+	<p>
+		What are some common problems that are solved by algorithms?
+		Some examples are data structure, cryptography, resource
+		allocation, shorting-path finding, pattern matching, 
+		topological sorting, etc. All these problems have many 
+		candidate solutions, but finding one that is both correct 
+		and efficient cant be challenging. 
+	</p>
+
+	<p>
+		One class of problems, called NP-complete problems, have 
+		no known efficient solutions. NP-complete problems arise 
+		surprisingly often in applications. One example is the 
+		traveling salesman problem.
+	</p>
+
+	<p>
+		Modern processors have multiple cores. Algorithms that
+		exploit parallelism are called multithreaded algorithms.
+	</p>
+
+	<p>
+		An efficient algorithm is one that is both fast and 
+		consumes less memory. Algorithms should be considered 
+		as a technology. Total system performance depends on 
+		choosing efficient algorithms just as much as choosing 
+		fast hardware.
+	</p>
+
+	<h3>Proving Correctness</h3>
+
+	<p>
+		One technique for proving correctness is to use loop 
+		invariants. A loop invariant is a property of a program 
+		loop that is true at the start of each iteration. To 
+		prove correctness using loop invariants, we must show 
+		three things:
+	</p>
+
+	<ul class="no-line-height">
+		<li>Initialization: the property is true at the start 
+		of the first iteration of the loop.</li>
+		<li>Maintenance: if the property is true at the start 
+		of an iteration, then it is true at the start of the 
+		next iteration.</li>
+		<li>Termination: when the algorithm terminates, the 
+		invariant gives us a useful property that helps show 
+		that the algorithm is correct.</li>
+	</ul>
+
+	<h3>Algorithm Analysis</h3>
+
+	<p>
+		Analysing an algorithm means predicting the time and 
+		space resources that the algorithm requires. Most 
+		discussions on algorithms assume a single-processor, 
+		RAM model of computation.
+	</p>
+
+	<p>
+		The running time of an algorithm is the number of 
+		primitive operations executed, each one requiring a 
+		constant amount of time. The running time is typically 
+		described as a function of the input size. The 
+		definition of input size depends on the problem.
+	</p>
+
+	<p>
+		Most analysis of algorithms finds their worst case 
+		running time because the worst case acts as the upper 
+		bound. Furthermore, we are interested in the rate 
+		of growth of the worst-case running time. This type of 
+		worst-case, order-of-growth analysis of algorithms is
+		called asymptotic analysis. Here we are concerned with 
+		how the function behaves with respect to large input 
+		sizes in the limit. We therefore consider only the 
+		leading term of a function, ignoring its coefficient and
+		other lower order terms. 
+	</p>
+
+	<p>
+		Big O denotes an asymptotic upper bound; big omega
+		denotes an asymptotic lower bound; big theta denotes
+		an asymptotically tight bound. To say that the running
+		time (no modifier) of an algorithm is big omega of g(n) 
+		is equivalent to saying that the algorithm is lower 
+		bounded by g(n) in the best case. Similarly, the 
+		running time of an algorithm is big O of g(n) if and
+		only if it is upper bounded by g(n) in the worst case.
+	</p>
+
+	<p>
+		An algorithm is more efficient than another if its worst 
+		case running time has a lower order of growth.
+	</p>
+
+	<h3>Divide-and-Conquer</h3>
+
+	<p>
+		Divide-and-conquer is a method for solving problems
+		recursively. The technique has three steps:
+	</p>
+
+	<ul class="no-line-height">
+		<li>Divide the problem into subproblems that are smaller
+		instances of the same problem.</li>
+		<li>Conquer: solve the subproblems recursively. For the
+		base case, solve the problem in a straightforward manner.</li>
+		<li>Combine the solutions to the subproblems into the solution
+		to the original problem. Sometimes we will have to solve subproblems
+		that are not the same as the original problem.</li>
+	</ul>
+
+	<p>
+		Recurrence gives us a natural way of characterizing the
+		running times of divide-and-conquer algorithms. To obtain
+		the asymptotic bounds on the solution, we can use one of
+		three methods:
+	</p>
+
+	<ol class="no-line-height">
+		<li>Substitution method: guess and verify using induction</li>
+		<li>Recursion-tree method: construct a tree and use bounding
+		summations</li>
+		<li>Master method: cookbook technique for solving recurrences
+		of the form <code>T(n) = a*T(n/b) + f(n)</code></li>
+	</ol>
+
+</body>
