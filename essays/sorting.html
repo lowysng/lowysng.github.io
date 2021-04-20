@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Sorting</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Sorting</h2>
+	
+	<p>April 2021</p>
+
+	<p>
+		Sorting is the problem of generating a sorted permutation of an input sequence of numbers.
+		Sorting is critical because certain applications inherently need to sort information. Most
+		algorithms also use sorting as key subroutines. Different sorting algorithms have different 
+		performance characteristics. The default metric used to compare different algorithms is 
+		running time.
+	</p>
+
+	<p>
+		Insertion sort maintains a pointer that partitions the input array into two sections:
+		a sorted left subarray, and an unsorted right subarray. At each iteration of the loop,
+		the algorithm selects one element from the right subarray and put it into the correct 
+		location in the left subarray. Insertion sort runs in O(n^2) in the worst case.
+	</p> 
+
+	<p>
+		Merge sort is a divide and conquer algorithm. The algorithm divides the input array into two 
+		subarrays and recursively calls itself two times, one on each subarray. Then, the algorithm
+		merges the two subarrays into one final array that is sorted. Merge sort runs in O(n*lg n)
+		in the worst case.
+	</p>
+
+	<p>
+		Heapsort is a sorting algorithm that uses the heap data structure. The algorithm starts
+		out by building a heap on the input array. Then the algorithm executes the following loop: 
+		it swaps the first (max) element of the heap with the last element of the heap, reduces 
+		the size of the heap (effectively removing the max element from the heap), and calls a 
+		heapify subroutine on the newly swapped element at the top of the heap to restore the 
+		max-heap condition. Heapsort runs in O(n*lg n) time.
+	</p>
+
+	<p>
+		Quicksort is another divide and conquer algorithm. The algorithm uses a partition 
+		subroutine to partition the array into two subarrays. This subroutine returns an integer 
+		<var>q</var> that satisfies the following properties: all elements to the left of
+		the pivot (element at index <var>q</var>) are smaller than the pivot, and all elements o
+		to the right of the pivot are larger than the pivot. The randomized version of quicksort
+		runs in O(n*lg n) in the average case; the non-randomized version runs in O(n^2) in the
+		worst-case.
+	</p>
+
+</body>

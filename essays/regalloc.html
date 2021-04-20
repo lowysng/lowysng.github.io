@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Register Allocation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Register Allocation</h2>
+	
+	<p>April 2021</p>
+
+	<p>
+		The register allocator determines, at each point in the program,
+		which values will reside in registers and which register will
+		hold each of those values. If a value cannot be kept in register,
+		the allocator must store that value in memory. 
+	</p>
+
+	<p>
+		The goal of the register allocator is to make efficient use of
+		the target machine's register set and to minimize 
+		spill code (load and store operations). This process is 
+		critical because it has a direct consequence on the running time
+		of the program (register accesses are very fast).
+	</p>
+
+	<p>
+		In a register-to-register (R2R) model, allocation is necessary 
+		because it ensures that the final 
+		code fits in the target machine's register set. If demand for 
+		registers exceeds supply, then the allocator moves some values
+		into memory. In a memory-to-memory (M2M) model, allocation is
+		an optimization. The allocator tries to remove as much spill
+		code as possible.
+	</p>
+
+	<p>
+		The R2R model is favored because its IR encodes knowledge about 
+		ambiguity explicitly. This knowledge is implicit in the M2M model. 
+		The allocator must perform additional analysis to identify 
+		unambiguous values and determine whether storing them in registers is 
+		profitable.
+	</p>
+
+	<h3>Local Register Allocation and Assignment</h3>
+
+	<p>
+		Allocation is the process of determining which values
+		should reside in registers. Assignment is the process
+		of assigning values to specific registers. Allocation is a hard 
+		problem. General formulations of the probelm are NP-complete. 
+		Assignment, on the other hand, can be solved in polynomial time.
+	</p>
+
+</body>

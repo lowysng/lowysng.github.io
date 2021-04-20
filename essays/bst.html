@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Binary Search Trees</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+	<a href="../index.html">Back</a>
+
+	<h2>Binary Search Trees</h2>
+	
+	<p>April 2021</p>
+
+	<p>
+		A binary search tree (BST) is an implementation of a dynamic set (set with changing
+		elements). Each node <var>x</var> in the tree satisfies the following property: 
+		each node in the left subtree of <var>x</var> has a key value less
+		than or equal to that of <var>x</var>; each node in the right subtree of
+		<var>x</var> has a key value greater than or equal to that of <var>x</var>.
+	</p>
+
+	<p>
+		All binary search tree operations take O(h) time to run in the worst case, where
+		<var>h</var> is the height of the tree.
+	</p>
+
+	<p>
+		To search for a particular node <var>p</var> in a BST, start by checking whether 
+		the current node <var>x</var> (initialized to the root node) matches <var>p</var>.
+		If not, check whether <var>p.key &lt; x.key</var>. If this is
+		true, recursively search the left child of <var>x</var>. Otherwise, recursively
+		search the right child <var>x</var>.
+	</p>
+
+	<p>
+		To find the minimum node, starting at the root node, repeatedly traverse down the
+		left subtree until a leaf is encountered. This leaf is the minimum node. To find 
+		the maximum, repeatedly traverse down the right subtree.
+	</p>
+
+	<p>
+		To find the successor (next larger node) of a node <var>x</var>, start be checking
+		whether <var>x</var> has a right subtree. If so, then the successor is just the
+		minimum node in the right subtree of <var>x</var>. Otherwise, the successor is
+		the lowest ancestor of <var>x</var> whose left child is also an ancestor of <var>x</var>.
+		The proceedure for finding the predecessor is symmetrical.
+	</p>
+
+	<p>
+		To insert a node <var>z</var> into a BST, starting at the root node, traverse down 
+		the tree in the following manner: go down the left subtree of <var>x</var> if 
+		<var>z.key &lt; x.key</var>, otherwise go down the right subtree. Repeat until
+		a leaf node is encountered, and set <var>z</var> as the appropriate children of
+		this leaf node.
+	</p>
+
+	<p>
+		To delete a node <var>z</var> from a BST is slightly more intricate. The computation
+		is organized into three cases. If <var>z</var> has no left child, then replace
+		<var>z</var> with its right child (which may or may not be a node). Else if
+		<var>z</var> has only one (left) child, then replace <var>z</var> with its
+		left child. If none of these are true, then find the predecessor of <var>z</var> 
+		and call it <var>y</var>.
+	</p>
+
+</body>
